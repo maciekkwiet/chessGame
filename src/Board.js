@@ -28,13 +28,27 @@ class Board {
     pawn = new Pawn(1, 6, 'white');
     this.gameArea[pawn.x][pawn.y] = pawn;
   }
-  movePiece(from, to) {
-    const [fromX, fromY] = from;
+
+  highlightPossibleMoves(possibleMoves) {
+    for (let move of possibleMoves) {
+      document.getElementById(move).classList.add('possibleMove');
+    }
+  }
+
+  removeHighlight() {
+    for (let x = 0; x < this.gameArea.length; x++) {
+      for (let y = 0; y < this.gameArea[x].length; y++) {
+        document.getElementById(`${x},${y}`).classList.remove('possibleMove');
+      }
+    }
+  }
+
+  movePiece(pieceToMove, to) {
     const [toX, toY] = to;
-    const pieceToMove = this.gameArea[fromX][fromY];
+    this.gameArea[pieceToMove.x][pieceToMove.y] = null;
+
     pieceToMove.move(to);
     this.gameArea[toX][toY] = pieceToMove;
-    this.gameArea[fromX][fromY] = null;
   }
 }
 

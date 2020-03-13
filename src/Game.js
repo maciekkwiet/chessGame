@@ -6,43 +6,38 @@ class Game {
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
-    this.inSelectMode = true;
-    this.gameAreaHandler.addEventListener('click', e => this.handleSelect(e));
+    this.possibleMoves = [];
+    this.selectedPiece = null;
+    this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
   }
 
-  handleSelect(e) {
-    if (!this.inSelectMode) return;
+  onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
+    if (this.possibleMoves.length !== 0) {
+      this.handleMove(element);
+    } else {
+      this.handleSelect(element);
+    }
+  }
 
-    const x = Number(element.id[0]);
-    const y = Number(element.id[2]);
+  handleSelect(element) {
+    const [x, y] = parseId(element.id);
 
     if (!this.gameArea[x][y]) {
       return;
     }
-    const possibleMoves = this.gameArea[x][y].findLegalMoves();
 
-    for (let move of possibleMoves) {
-      this.inSelectMode = false;
-      document.getElementById(move).classList.add('possibleMove');
-      document.getElementById(move).addEventListener('click', e => this.handleMove(e, x, y), { once: true });
-    }
+    this.selectedPiece = this.gameArea[x][y];
+    this.possibleMoves = this.selectedPiece.findLegalMoves();
+    this.board.highlightPossibleMoves(this.possibleMoves);
   }
-  handleMove(e, x, y) {
-    //ToDo refactor
-    e.stopPropagation();
-    const { id } = e.currentTarget;
-    this.board.movePiece([x, y], parseId(id));
-
-    for (let x = 0; x < this.gameArea.length; x++) {
-      for (let y = 0; y < this.gameArea[x].length; y++) {
-        document.getElementById(`${x},${y}`).classList.remove('possibleMove');
-        let old_element = document.getElementById(`${x},${y}`);
-        let new_element = old_element.cloneNode(true);
-        old_element.parentNode.replaceChild(new_element, old_element);
-      }
-    }
-    this.inSelectMode = true;
+  handleMove(element) {
+    const { id } = element;
+    if (!this.possibleMoves.includes(id)) return;
+    this.board.movePiece(this.selectedPiece, parseId(id));
+    this.board.removeHighlight();
+    this.selectedPiece = null;
+    this.possibleMoves = [];
   }
 }
 
