@@ -15,7 +15,6 @@ class Piece {
     this.x = newX;
     this.y = newY;
     document.getElementById(to).innerHTML = this.display;
-    console.log('Pawn:', this);
   }
 
   findLegalMoves() {}

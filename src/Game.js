@@ -9,6 +9,7 @@ class Game {
     this.inSelectMode = true;
     this.gameAreaHandler.addEventListener('click', e => this.handleSelect(e));
   }
+
   handleSelect(e) {
     if (!this.inSelectMode) return;
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
@@ -19,10 +20,10 @@ class Game {
     if (!this.gameArea[x][y]) {
       return;
     }
-    this.inSelectMode = false;
     const possibleMoves = this.gameArea[x][y].findLegalMoves();
-    console.log(possibleMoves);
+
     for (let move of possibleMoves) {
+      this.inSelectMode = false;
       document.getElementById(move).classList.add('possibleMove');
       document.getElementById(move).addEventListener('click', e => this.handleMove(e, x, y), { once: true });
     }
@@ -30,14 +31,15 @@ class Game {
   handleMove(e, x, y) {
     //ToDo refactor
     e.stopPropagation();
-
     const { id } = e.currentTarget;
     this.board.movePiece([x, y], parseId(id));
+
     for (let x = 0; x < this.gameArea.length; x++) {
       for (let y = 0; y < this.gameArea[x].length; y++) {
-        document.getElementById(`${x},${y}`).className = document
-          .getElementById(`${x},${y}`)
-          .className.replace(`possibleMove`, '');
+        document.getElementById(`${x},${y}`).classList.remove('possibleMove');
+        let old_element = document.getElementById(`${x},${y}`);
+        let new_element = old_element.cloneNode(true);
+        old_element.parentNode.replaceChild(new_element, old_element);
       }
     }
     this.inSelectMode = true;

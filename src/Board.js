@@ -9,8 +9,8 @@ class Board {
     this.setup();
   }
   setup() {
-    for (let x = 0; x < this.gameArea.length; x++) {
-      for (let y = 0; y < this.gameArea[x].length; y++) {
+    for (let y = 0; y < this.gameArea.length; y++) {
+      for (let x = 0; x < this.gameArea[y].length; x++) {
         const square = document.createElement('div');
         square.id = `${x},${y}`;
         // square.innerHTML = `${x}, ${y}`; // by lepiej widzieć indeksy
@@ -23,20 +23,18 @@ class Board {
   }
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-    let pawn = new Pawn(6, 0, 'white');
+    let pawn = new Pawn(0, 6, 'white');
     this.gameArea[pawn.x][pawn.y] = pawn;
-    pawn = new Pawn(6, 1, 'white');
+    pawn = new Pawn(1, 6, 'white');
     this.gameArea[pawn.x][pawn.y] = pawn;
   }
   movePiece(from, to) {
-    console.log(from, to);
     const [fromX, fromY] = from;
     const [toX, toY] = to;
     const pieceToMove = this.gameArea[fromX][fromY];
     pieceToMove.move(to);
     this.gameArea[toX][toY] = pieceToMove;
     this.gameArea[fromX][fromY] = null;
-    console.log(this.gameArea);
   }
 }
 
