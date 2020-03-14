@@ -25,37 +25,15 @@ class Board {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
     let pawn = new Pawn(0, 6, 'white');
     this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(1, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(2, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(3, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(4, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(5, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(6, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(7, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
+    for (let i = 1; i < this.gameArea.length; i++) {
+      pawn = new Pawn(i, 6, 'white');
+      this.gameArea[pawn.x][pawn.y] = pawn;
+    }
 
-     pawn = new Pawn(0, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(1, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(2, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(3, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(4, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(5, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(6, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-     pawn = new Pawn(7, 1, 'black');
-    this.gameArea[pawn.x][pawn.y] = pawn;
+    for (let i = 0; i < this.gameArea.length; i++) {
+      pawn = new Pawn(i, 1, 'black');
+      this.gameArea[pawn.x][pawn.y] = pawn;
+    }
   }
 
   highlightPossibleMoves(possibleMoves) {
