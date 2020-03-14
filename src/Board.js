@@ -1,5 +1,6 @@
 import Pawn from './pieces/Pawn';
 import { create2DArray } from './utils';
+import Knight from './pieces/Knight';
 
 class Board {
   constructor() {
@@ -27,6 +28,14 @@ class Board {
     this.gameArea[pawn.x][pawn.y] = pawn;
     pawn = new Pawn(1, 6, 'white');
     this.gameArea[pawn.x][pawn.y] = pawn;
+    let knight = new Knight(1, 7, 'white');
+    this.gameArea[knight.x][knight.y] = knight;
+    knight = new Knight(6, 7, 'white');
+    this.gameArea[knight.x][knight.y] = knight;
+    knight = new Knight(6, 0, 'black');
+    this.gameArea[knight.x][knight.y] = knight;
+    knight = new Knight(1, 0, 'black');
+    this.gameArea[knight.x][knight.y] = knight;
   }
 
   highlightPossibleMoves(possibleMoves) {
