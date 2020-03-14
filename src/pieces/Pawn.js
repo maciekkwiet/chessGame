@@ -10,7 +10,11 @@ class Pawn extends Piece {
     const possibleMoves = [];
     if (this.side == 'white') {
       this.y - 1 > 0 && possibleMoves.push(`${this.x},${this.y - 1}`);
-      this.y - 2 > 0 && possibleMoves.push(`${this.x},${this.y - 2}`);
+      this.y == 6 && possibleMoves.push(`${this.x},${this.y - 2}`);
+    }
+    if (this.side == 'black') {
+      this.y + 1 <= 7 && possibleMoves.push(`${this.x},${this.y + 1}`);
+      this.y == 1 && possibleMoves.push(`${this.x},${this.y + 2}`);
     }
     return possibleMoves;
   }
