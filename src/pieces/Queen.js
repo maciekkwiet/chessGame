@@ -1,3 +1,4 @@
+Learn more or give us feedback
 import Piece from './piece';
 
 class Queen extends Piece {
@@ -7,10 +8,15 @@ class Queen extends Piece {
     this.display = `<i class="fas fa-chess-queen ${side}"></i>`; //fontawesome queen
   }
   findLegalMoves() {
-    const possibleMoves = [];
+    const possibleMoves = [
+
+      
+    ];
 
     return possibleMoves;
   }
 }
+
+export default Queen;
 
 export default Queen;

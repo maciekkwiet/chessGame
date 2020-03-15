@@ -1,4 +1,6 @@
-import Pawn from './pieces/Pawn';
+//import Pawn from './pieces/Pawn';
+import Rook from './pieces/Rook';
+// import Queen from './pieces/Queen';
 import { create2DArray } from './utils';
 
 class Board {
@@ -23,10 +25,14 @@ class Board {
   }
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-    let pawn = new Pawn(0, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-    pawn = new Pawn(1, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
+    let rook = new Rook(0, 7, 'white');
+    this.gameArea[rook.x][rook.y] = rook;
+    let rook = new Rook(7, 7, 'white');
+    this.gameArea[rook.x][rook.y] = rook;
+    let rook = new Rook(0, 0, 'black');
+    this.gameArea[rook.x][rook.y] = rook;
+    let rook = new Rook(7, 0, 'black');
+    this.gameArea[rook.x][rook.y] = rook;
   }
 
   highlightPossibleMoves(possibleMoves) {
