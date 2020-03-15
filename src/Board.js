@@ -23,15 +23,12 @@ class Board {
   }
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-    let pawn = new Pawn(0, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][6] = new Pawn(i, 6, 'white');
     }
 
     for (let i = 0; i < this.gameArea.length; i++) {
-      pawn = new Pawn(i, 1, 'black');
-      this.gameArea[pawn.x][pawn.y] = pawn;
+      this.gameArea[i][1] = new Pawn(i, 1, 'black');
     }
   }
 
