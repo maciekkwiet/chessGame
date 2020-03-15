@@ -27,11 +27,11 @@ class Board {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
     let rook = new Rook(0, 7, 'white');
     this.gameArea[rook.x][rook.y] = rook;
-    let rook = new Rook(7, 7, 'white');
+    rook = new Rook(7, 7, 'white');
     this.gameArea[rook.x][rook.y] = rook;
-    let rook = new Rook(0, 0, 'black');
+    rook = new Rook(0, 0, 'black');
     this.gameArea[rook.x][rook.y] = rook;
-    let rook = new Rook(7, 0, 'black');
+    rook = new Rook(7, 0, 'black');
     this.gameArea[rook.x][rook.y] = rook;
   }
 
