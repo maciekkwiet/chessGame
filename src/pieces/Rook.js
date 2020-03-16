@@ -8,38 +8,21 @@ class Rook extends Piece {
   }
   findLegalMoves() {
     const possibleMoves = [];
-      this.y - 1 > 0 && possibleMoves.push(`${this.x},${this.y - 1}`);
-      this.y - 2 > 0 && possibleMoves.push(`${this.x},${this.y - 2}`);
-      this.y - 3 > 0 && possibleMoves.push(`${this.x},${this.y - 3}`);
-      this.y - 4 > 0 && possibleMoves.push(`${this.x},${this.y - 4}`);
-      this.y - 5 > 0 && possibleMoves.push(`${this.x},${this.y - 5}`);
-      this.y - 6 > 0 && possibleMoves.push(`${this.x},${this.y - 6}`);
-      this.y - 7 > 0 && possibleMoves.push(`${this.x},${this.y - 7}`);
 
-      this.x - 1 > 0 && possibleMoves.push(`${this.x - 1},${this.y}`);
-      this.x - 2 > 0 && possibleMoves.push(`${this.x - 2},${this.y}`);
-      this.x - 3 > 0 && possibleMoves.push(`${this.x - 3},${this.y}`);
-      this.x - 4 > 0 && possibleMoves.push(`${this.x - 4},${this.y}`);
-      this.x - 5 > 0 && possibleMoves.push(`${this.x - 5},${this.y}`);
-      this.x - 6 > 0 && possibleMoves.push(`${this.x - 6},${this.y}`);
-      this.x - 7 > 0 && possibleMoves.push(`${this.x - 7},${this.y}`);
-      
-      this.y - 1 < 0 && possibleMoves.push(`${this.x},${this.y - -1}`);
-      this.y - 2 < 0 && possibleMoves.push(`${this.x},${this.y - -2}`);
-      this.y - 3 < 0 && possibleMoves.push(`${this.x},${this.y - -3}`);
-      this.y - 4 < 0 && possibleMoves.push(`${this.x},${this.y - -4}`);
-      this.y - 5 < 0 && possibleMoves.push(`${this.x},${this.y - -5}`);
-      this.y - 6 < 0 && possibleMoves.push(`${this.x},${this.y - -6}`);
-      this.y - 7 < 0 && possibleMoves.push(`${this.x},${this.y - -7}`);
-
-      this.x - 1 < 0 && possibleMoves.push(`${this.x - -1},${this.y}`);
-      this.x - 2 < 0 && possibleMoves.push(`${this.x - -2},${this.y}`);
-      this.x - 3 < 0 && possibleMoves.push(`${this.x - -3},${this.y}`);
-      this.x - 4 < 0 && possibleMoves.push(`${this.x - -4},${this.y}`);
-      this.x - 5 < 0 && possibleMoves.push(`${this.x - -5},${this.y}`);
-      this.x - 6 < 0 && possibleMoves.push(`${this.x - -6},${this.y}`);
-      this.x - 7 < 0 && possibleMoves.push(`${this.x - -7},${this.y}`);
-    return possibleMoves;
+  
+  for(const u = 1; u < 8; u++){
+  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - u},${this.y - u}`);
+  } 
+  for(const d = 1; d < 8; d++){
+  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - d},${this.y - d}`);
+  }
+  for(const l = 1; l < 8; l++){
+  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - l},${this.y - l}`);
+  }
+  for(const r = 1; r < 8; r++){
+  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - r},${this.y - r}`);
+  }
+return possibleMoves;
   }
 }
 
