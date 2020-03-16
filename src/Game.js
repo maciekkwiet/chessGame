@@ -1,6 +1,6 @@
 import Board from './Board';
 import { parseId } from './utils';
-
+let round = 0;
 class Game {
   constructor() {
     this.board = new Board();
@@ -9,9 +9,12 @@ class Game {
     this.possibleMoves = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    
   }
 
+
   onClick(e) {
+    
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
     if (this.possibleMoves.length !== 0) {
       this.handleMove(element);
@@ -20,17 +23,27 @@ class Game {
     }
   }
 
+  turnChange() {
+    round++;
+  }
+
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-
     if (!this.gameArea[x][y]) {
       return;
     }
-
     this.selectedPiece = this.gameArea[x][y];
+    console.log(this.selectedPiece);
+    if (this.selectedPiece.side === "white" && round % 2 === 0) {
     this.possibleMoves = this.selectedPiece.findLegalMoves();
     this.board.highlightPossibleMoves(this.possibleMoves);
+    }
+    if (this.selectedPiece.side === "black" && round % 2 === 1) {
+    this.possibleMoves = this.selectedPiece.findLegalMoves();
+    this.board.highlightPossibleMoves(this.possibleMoves);
+    }
   }
+
   handleMove(element) {
     const { id } = element;
     if (!this.possibleMoves.includes(id)) return;
@@ -38,6 +51,7 @@ class Game {
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.possibleMoves = [];
+    this.turnChange();
   }
 }
 
