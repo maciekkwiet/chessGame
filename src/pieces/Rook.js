@@ -8,19 +8,27 @@ class Rook extends Piece {
   }
   findLegalMoves() {
     const possibleMoves = [];
+    let Up;
+    let Down;
+    let Left;
+    let Right;
 
-  
-  for(const u = 1; u < 8; u++){
-  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - u},${this.y - u}`);
+    Up = (this.y >= 0)
+    Down = (this.y <= 7)
+    Left = (this.x <= 7)
+    Right = (this.x >= 0)
+
+  for(let u = 1; u <= Up ; u++){
+  this.y >= 0 && this.y + 1 <= 7 && possibleMoves.push(`${this.y - u}`);
   } 
-  for(const d = 1; d < 8; d++){
-  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - d},${this.y - d}`);
+  for(let d = 1; d <= Down ; d++){
+  this.y >= 0 && this.y - 1 <= 7 && possibleMoves.push(`${this.y - d}`);
   }
-  for(const l = 1; l < 8; l++){
-  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - l},${this.y - l}`);
+  for(let l = 1; l <= Left ; l++){
+  this.x >= 0 && this.x - 1 <= 7 && possibleMoves.push(`${this.x - l}`);
   }
-  for(const r = 1; r < 8; r++){
-  this.y - 7 > 0 && this.x - 7 > 0 && this.y - -7 < 0 && this.x - -7 < 0 && possibleMoves.push(`${this.x - r},${this.y - r}`);
+  for(let r = 1; r <= Right; r++){
+  this.x >= 0 && this.x + 1 <= 7 && possibleMoves.push(`${this.x - r}`);
   }
 return possibleMoves;
   }
