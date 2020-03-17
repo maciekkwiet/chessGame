@@ -29,7 +29,7 @@ class Bishop extends Piece {
     }
   
     for(let ru = 1; ru <= rightUp; ru++){
-        this.y  >= 0 && this.y + 1 <= 8 && this.x + 1 <= 8 && this.x  >= 0 && rightDown > 0 && possibleMoves.push(`${this.x + ru},${this.y + ru}`);
+        this.y  >= 0 && this.y + 1 <= 8 && this.x + 1 <= 8 && this.x  >= 0 && rightUp > 0 && possibleMoves.push(`${this.x + ru},${this.y - ru}`);
     }
 
     return possibleMoves;
