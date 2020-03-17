@@ -1,4 +1,5 @@
 import Pawn from './pieces/Pawn';
+import Bishop from './pieces/Bishop';
 import { create2DArray } from './utils';
 
 class Board {
