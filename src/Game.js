@@ -28,7 +28,7 @@ class Game {
     }
 
     this.selectedPiece = this.gameArea[x][y];
-    this.possibleMoves = this.selectedPiece.findLegalMoves();
+    this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
     this.board.highlightPossibleMoves(this.possibleMoves);
   }
   handleMove(element) {

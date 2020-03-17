@@ -6,31 +6,29 @@ class Rook extends Piece {
     this.name = 'rook';
     this.display = `<i class="fas fa-chess-rook ${side}"></i>`; //fontawesome rook
   }
-  findLegalMoves() {
+  findLegalMoves(board) {
     const possibleMoves = [];
-    let Up;
-    let Down;
-    let Left;
-    let Right;
 
-    Up = (this.y >= 0)
-    Down = (this.y <= 7)
-    Left = (this.x <= 7)
-    Right = (this.x >= 0)
+    for (let u = 1; u <= 7; u++) {
+      if (board[this.x][this.y - u]) {
+        if (board[this.x][this.y - u].side !== this.side) possibleMoves.push(`${this.x},${this.y - u}`);
+        break;
+      }
+      this.y - u >= 0 && possibleMoves.push(`${this.x},${this.y - u}`);
+    }
 
-  for(let u = 1; u <= Up ; u++){
-  this.y >= 0 && this.y + 1 <= 7 && possibleMoves.push(`${this.y - u}`);
-  } 
-  for(let d = 1; d <= Down ; d++){
-  this.y >= 0 && this.y - 1 <= 7 && possibleMoves.push(`${this.y - d}`);
-  }
-  for(let l = 1; l <= Left ; l++){
-  this.x >= 0 && this.x - 1 <= 7 && possibleMoves.push(`${this.x - l}`);
-  }
-  for(let r = 1; r <= Right; r++){
-  this.x >= 0 && this.x + 1 <= 7 && possibleMoves.push(`${this.x - r}`);
-  }
-return possibleMoves;
+    for (let d = 1; d <= 7; d++) {
+      this.y + d <= 7 && possibleMoves.push(`${this.x},${this.y + d}`);
+    }
+
+    for (let l = 1; l <= 7; l++) {
+      this.x - l >= 0 && possibleMoves.push(`${this.x - l},${this.y}`);
+    }
+
+    for (let r = 1; r <= 7; r++) {
+      this.x + r <= 7 && possibleMoves.push(`${this.x + r},${this.y}`);
+    }
+    return possibleMoves;
   }
 }
 
