@@ -9,12 +9,27 @@ class Pawn extends Piece {
   findLegalMoves() {
     const possibleMoves = [];
     if (this.side == 'white') {
-      this.y - 1 >= 0 && possibleMoves.push(`${this.x},${this.y - 1}`);
+      this.y - 1 >= 0 &&
+        document.getElementById(`${this.x},${this.y - 1}`).innerHTML == '' &&
+        possibleMoves.push(`${this.x},${this.y - 1}`);
       this.y == 6 && possibleMoves.push(`${this.x},${this.y - 2}`);
+      document.getElementById(`${this.x + 1},${this.y - 1}`).innerHTML != '' &&
+        possibleMoves.push(`${this.x + 1},${this.y - 1}`);
+      document.getElementById(`${this.x - 1},${this.y - 1}`).innerHTML != '' &&
+        possibleMoves.push(`${this.x - 1},${this.y - 1}`);
     }
     if (this.side == 'black') {
-      this.y + 1 <= 7 && possibleMoves.push(`${this.x},${this.y + 1}`);
+      this.y + 1 <= 7 &&
+        document.getElementById(`${this.x},${this.y + 1}`).innerHTML == '' &&
+        possibleMoves.push(`${this.x},${this.y + 1}`);
+
       this.y == 1 && possibleMoves.push(`${this.x},${this.y + 2}`);
+
+      document.getElementById(`${this.x + 1},${this.y + 1}`).innerHTML != '' &&
+        possibleMoves.push(`${this.x + 1},${this.y + 1}`);
+
+      document.getElementById(`${this.x - 1},${this.y + 1}`).innerHTML != '' &&
+        possibleMoves.push(`${this.x - 1},${this.y + 1}`);
     }
     return possibleMoves;
   }
