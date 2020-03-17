@@ -32,13 +32,13 @@ class Board {
       this.gameArea[i][1] = new Pawn(i, 1, 'black');
     }
 
-    let bishop = new Bishop(2, 5, 'white');
+    let bishop = new Bishop(2, 7, 'white');
     this.gameArea[bishop.x][bishop.y] = bishop;
-    bishop = new Bishop(5, 5, 'white');
+    bishop = new Bishop(5, 7, 'white');
     this.gameArea[bishop.x][bishop.y] = bishop;
-    bishop = new Bishop(5, 2, 'black');
+    bishop = new Bishop(5, 0, 'black');
     this.gameArea[bishop.x][bishop.y] = bishop;
-    bishop = new Bishop(2, 2, 'black');
+    bishop = new Bishop(2, 0, 'black');
     this.gameArea[bishop.x][bishop.y] = bishop;
     
   }
