@@ -1,34 +1,37 @@
 import Piece from './Piece';
 
 class Knight extends Piece {
+  
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'knight';
     this.display = `<i class="fas fa-chess-knight ${side}"></i>`; //fontawesome knight
   }
-  findLegalMoves() {
+  findLegalMoves(gameArea) {
+    const moves = [
+                    [2,1],
+                    [1,2],
+                    [-2,1],
+                    [1,-2],
+                    [-2,-1],
+                    [2,-1],
+                    [-1,2],
+                    [-1,-2]
+                  ];
+    let newX = 0;
+    let newY = 0;
     const possibleMoves = [];
-    if (this.side == 'white' && this.y - 2 >= 0 && this.x - 1 >= 0 && this.y - 2 <= 7 && this.x - 1 <= 7) possibleMoves.push(`${this.x - 1},${this.y - 2}`);
-    if (this.side == 'white' && this.y - 2 >= 0 && this.x + 1 >= 0 && this.y - 2 <= 7 && this.x + 1 <= 7) possibleMoves.push(`${this.x + 1},${this.y - 2}`);
-    if (this.side == 'white' && this.y - 1 >= 0 && this.x - 2 >= 0 && this.y - 1 <= 7 && this.x - 2 <= 7) possibleMoves.push(`${this.x - 2},${this.y - 1}`);
-    if (this.side == 'white' && this.y + 1 >= 0 && this.x - 2 >= 0 && this.y + 1 <= 7 && this.x - 2 <= 7) possibleMoves.push(`${this.x - 2},${this.y + 1}`);
-    if (this.side == 'white' && this.y - 1 >= 0 && this.x + 2 >= 0 && this.y - 1 <= 7 && this.x + 2 <= 7) possibleMoves.push(`${this.x + 2},${this.y - 1}`);
-    if (this.side == 'white' && this.y + 1 >= 0 && this.x + 2 >= 0 && this.y + 1 <= 7 && this.x + 2 <= 7) possibleMoves.push(`${this.x + 2},${this.y + 1}`);
-    if (this.side == 'white' && this.y + 2 >= 0 && this.x - 1 >= 0 && this.y + 2 <= 7 && this.x - 1 <= 7) possibleMoves.push(`${this.x - 1},${this.y + 2}`);
-    if (this.side == 'white' && this.y + 2 >= 0 && this.x + 1 >= 0 && this.y + 2 <= 7 && this.x + 1 <= 7) possibleMoves.push(`${this.x + 1},${this.y + 2}`);
-    
-    
+    for (const subTab of moves) {
+      newX = this.x + subTab[0];
+      newY = this.y + subTab[1];
 
-    if (this.side == 'black' && this.y - 2 >= 0 && this.x - 1 >= 0 && this.y - 2 <= 7 && this.x - 1 <= 7) possibleMoves.push(`${this.x - 1},${this.y - 2}`);
-    if (this.side == 'black' && this.y - 2 >= 0 && this.x + 1 >= 0 && this.y - 2 <= 7 && this.x + 1 <= 7) possibleMoves.push(`${this.x + 1},${this.y - 2}`);
-    if (this.side == 'black' && this.y - 1 >= 0 && this.x - 2 >= 0 && this.y - 1 <= 7 && this.x - 2 <= 7) possibleMoves.push(`${this.x - 2},${this.y - 1}`);
-    if (this.side == 'black' && this.y + 1 >= 0 && this.x - 2 >= 0 && this.y + 1 <= 7 && this.x - 2 <= 7) possibleMoves.push(`${this.x - 2},${this.y + 1}`);
-    if (this.side == 'black' && this.y - 1 >= 0 && this.x + 2 >= 0 && this.y - 1 <= 7 && this.x + 2 <= 7) possibleMoves.push(`${this.x + 2},${this.y - 1}`);
-    if (this.side == 'black' && this.y + 1 >= 0 && this.x + 2 >= 0 && this.y + 1 <= 7 && this.x + 2 <= 7) possibleMoves.push(`${this.x + 2},${this.y + 1}`);
-    if (this.side == 'black' && this.y + 2 >= 0 && this.x - 1 >= 0 && this.y + 2 <= 7 && this.x - 1 <= 7) possibleMoves.push(`${this.x - 1},${this.y + 2}`);
-    if (this.side == 'black' && this.y + 2 >= 0 && this.x + 1 >= 0 && this.y + 2 <= 7 && this.x + 1 <= 7) possibleMoves.push(`${this.x + 1},${this.y + 2}`);
-    
-
+      if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
+        if (gameArea[newX][newY] !== undefined && gameArea[newX][newY] !== null) {
+          if (gameArea[newX][newY].side !== this.side) possibleMoves.push(`${newX},${newY}`);
+        }
+        else possibleMoves.push(`${newX},${newY}`);
+      }
+    }
     return possibleMoves;
   }
 }

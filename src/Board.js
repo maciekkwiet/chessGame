@@ -1,6 +1,7 @@
 import Pawn from './pieces/Pawn';
-import { create2DArray } from './utils';
 import Knight from './pieces/Knight';
+import { create2DArray } from './utils';
+
 
 class Board {
   constructor() {
