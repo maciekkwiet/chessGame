@@ -34,17 +34,26 @@ class Pawn extends Piece {
       console.log(possibleMoves);
     }
     if (this.side == 'black') {
-      this.y + 1 <= 7 &&
-        document.getElementById(`${this.x},${this.y + 1}`).innerHTML == '' &&
+      if (!board[this.x][this.y + 1]) {
         possibleMoves.push(`${this.x},${this.y + 1}`);
+      }
+      console.log(possibleMoves);
 
-      this.y == 1 && possibleMoves.push(`${this.x},${this.y + 2}`);
+      if (this.y == 1 && !board[this.x][this.y + 2]) {
+        possibleMoves.push(`${this.x},${this.y + 2}`);
+      }
+      console.log(possibleMoves);
+      if (board[this.x][this.y + 1]) {
+        if (this.x != 0 && board[this.x - 1][this.y + 1] && this.side != board[this.x - 1][this.y + 1].side) {
+          possibleMoves.push(`${this.x - 1},${this.y + 1}`);
+        }
+        console.log(possibleMoves);
 
-      document.getElementById(`${this.x + 1},${this.y + 1}`).innerHTML != '' &&
-        possibleMoves.push(`${this.x + 1},${this.y + 1}`);
-
-      document.getElementById(`${this.x - 1},${this.y + 1}`).innerHTML != '' &&
-        possibleMoves.push(`${this.x - 1},${this.y + 1}`);
+        if (this.x != 7 && board[this.x + 1][this.y + 1] && this.side != board[this.x + 1][this.y + 1].side) {
+          possibleMoves.push(`${this.x + 1},${this.y + 1}`);
+        }
+      }
+      console.log(possibleMoves);
     }
     return possibleMoves;
   }
