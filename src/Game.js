@@ -3,6 +3,8 @@ import { parseId } from './utils';
 let round = 0;
 class Game {
   constructor() {
+    this.currentPlayer= "black";
+    let round = 0;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
@@ -23,7 +25,9 @@ class Game {
     }
   }
 
-  turnChange() {
+  changeTurn() {
+    if (round % 2 === 0) this.currentPlayer = 'white';
+    if (round % 2 === 1) this.currentPlayer = 'black';
     round++;
   }
 
@@ -34,14 +38,11 @@ class Game {
     }
     this.selectedPiece = this.gameArea[x][y];
     console.log(this.selectedPiece);
-    if (this.selectedPiece.side === "white" && round % 2 === 0) {
-    this.possibleMoves = this.selectedPiece.findLegalMoves();
+    if (this.selectedPiece.side === this.currentPlayer) {
+    this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
     this.board.highlightPossibleMoves(this.possibleMoves);
     }
-    if (this.selectedPiece.side === "black" && round % 2 === 1) {
-    this.possibleMoves = this.selectedPiece.findLegalMoves();
-    this.board.highlightPossibleMoves(this.possibleMoves);
-    }
+
   }
 
   handleMove(element) {
@@ -51,7 +52,7 @@ class Game {
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.possibleMoves = [];
-    this.turnChange();
+    this.changeTurn();
   }
 }
 
