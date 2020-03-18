@@ -1,4 +1,5 @@
 import Pawn from './pieces/Pawn';
+import Bishop from './pieces/Bishop';
 import { create2DArray } from './utils';
 
 class Board {
@@ -30,6 +31,16 @@ class Board {
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][1] = new Pawn(i, 1, 'black');
     }
+
+    let bishop = new Bishop(2, 7, 'white');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    bishop = new Bishop(5, 7, 'white');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    bishop = new Bishop(5, 0, 'black');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    bishop = new Bishop(2, 0, 'black');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    
   }
 
   highlightPossibleMoves(possibleMoves) {
