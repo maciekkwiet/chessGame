@@ -14,6 +14,8 @@ class Bishop extends Piece {
     let rightUp = (this.y <= ((7 - this.y) - this.x)) ? this.y : (7 - this.x);
     let rightDown = ((7 - this.y) <= (7 - this.x)) ? (7 - this.y) : (7 - this.x);
   
+    //console.log(this.x);
+    //console.log(this.y);
     //console.log(board);
     //console.log(board[this.x][this.y]);
   
@@ -23,12 +25,12 @@ class Bishop extends Piece {
           possibleMoves.push(`${this.x - lu},${this.y - lu}`);
           break;
         }
-      break;
+        break;
       }
-      this.y  >= 0 && this.y + 1 <= 8 && this.x + 1 <= 8 && this.x  >= 0 && leftUp > 0 && possibleMoves.push(`${this.x - lu},${this.y - lu}`);
+      leftUp > 0 && possibleMoves.push(`${this.x - lu},${this.y - lu}`);
     }
   
-    console.log(possibleMoves);
+  //  console.log(possibleMoves);
   
     for(let ld = 1; ld <= leftDown; ld++){
       if(board[this.x - ld][this.y + ld]){
@@ -38,10 +40,10 @@ class Bishop extends Piece {
         }
       break;
       }
-        this.y  >= 0 && this.y + 1 <= 8 && this.x + 1 <= 8 && this.x  >= 0 && leftDown > 0 && possibleMoves.push(`${this.x - ld},${this.y + ld}`);
+      leftDown > 0 && possibleMoves.push(`${this.x - ld},${this.y + ld}`);
     }
     
-    console.log(possibleMoves);
+  //  console.log(possibleMoves);
 
     for(let rd = 1; rd <= rightDown; rd++){
       if(board[this.x + rd][this.y + rd]){
@@ -51,10 +53,10 @@ class Bishop extends Piece {
         }
       break;
       }
-      this.y  >= 0 && this.y + 1 <= 8 && this.x + 1 <= 8 && this.x  >= 0 && rightDown > 0 && possibleMoves.push(`${this.x + rd},${this.y + rd}`);
+      rightDown > 0 && possibleMoves.push(`${this.x + rd},${this.y + rd}`);
     }
 
-    console.log(possibleMoves);
+  //  console.log(possibleMoves);
   
     for(let ru = 1; ru <= rightUp; ru++){
       if(board[this.x + ru][this.y - ru]){
@@ -64,10 +66,10 @@ class Bishop extends Piece {
         }
       break;
       }
-        this.y  >= 0 && this.y + 1 <= 8 && this.x + 1 <= 8 && this.x  >= 0 && rightUp > 0 && possibleMoves.push(`${this.x + ru},${this.y - ru}`);
+      rightUp > 0 && possibleMoves.push(`${this.x + ru},${this.y - ru}`);
     }
 
-    console.log(possibleMoves);
+  //  console.log(possibleMoves);
 
     return possibleMoves;
   }
