@@ -21,15 +21,15 @@ class Pawn extends Piece {
       }
       console.log(possibleMoves);
       // bicoe skomentowane bo wypierdala się na ryj XD
-      // if (board[this.x - 1][this.y - 1]) {
-      //   this.x-1 >= 0 && possibleMoves.push(`${this.x - 1}, ${this.y - 1}`);
-      // }
-      // console.log(possibleMoves);
+      if (board[this.x - 1][this.y - 1]) {
+        this.x-1 >= 0 && possibleMoves.push(`${this.x - 1},${this.y - 1}`);
+      }
+      console.log(possibleMoves);
 
-      // if (board[this.x + 1][this.y - 1]) {
-      //   possibleMoves.push(`${this.x + 1}, ${this.y - 1}`);
-      // }
-      // console.log(possibleMoves);
+      if (board[this.x + 1][this.y - 1]) {
+        possibleMoves.push(`${this.x + 1},${this.y - 1}`);
+      }
+      console.log(possibleMoves);
     }
     if (this.side == 'black') {
       this.y + 1 <= 7 &&
