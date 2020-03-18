@@ -20,7 +20,6 @@ class Pawn extends Piece {
         possibleMoves.push(`${this.x},${this.y - 2}`);
       }
       console.log(possibleMoves);
-      // bicoe skomentowane bo wypierdala się na ryj XD
       if (board[this.x - 1][this.y - 1]) {
         this.x-1 >= 0 && possibleMoves.push(`${this.x - 1},${this.y - 1}`);
       }
@@ -43,8 +42,8 @@ class Pawn extends Piece {
 
       document.getElementById(`${this.x - 1},${this.y + 1}`).innerHTML != '' &&
         possibleMoves.push(`${this.x - 1},${this.y + 1}`);
-    }
-    return possibleMoves;
+      }
+      return possibleMoves;
   }
   promote() {}
   enPassant() {}
