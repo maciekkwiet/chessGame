@@ -9,6 +9,7 @@ class King extends Piece {
   findLegalMoves() {
     const possibleMoves = [];
 
+    
     return possibleMoves;
   }
 }

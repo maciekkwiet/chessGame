@@ -50,3 +50,4 @@ class Rook extends Piece {
 }
 
 export default Rook;
+
