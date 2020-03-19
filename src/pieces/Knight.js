@@ -6,6 +6,7 @@ class Knight extends Piece {
     super(x, y, side);
     this.name = 'knight';
     this.display = `<i class="fas fa-chess-knight ${side}"></i>`; //fontawesome knight
+    
   }
   findLegalMoves(gameArea) {
     const moves = [
