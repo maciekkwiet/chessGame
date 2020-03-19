@@ -1,10 +1,10 @@
 import Board from './Board';
 import { parseId } from './utils';
-let round = 0;
+
 class Game {
   constructor() {
     this.currentPlayer= "black";
-    let round = 0;
+    this.round = 0;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
@@ -26,9 +26,9 @@ class Game {
   }
 
   changeTurn() {
-    if (round % 2 === 0) this.currentPlayer = 'white';
-    if (round % 2 === 1) this.currentPlayer = 'black';
-    round++;
+    if (this.round % 2 === 0) this.currentPlayer = 'white';
+    if (this.round % 2 === 1) this.currentPlayer = 'black';
+    this.round++;
   }
 
   handleSelect(element) {
