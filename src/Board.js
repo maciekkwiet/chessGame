@@ -1,6 +1,8 @@
 import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
+import King from './pieces/King';
+
 import { create2DArray } from './utils';
 
 
@@ -34,6 +36,11 @@ class Board {
     this.gameArea[knight.x][knight.y] = knight;
     knight = new Knight(1, 0, 'black');
     this.gameArea[knight.x][knight.y] = knight;
+
+    let king = new King(3, 7, 'white');
+    this.gameArea[king.x][king.y] = king;
+    king = new King(3, 0, 'black');
+    this.gameArea[king.x][king.y] = king;
 
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][6] = new Pawn(i, 6, 'white');

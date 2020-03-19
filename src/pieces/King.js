@@ -6,11 +6,36 @@ class King extends Piece {
     this.name = 'king';
     this.display = `<i class="fas fa-chess-king ${side}"></i>`; //fontawesome king
   }
-  findLegalMoves() {
-    const possibleMoves = [];
+  findLegalMoves(gameArea) {
+    const moves = [
+      [1,1],
+      [-1,1],
+      [-1,-1],
+      [1,-1],
+      [1,0],
+      [-1,0],
+      [0,-1],
+      [0,1],
+    ];
+let newX = 0;
+let newY = 0;
+const possibleMoves = [];
+for (const subTab of moves) {
+newX = this.x + subTab[0];
+newY = this.y + subTab[1];
 
-    return possibleMoves;
-  }
+     if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
+       console.log("pierwszy")
+       if (gameArea[newX][newY]) {
+        console.log("drugi")
+         if (gameArea[newX][newY].side !== this.side) possibleMoves.push(`${newX},${newY}`);
+        }
+      else possibleMoves.push(`${newX},${newY}`);
+      }
 }
+return possibleMoves;
+}
+}
+
 
 export default King;
