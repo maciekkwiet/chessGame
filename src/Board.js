@@ -1,6 +1,11 @@
+
+
+import Rook from './pieces/Rook';
+import Queen from './pieces/Queen';
 import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
+import King from './pieces/King';
 import { create2DArray } from './utils';
 
 
@@ -24,8 +29,25 @@ class Board {
       }
     }
   }
+ 
+
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
+
+    let rook = new Rook(0,7, 'white');
+    this.gameArea[rook.x][rook.y] = rook;
+    rook = new Rook(7,7, 'white');
+    this.gameArea[rook.x][rook.y] = rook;
+    rook = new Rook(0,0, 'black');
+    this.gameArea[rook.x][rook.y] = rook;
+    rook = new Rook(7,0, 'black');
+    this.gameArea[rook.x][rook.y] = rook;
+
+    let queen = new Queen(3,7, 'white');
+    this.gameArea[queen.x][queen.y] = queen;
+    queen = new Queen(3,0, 'black');
+    this.gameArea[queen.x][queen.y] = queen;
+
     let knight = new Knight(1, 7, 'white');
     this.gameArea[knight.x][knight.y] = knight;
     knight = new Knight(6, 7, 'white');
@@ -34,6 +56,11 @@ class Board {
     this.gameArea[knight.x][knight.y] = knight;
     knight = new Knight(1, 0, 'black');
     this.gameArea[knight.x][knight.y] = knight;
+
+    let king = new King(4, 7, 'white');
+    this.gameArea[king.x][king.y] = king;
+    king = new King(4, 0, 'black');
+    this.gameArea[king.x][king.y] = king;
 
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][6] = new Pawn(i, 6, 'white');
@@ -52,8 +79,9 @@ class Board {
     bishop = new Bishop(2, 0, 'black');
     this.gameArea[bishop.x][bishop.y] = bishop;
     
-
   }
+
+  
 
   highlightPossibleMoves(possibleMoves) {
     for (let move of possibleMoves) {

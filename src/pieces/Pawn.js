@@ -17,14 +17,13 @@ class Pawn extends Piece {
       if (this.y == 6 && !board[this.x][this.y - 1] && !board[this.x][this.y - 2]) {
         possibleMoves.push(`${this.x},${this.y - 2}`);
       }
-      if (board[this.x][this.y - 1]) {
-        if (this.x != 0 && board[this.x - 1][this.y - 1] && this.side != board[this.x - 1][this.y - 1].side) {
-          possibleMoves.push(`${this.x - 1},${this.y - 1}`);
-        }
 
-        if (this.x != 7 && board[this.x + 1][this.y - 1] && this.side != board[this.x + 1][this.y - 1].side) {
-          possibleMoves.push(`${this.x + 1},${this.y - 1}`);
-        }
+      if (this.x != 0 && board[this.x - 1][this.y - 1] && this.side != board[this.x - 1][this.y - 1].side) {
+        possibleMoves.push(`${this.x - 1},${this.y - 1}`);
+      }
+
+      if (this.x != 7 && board[this.x + 1][this.y - 1] && this.side != board[this.x + 1][this.y - 1].side) {
+        possibleMoves.push(`${this.x + 1},${this.y - 1}`);
       }
     }
     if (this.side == 'black') {
@@ -35,14 +34,12 @@ class Pawn extends Piece {
       if (this.y == 1 && !board[this.x][this.y + 1] && !board[this.x][this.y + 2]) {
         possibleMoves.push(`${this.x},${this.y + 2}`);
       }
-      if (board[this.x][this.y + 1]) {
-        if (this.x != 0 && board[this.x - 1][this.y + 1] && this.side != board[this.x - 1][this.y + 1].side) {
-          possibleMoves.push(`${this.x - 1},${this.y + 1}`);
-        }
+      if (this.x != 0 && board[this.x - 1][this.y + 1] && this.side != board[this.x - 1][this.y + 1].side) {
+        possibleMoves.push(`${this.x - 1},${this.y + 1}`);
+      }
 
-        if (this.x != 7 && board[this.x + 1][this.y + 1] && this.side != board[this.x + 1][this.y + 1].side) {
-          possibleMoves.push(`${this.x + 1},${this.y + 1}`);
-        }
+      if (this.x != 7 && board[this.x + 1][this.y + 1] && this.side != board[this.x + 1][this.y + 1].side) {
+        possibleMoves.push(`${this.x + 1},${this.y + 1}`);
       }
     }
     return possibleMoves;
