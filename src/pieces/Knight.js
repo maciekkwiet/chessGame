@@ -1,6 +1,7 @@
 import Piece from './Piece';
 
 class Knight extends Piece {
+  
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'knight';
@@ -26,7 +27,7 @@ class Knight extends Piece {
       newY = this.y + subTab[1];
 
       if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
-        if (gameArea[newX][newY] !== undefined && gameArea[newX][newY] !== null) {
+        if (gameArea[newX][newY]) {
           if (gameArea[newX][newY].side !== this.side) possibleMoves.push(`${newX},${newY}`);
         }
         else possibleMoves.push(`${newX},${newY}`);

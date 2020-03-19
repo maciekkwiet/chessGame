@@ -1,6 +1,8 @@
 import Pawn from './pieces/Pawn';
-import { create2DArray } from './utils';
 import Knight from './pieces/Knight';
+import Bishop from './pieces/Bishop';
+import { create2DArray } from './utils';
+
 
 class Board {
   constructor() {
@@ -24,10 +26,6 @@ class Board {
   }
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-    let pawn = new Pawn(0, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
-    pawn = new Pawn(1, 6, 'white');
-    this.gameArea[pawn.x][pawn.y] = pawn;
     let knight = new Knight(1, 7, 'white');
     this.gameArea[knight.x][knight.y] = knight;
     knight = new Knight(6, 7, 'white');
@@ -36,6 +34,25 @@ class Board {
     this.gameArea[knight.x][knight.y] = knight;
     knight = new Knight(1, 0, 'black');
     this.gameArea[knight.x][knight.y] = knight;
+
+    for (let i = 0; i < this.gameArea.length; i++) {
+      this.gameArea[i][6] = new Pawn(i, 6, 'white');
+    }
+
+    for (let i = 0; i < this.gameArea.length; i++) {
+      this.gameArea[i][1] = new Pawn(i, 1, 'black');
+    }
+
+    let bishop = new Bishop(2, 7, 'white');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    bishop = new Bishop(5, 7, 'white');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    bishop = new Bishop(5, 0, 'black');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    bishop = new Bishop(2, 0, 'black');
+    this.gameArea[bishop.x][bishop.y] = bishop;
+    
+
   }
 
   highlightPossibleMoves(possibleMoves) {
