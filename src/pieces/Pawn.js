@@ -14,7 +14,7 @@ class Pawn extends Piece {
         possibleMoves.push(`${this.x},${this.y - 1}`);
       }
 
-      if (this.y == 6 && !board[this.x][this.y - 2]) {
+      if (this.y == 6 && !board[this.x][this.y - 1] && !board[this.x][this.y - 2]) {
         possibleMoves.push(`${this.x},${this.y - 2}`);
       }
       if (board[this.x][this.y - 1]) {
@@ -32,7 +32,7 @@ class Pawn extends Piece {
         possibleMoves.push(`${this.x},${this.y + 1}`);
       }
 
-      if (this.y == 1 && !board[this.x][this.y + 2]) {
+      if (this.y == 1 && !board[this.x][this.y + 1] && !board[this.x][this.y + 2]) {
         possibleMoves.push(`${this.x},${this.y + 2}`);
       }
       if (board[this.x][this.y + 1]) {
