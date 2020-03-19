@@ -3,7 +3,7 @@ import { parseId } from './utils';
 
 class Game {
   constructor() {
-    this.currentPlayer= "black";
+    this.currentPlayer= "white";
     this.round = 0;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
@@ -26,8 +26,8 @@ class Game {
   }
 
   changeTurn() {
-    if (this.round % 2 === 0) this.currentPlayer = 'white';
-    if (this.round % 2 === 1) this.currentPlayer = 'black';
+    if (this.round % 2 === 0) this.currentPlayer = 'black';
+    if (this.round % 2 === 1) this.currentPlayer = 'white';
     this.round++;
   }
 
