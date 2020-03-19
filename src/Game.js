@@ -37,6 +37,8 @@ class Game {
       return;
     }
     this.selectedPiece = this.gameArea[x][y];
+
+
     if (this.selectedPiece.side === this.currentPlayer) {
     this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
     this.board.highlightPossibleMoves(this.possibleMoves);

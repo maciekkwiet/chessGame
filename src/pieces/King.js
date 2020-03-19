@@ -24,16 +24,18 @@ class King extends Piece {
       newX = this.x + subTab[0];
       newY = this.y + subTab[1];
 
+
+    
+    return possibleMoves;
      if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
-       console.log("pierwszy")
        if (gameArea[newX][newY]) {
-        console.log("drugi")
          if (gameArea[newX][newY].side !== this.side) possibleMoves.push(`${newX},${newY}`);
         }
       else possibleMoves.push(`${newX},${newY}`);
       }
     }   
   return possibleMoves;
+
   }
 }
 
