@@ -37,9 +37,9 @@ class Board {
     knight = new Knight(1, 0, 'black');
     this.gameArea[knight.x][knight.y] = knight;
 
-    let king = new King(3, 7, 'white');
+    let king = new King(4, 7, 'white');
     this.gameArea[king.x][king.y] = king;
-    king = new King(3, 0, 'black');
+    king = new King(4, 0, 'black');
     this.gameArea[king.x][king.y] = king;
 
     for (let i = 0; i < this.gameArea.length; i++) {

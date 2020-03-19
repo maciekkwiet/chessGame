@@ -17,12 +17,12 @@ class King extends Piece {
       [0,-1],
       [0,1],
     ];
-let newX = 0;
-let newY = 0;
-const possibleMoves = [];
-for (const subTab of moves) {
-newX = this.x + subTab[0];
-newY = this.y + subTab[1];
+    let newX = 0;
+    let newY = 0;
+    const possibleMoves = [];
+    for (const subTab of moves) {
+      newX = this.x + subTab[0];
+      newY = this.y + subTab[1];
 
      if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
        console.log("pierwszy")
@@ -32,9 +32,9 @@ newY = this.y + subTab[1];
         }
       else possibleMoves.push(`${newX},${newY}`);
       }
-}
-return possibleMoves;
-}
+    }   
+  return possibleMoves;
+  }
 }
 
 
