@@ -24,9 +24,6 @@ class King extends Piece {
       newX = this.x + subTab[0];
       newY = this.y + subTab[1];
 
-
-    
-    return possibleMoves;
      if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
        if (gameArea[newX][newY]) {
          if (gameArea[newX][newY].side !== this.side) possibleMoves.push(`${newX},${newY}`);
