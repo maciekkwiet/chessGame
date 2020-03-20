@@ -8,7 +8,6 @@ class Bishop extends Piece {
   }
   findLegalMoves(board) {
     const possibleMoves = [];
-    const attackingMoves = [];
 
     let leftUp = this.x <= this.y ? this.x : this.y;
     let leftDown = 7 - this.y <= this.x ? 7 - this.y : this.x;
@@ -22,14 +21,12 @@ class Bishop extends Piece {
 
     for (let lu = 1; lu <= leftUp; lu++) {
       if (board[this.x - lu][this.y - lu]) {
-        attackingMoves.push(`${this.x - lu},${this.y - lu}`);
         if (board[this.x - lu][this.y - lu].side !== this.side) {
           possibleMoves.push(`${this.x - lu},${this.y - lu}`);
           break;
         }
         break;
       }
-      leftUp > 0 && attackingMoves.push(`${this.x - lu},${this.y - lu}`);
       leftUp > 0 && possibleMoves.push(`${this.x - lu},${this.y - lu}`);
     }
 
@@ -37,14 +34,12 @@ class Bishop extends Piece {
 
     for (let ld = 1; ld <= leftDown; ld++) {
       if (board[this.x - ld][this.y + ld]) {
-        attackingMoves.push(`${this.x - ld},${this.y + ld}`);
         if (board[this.x - ld][this.y + ld].side !== this.side) {
           possibleMoves.push(`${this.x - ld},${this.y + ld}`);
           break;
         }
         break;
       }
-      leftDown > 0 && attackingMoves.push(`${this.x - ld},${this.y + ld}`);
       leftDown > 0 && possibleMoves.push(`${this.x - ld},${this.y + ld}`);
     }
 
@@ -52,7 +47,6 @@ class Bishop extends Piece {
 
     for (let rd = 1; rd <= rightDown; rd++) {
       if (board[this.x + rd][this.y + rd]) {
-        attackingMoves.push(`${this.x + rd},${this.y + rd}`);
         if (board[this.x + rd][this.y + rd].side !== this.side) {
           possibleMoves.push(`${this.x + rd},${this.y + rd}`);
           break;
@@ -60,21 +54,18 @@ class Bishop extends Piece {
         break;
       }
       rightDown > 0 && possibleMoves.push(`${this.x + rd},${this.y + rd}`);
-      rightDown > 0 && attackingMoves.push(`${this.x + rd},${this.y + rd}`);
     }
 
     //  console.log(possibleMoves);
 
     for (let ru = 1; ru <= rightUp; ru++) {
       if (board[this.x + ru][this.y - ru]) {
-        attackingMoves.push(`${this.x + ru},${this.y - ru}`);
         if (board[this.x + ru][this.y - ru].side !== this.side) {
           possibleMoves.push(`${this.x + ru},${this.y - ru}`);
           break;
         }
         break;
       }
-      rightUp > 0 && attackingMoves.push(`${this.x + ru},${this.y - ru}`);
       rightUp > 0 && possibleMoves.push(`${this.x + ru},${this.y - ru}`);
     }
 
@@ -82,6 +73,11 @@ class Bishop extends Piece {
     // console.log(attackingMoves);
 
     return possibleMoves;
+  }
+  findAttackingMoves() {
+    const attackingMoves = [];
+
+    return attackingMoves;
   }
 }
 
