@@ -81,7 +81,7 @@ class Bishop extends Piece {
     for (let i = 1; i <= a.length; i++) {
       const tab = [...a[i - 1]];
 
-      console.log(a[i - 1]);
+      //console.log(a[i - 1]);
 
       //console.log(this.side);
       //console.log(board[tab[0]][tab[2]].side);
@@ -94,7 +94,7 @@ class Bishop extends Piece {
       }
     }
 
-    console.log(attack);
+    //console.log(attack);
 
     let filteredMoves = a.filter(move => !attack.includes(move));
 
