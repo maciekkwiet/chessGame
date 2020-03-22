@@ -41,35 +41,21 @@ class Knight extends Piece {
   {   
     let attack = this.findAttackingMoves(gameArea);
     console.log(attack);
-    let legalMoves =[]
+    let legal =[]
      
-
-    for(const el of attack)
+    for(const move of attack)
     {  
-      const attackX= el[0];
-      const attackY= el[2];
-      console.log("x = "+attackX);
-      console.log("y = "+attackY);
+      const attackX= move[0];
+      const attackY= move[2];
+      //console.log("x = "+attackX);
+      //console.log("y = "+attackY);
       
-      
-
-      /*if (gameArea[attack.side] == this.side) legal.push(attack);
-     console.log(attack)*/
-
-     
-      
-     /*if (gameArea[attackX][attackY] && gameArea[attackX][attackY].side !== this.side)
-        {legal.push(`${attackX},${attackY}`)}
-        console.log(legal);*/
-      
-
-
-      attack = attack.filter(!(gameArea[attackX][attackY].side ==this.side));  
-      console.log(attack);
-    //console.log(legalMoves);
+     if (!gameArea[attackX][attackY] || gameArea[attackX][attackY].side !== this.side)
+        {legal.push(move)}
+      // console.log(legal);             
   }
 
-    return attack;
+    return legal;
   }
 }
 
