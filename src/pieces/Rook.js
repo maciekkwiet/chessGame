@@ -1,5 +1,5 @@
 
-import Piece from './piece';
+import Piece from './Piece';
 
 class Rook extends Piece {
   constructor(x, y, side) {
