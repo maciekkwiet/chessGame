@@ -76,12 +76,12 @@ class Bishop extends Piece {
 
   findLegalMoves(board) {
     const attack = [];
-    this.findAttackingMoves(board);
+    const a = this.findAttackingMoves(board);
 
-    for (let i = 1; i <= this.findAttackingMoves(board).length; i++) {
-      const tab = [...this.findAttackingMoves(board)[i - 1]];
+    for (let i = 1; i <= a.length; i++) {
+      const tab = [...a[i - 1]];
 
-      console.log(this.findAttackingMoves(board)[i - 1]);
+      console.log(a[i - 1]);
 
       //console.log(this.side);
       //console.log(board[tab[0]][tab[2]].side);
@@ -89,16 +89,18 @@ class Bishop extends Piece {
 
       if (board[tab[0]][tab[2]]) {
         if (board[tab[0]][tab[2]].side == this.side) {
-          attack.push(this.findAttackingMoves(board)[i - 1]);
+          attack.push(a[i - 1]);
         }
       }
     }
 
     console.log(attack);
 
-    // od findAttackingMoves - tablica: attack
+    let filteredMoves = a.filter(move => !attack.includes(move));
 
-    return attack;
+    // od a odjać attack
+
+    return filteredMoves;
   }
 }
 
