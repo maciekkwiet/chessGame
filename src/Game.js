@@ -65,7 +65,6 @@ class Game {
             for (let k = 0; k < oponentattack.length; k++) {
               const tab = oponentattack[k];
               if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
-                console.log('SZACH SKURWYSYNY');
                 this.checkflag = 1;
               }
             }
