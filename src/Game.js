@@ -9,6 +9,7 @@ class Game {
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
     this.possibleMoves = [];
+    this.attackingMoves = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
     
