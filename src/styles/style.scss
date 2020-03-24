@@ -1,3 +1,7 @@
+@font-face {
+  font-family: 'Neon Tubes 2';
+  src: url('../font/NeonTubes2.otf') format('opentype');
+}
 $light: #bfe3ed;
 $dark: #000126;
 $black: black;
@@ -24,8 +28,22 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+#game-title {
+  font-family: 'Neon Tubes 2';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 75px;
+  line-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 5vh;
+  color: #00f0ff;
+  text-shadow: 0px 4px 30px #00f0ff, 0px 4px 25px #00f0ff, 0px 4px 10px rgba(0, 194, 255, 0.25);
+}
 #wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
