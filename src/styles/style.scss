@@ -6,8 +6,9 @@ $light: #bfe3ed;
 $dark: #171844;
 $black: #5228c9;
 $white: #ffffff;
-$moves: #f0a8df;
+$moves: #00ffaf;
 $board-size: 70vh;
+$gradient-size: 80vh;
 html,
 body {
   margin: 0;
@@ -25,7 +26,7 @@ body {
       rgba(255, 255, 255, 0) 100%,
       #00ffff 100%
     ),
-    url('../img/background.jpg');
+    url('https://funkyimg.com/i/33mKA.jpg?fbclid=IwAR1xkxqcMG6sbeBU8_wDxvAVpqgl4Kg00hWYcaT0NuBOamxblmoHxXIkh3M');
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
@@ -35,12 +36,12 @@ body {
   font-family: 'Neon Tubes 2';
   font-style: normal;
   font-weight: normal;
-  font-size: 60px;
+  font-size: 55px;
   line-height: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5vh;
+  margin-bottom: 3vh;
   color: #00f0ff;
   text-shadow: 0px 4px 30px #00f0ff, 0px 4px 25px #00f0ff, 0px 4px 10px rgba(0, 194, 255, 0.25);
 }
@@ -49,21 +50,25 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 98vh;
+  
 }
-
+ 
 #board {
   $size: $board-size;
   display: flex;
   flex-wrap: wrap;
-  box-shadow: 0px 4px 70px #00a3ff;
+  box-shadow: 0px 4px 50px #00a3ff;
   opacity: 0.95;
   width: $size;
   height: $size;
   opacity: 0.95;
-  // border-image:linear-gradient(rgba(94,67,255,.7), rgba(0,255,169,.7)) 10% stretch;
-  // border: 10px solid;
+  outline: 10px solid rgba(0,222,255,.6) ;
+  
 }
+
+ 
+
 .square {
   /* border: 1px darkslategrey solid; */
   $size: $board-size/8;
@@ -74,16 +79,16 @@ body {
   font-size: 6.5vh;
 }
 .light {
-  background: $light;
+  background: #6bc4db ;
 }
 .dark {
   background: $dark;
 }
 .black {
-  color: $black;
+  color: #0f6bb9;
 }
 .white {
-  color: $white;
+  color: #ffff;
 }
 .possibleMove {
   background: $moves;
