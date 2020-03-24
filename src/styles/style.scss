@@ -61,6 +61,8 @@ body {
   width: $size;
   height: $size;
   opacity: 0.95;
+  border-image:linear-gradient(rgba(94,67,255,.7), rgba(0,255,169,.7)) 10% stretch;
+  border: 10px solid;
 }
 .square {
   /* border: 1px darkslategrey solid; */
