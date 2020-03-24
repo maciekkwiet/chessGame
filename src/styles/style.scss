@@ -63,17 +63,7 @@ body {
   width: $size;
   height: $size;
   opacity: 0.95;
-<<<<<<< HEAD
-  outline: 10px solid rgba(0,222,255,.6) ;
-  
-=======
-  border-image:linear-gradient(rgba(94,67,255,.7), rgba(0,255,169,.7)) 10% stretch;
-  border: 10px solid;
->>>>>>> parent of c940b56... border skomentowany bo rozwala plansze
 }
-
- 
-
 .square {
   /* border: 1px darkslategrey solid; */
   $size: $board-size/8;
