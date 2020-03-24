@@ -6,6 +6,7 @@ class Game {
   constructor() {
     this.currentPlayer = 'white';
     this.round = 0;
+    this.checkflag = 0;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
@@ -54,20 +55,26 @@ class Game {
   }
 
   check(gameArea) {
-    console.log(this.currentPlayer);
-    //console.log(this.side);
+    this.checkflag = 0;
+    const oponentattack = this.oponentMoves(gameArea);
 
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
           if (gameArea[i][j].name == 'king' && this.currentPlayer !== gameArea[i][j].side) {
-            console.log(gameArea[i][j].side);
-            //&& this.side == gameArea[i][e].side
-            console.log(gameArea[i][j]);
+            for (let k = 0; k < oponentattack.length; k++) {
+              const tab = oponentattack[k];
+              if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
+                console.log('SZACH SKURWYSYNY');
+                this.checkflag = 1;
+              }
+            }
           }
         }
       }
     }
+    console.log(this.checkflag);
+    return this.checkflag;
   }
 
   oponentMoves(gameArea) {
