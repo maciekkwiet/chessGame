@@ -1,0 +1,59 @@
+$light: #bfe3ed;
+$dark: #000126;
+$black: black;
+$white: silver;
+$moves: #f0a8df;
+$board-size: 80vh;
+html {
+  margin: 0;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image: url('../img/background.jpg');
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+#wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#board {
+  $size: $board-size;
+  display: flex;
+  flex-wrap: wrap;
+  opacity: 0.95;
+  box-shadow: 0px 4px 70px #00a3ff;
+  opacity: 0.95;
+  width: $size;
+  height: $size;
+}
+.square {
+  /* border: 1px darkslategrey solid; */
+  $size: $board-size/8;
+  width: $size;
+  height: $size;
+  text-align: center;
+  line-height: $size;
+  font-size: 6.5vh;
+}
+.light {
+  background: $light;
+}
+.dark {
+  background: $dark;
+}
+.black {
+  color: $black;
+}
+.white {
+  color: $white;
+}
+.possibleMove {
+  background: $moves;
+}
