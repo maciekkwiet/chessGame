@@ -26,7 +26,7 @@ body {
       rgba(255, 255, 255, 0) 100%,
       #00ffff 100%
     ),
-    url('https://funkyimg.com/i/33mKA.jpg?fbclid=IwAR1xkxqcMG6sbeBU8_wDxvAVpqgl4Kg00hWYcaT0NuBOamxblmoHxXIkh3M');
+    url('../img/background.jpg');
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
@@ -63,8 +63,13 @@ body {
   width: $size;
   height: $size;
   opacity: 0.95;
+<<<<<<< HEAD
   outline: 10px solid rgba(0,222,255,.6) ;
   
+=======
+  border-image:linear-gradient(rgba(94,67,255,.7), rgba(0,255,169,.7)) 10% stretch;
+  border: 10px solid;
+>>>>>>> parent of c940b56... border skomentowany bo rozwala plansze
 }
 
  
