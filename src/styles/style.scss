@@ -27,6 +27,7 @@ body {
       #00ffff 100%
     ),
     url('../img/background.jpg');
+
   background-size: auto;
   background-repeat: no-repeat;
   background-position: center;
@@ -51,9 +52,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 98vh;
-  
 }
- 
+
 #board {
   $size: $board-size;
   display: flex;
@@ -63,7 +63,9 @@ body {
   width: $size;
   height: $size;
   opacity: 0.95;
+  outline: 10px solid rgba(0, 222, 255, 0.6);
 }
+
 .square {
   /* border: 1px darkslategrey solid; */
   $size: $board-size/8;
@@ -74,7 +76,7 @@ body {
   font-size: 6.5vh;
 }
 .light {
-  background: #6bc4db ;
+  background: #6bc4db;
 }
 .dark {
   background: $dark;
