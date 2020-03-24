@@ -3,7 +3,7 @@
   src: url('../font/NeonTubes2.otf') format('opentype');
 }
 $light: #bfe3ed;
-$dark: #000126;
+$dark: #171844;
 $black: #5228c9;
 $white: #ffffff;
 $moves: #f0a8df;
@@ -60,6 +60,7 @@ body {
   opacity: 0.95;
   width: $size;
   height: $size;
+  opacity: 0.95;
 }
 .square {
   /* border: 1px darkslategrey solid; */
