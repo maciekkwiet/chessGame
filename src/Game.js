@@ -1,6 +1,6 @@
 import Board from './Board';
 import { parseId } from './utils';
-import King from './pieces/King';
+import King, { oponentMoves2 } from './pieces/King';
 
 class Game {
   constructor() {
@@ -49,19 +49,23 @@ class Game {
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
-    this.check(this.gameArea);
+    if (this.checkflag) this.correctLegalMoves(this.gameArea);
     this.possibleMoves = [];
     this.changeTurn();
+    this.check(this.gameArea);
   }
 
   check(gameArea) {
     this.checkflag = 0;
     const oponentattack = this.oponentMoves(gameArea);
+    //console.log(oponentattack);
+    // const oponentattack2 = oponentMoves2;
+    // console.log(oponentattack2);
 
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
-          if (gameArea[i][j].name == 'king' && this.currentPlayer !== gameArea[i][j].side) {
+          if (gameArea[i][j].name == 'king' && this.currentPlayer == gameArea[i][j].side) {
             for (let k = 0; k < oponentattack.length; k++) {
               const tab = oponentattack[k];
               if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
@@ -72,8 +76,24 @@ class Game {
         }
       }
     }
-    console.log(this.checkflag);
     return this.checkflag;
+  }
+
+  correctLegalMoves(gameArea) {
+    const possibleMovesCheck = [];
+    const param = this.oponentMoves(this.gameArea);
+
+    for (let i = 0; i < param.length; i++) {
+      const tab = param[i];
+
+      //if(param[i])
+
+      console.log(param[i]);
+    }
+
+    console.log('SZACH!');
+
+    return possibleMovesCheck;
   }
 
   oponentMoves(gameArea) {
@@ -82,7 +102,11 @@ class Game {
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
-          if (gameArea[i][j].side !== this.side && gameArea[i][j].name !== 'king' && gameArea[i][j].name !== 'pawn') {
+          if (
+            gameArea[i][j].side !== this.currentPlayer &&
+            gameArea[i][j].name !== 'king' &&
+            gameArea[i][j].name !== 'pawn'
+          ) {
             oponentMoves2 = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMoves2);
           }
         }
