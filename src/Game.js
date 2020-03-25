@@ -1,6 +1,5 @@
 import Board from './Board';
 import { parseId } from './utils';
-import Pawn from './pieces/Pawn';
 
 class Game {
   constructor() {
@@ -48,7 +47,11 @@ class Game {
     if (!this.possibleMoves.includes(id)) return;
     this.board.movePiece(this.selectedPiece, parseId(id));
     if (this.selectedPiece.name === 'pawn') {
-      if (this.selectedPiece.y === 4 && this.selectedPiece.side === 'white') this.selectedPiece.promote(this.gameArea);
+      if (
+        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
+        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
+      )
+        this.selectedPiece.promote(this.gameArea);
     }
     this.board.removeHighlight();
     this.selectedPiece = null;
