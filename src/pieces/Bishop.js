@@ -14,7 +14,6 @@ class Bishop extends Piece {
     let rightUp = this.y <= 7 - this.x ? this.y : 7 - this.x;
     let rightDown = 7 - this.y <= 7 - this.x ? 7 - this.y : 7 - this.x;
 
-
     for (let lu = 1; lu <= leftUp; lu++) {
       if (board[this.x - lu][this.y - lu]) {
         attackingMoves.push(`${this.x - lu},${this.y - lu}`);
@@ -22,7 +21,6 @@ class Bishop extends Piece {
       }
       leftUp > 0 && attackingMoves.push(`${this.x - lu},${this.y - lu}`);
     }
-
 
     for (let ld = 1; ld <= leftDown; ld++) {
       if (board[this.x - ld][this.y + ld]) {
@@ -32,7 +30,6 @@ class Bishop extends Piece {
       leftDown > 0 && attackingMoves.push(`${this.x - ld},${this.y + ld}`);
     }
 
-
     for (let rd = 1; rd <= rightDown; rd++) {
       if (board[this.x + rd][this.y + rd]) {
         attackingMoves.push(`${this.x + rd},${this.y + rd}`);
@@ -40,7 +37,6 @@ class Bishop extends Piece {
       }
       rightDown > 0 && attackingMoves.push(`${this.x + rd},${this.y + rd}`);
     }
-
 
     for (let ru = 1; ru <= rightUp; ru++) {
       if (board[this.x + ru][this.y - ru]) {
@@ -64,8 +60,8 @@ class Bishop extends Piece {
         if (board[tab[0]][tab[2]].side == this.side) {
           attack.push(param[i]);
         }
-
-
+      }
+    }
     const filteredMoves = param.filter(move => !attack.includes(move));
 
     return filteredMoves;
