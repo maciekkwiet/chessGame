@@ -9,19 +9,19 @@ class Queen extends Piece {
   }
   findLegalMoves(board) {
     const attack = [];
-    const a = this.findAttackingMoves(board);
+    const param = this.findAttackingMoves(board);
 
-    for (let i = 1; i <= a.length; i++) {
-      const tab = [...a[i - 1]];
+    for (let i = 0; i < param.length; i++) {
+      const tab = param[i];
 
       if (board[tab[0]][tab[2]]) {
         if (board[tab[0]][tab[2]].side == this.side) {
-          attack.push(a[i - 1]);
+          attack.push(param[i]);
         }
       }
     }
-    let filteredMoves = a.filter(move => !attack.includes(move));
-    console.log(filteredMoves);
+
+    const filteredMoves = param.filter(move => !attack.includes(move));
 
     return filteredMoves;
   }
@@ -35,8 +35,6 @@ class Queen extends Piece {
     let rightDown = 7 - this.y <= 7 - this.x ? 7 - this.y : 7 - this.x;
 
     for (let lu = 1; lu <= leftUp; lu++) {
-      console.log(this.y);
-      console.log(lu);
       if (board[this.x - lu][this.y - lu]) {
         attackingMoves.push(`${this.x - lu},${this.y - lu}`);
         break;
@@ -103,8 +101,6 @@ class Queen extends Piece {
       }
       attackingMoves.push(`${this.x + r},${this.y}`);
     }
-    console.log(attackingMoves);
-
     return attackingMoves;
   }
 }
