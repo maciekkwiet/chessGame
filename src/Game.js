@@ -17,7 +17,12 @@ class Game {
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
+    //const tab = [];
+    //tab = this.possibleMoves && this.possibleMovesCheck;
+    //console.log(this.possibleMoves);
+    //console.log(this.possibleMovesCheck);
     if (this.possibleMoves.length !== 0) {
+      //if (tab.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
@@ -38,6 +43,11 @@ class Game {
     this.selectedPiece = this.gameArea[x][y];
 
     if (this.selectedPiece.side === this.currentPlayer) {
+      // if (this.isCheck) {
+      //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea) && this.possibleMovesCheck;
+      // } else if (!this.isCheck) {
+      //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+      // }
       this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
       this.board.highlightPossibleMoves(this.possibleMoves);
     }
@@ -80,7 +90,7 @@ class Game {
 
   correctLegalMoves(gameArea) {
     const possibleMovesCheck = [];
-    const param = this.oponentMoves(this.gameArea);
+    const param = this.oponentMovesTwo(this.gameArea);
     const paramTwo = this.oponentMovesTwo(this.gameArea);
 
     for (let i = 0; i < param.length; i++) {
@@ -94,7 +104,7 @@ class Game {
           possibleMovesCheck.push(param[i]);
         }
 
-        this.gameArea[tab[0]][tab[2]] = 0;
+        this.gameArea[tab[0]][tab[2]] = '';
       }
     }
 
