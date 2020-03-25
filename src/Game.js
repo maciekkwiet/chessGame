@@ -1,7 +1,6 @@
 import Board from './Board';
 import { parseId } from './utils';
-import King, { oponentMoves2 } from './pieces/King';
-import Rook from './pieces/Rook';
+import Piece from './pieces/Piece';
 
 class Game {
   constructor() {
@@ -81,20 +80,38 @@ class Game {
   correctLegalMoves(gameArea) {
     const possibleMovesCheck = [];
     const param = this.oponentMoves(this.gameArea);
-    console.log(param.length);
+    const paramTwo = this.oponentMovesTwo(this.gameArea);
 
     for (let i = 0; i < param.length; i++) {
       const tab = param[i];
 
       if (!gameArea[tab[0]][tab[2]]) {
-        let rook = new Rook([tab[0]], [tab[2]], this.currentPlayer);
-        this.gameArea[rook.x][rook.y] = rook;
+        let piece = new Piece([tab[0]], [tab[2]], this.currentPlayer);
+        this.gameArea[piece.x][piece.y] = piece;
         this.check(gameArea);
         if (!this.isCheck) {
           possibleMovesCheck.push(param[i]);
         }
 
         this.gameArea[tab[0]][tab[2]] = 0;
+      }
+    }
+
+    for (let i = 0; i < paramTwo.length; i++) {
+      const tab = paramTwo[i];
+
+      if (gameArea[tab[0]][tab[2]]) {
+        if (gameArea[tab[0]][tab[2]].name !== 'king') {
+          console.log(gameArea[tab[0]][tab[2]]);
+          let replacement = this.gameArea[tab[0]][tab[2]];
+          let piece = new Piece([tab[0]], [tab[2]], this.currentPlayer);
+          this.gameArea[piece.x][piece.y] = piece;
+          this.check(gameArea);
+          if (!this.isCheck) {
+            possibleMovesCheck.push(paramTwo[i]);
+          }
+          this.gameArea[tab[0]][tab[2]] = replacement;
+        }
       }
     }
 
@@ -106,7 +123,7 @@ class Game {
   }
 
   oponentMoves(gameArea) {
-    let oponentMoves2 = [];
+    let oponentMoves = [];
 
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
@@ -116,12 +133,31 @@ class Game {
             gameArea[i][j].name !== 'king' &&
             gameArea[i][j].name !== 'pawn'
           ) {
-            oponentMoves2 = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMoves2);
+            oponentMoves = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMoves);
           }
         }
       }
     }
-    return oponentMoves2;
+    return oponentMoves;
+  }
+
+  oponentMovesTwo(gameArea) {
+    let oponentMovesTwo = [];
+
+    for (let i = 0; i <= 7; i++) {
+      for (let j = 0; j <= 7; j++) {
+        if (gameArea[i][j]) {
+          if (
+            gameArea[i][j].side == this.currentPlayer &&
+            gameArea[i][j].name !== 'king' &&
+            gameArea[i][j].name !== 'pawn'
+          ) {
+            oponentMovesTwo = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMovesTwo);
+          }
+        }
+      }
+    }
+    return oponentMovesTwo;
   }
 }
 
