@@ -6,7 +6,7 @@ class Game {
   constructor() {
     this.currentPlayer = 'white';
     this.round = 0;
-    this.checkflag = 0;
+    this.isCheck = false;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
@@ -49,14 +49,14 @@ class Game {
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
-    if (this.checkflag) this.correctLegalMoves(this.gameArea);
+    if (this.isCheck) this.correctLegalMoves(this.gameArea);
     this.possibleMoves = [];
     this.changeTurn();
     this.check(this.gameArea);
   }
 
   check(gameArea) {
-    this.checkflag = 0;
+    this.isCheck = false;
     const oponentattack = this.oponentMoves(gameArea);
     //console.log(oponentattack);
     // const oponentattack2 = oponentMoves2;
@@ -69,7 +69,7 @@ class Game {
             for (let k = 0; k < oponentattack.length; k++) {
               const tab = oponentattack[k];
               if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
-                this.checkflag = 1;
+                this.isCheck = true;
               }
             }
           }
