@@ -1,7 +1,7 @@
 import Piece from './Piece';
 import Queen from './Queen';
 import Bishop from './Bishop';
-import King from './King';
+import Rook from './Rook';
 import Knight from './Knight';
 
 class Pawn extends Piece {
@@ -50,48 +50,44 @@ class Pawn extends Piece {
     return possibleMoves;
   }
   promote(gameArea) {
-    let promotionBG = document.querySelector('.promotion-bg');
-    let promotionQueen = document.querySelector('.promotion-queen');
-    let promotionBishop = document.querySelector('.promotion-bishop');
-    let promotionKing = document.querySelector('.promotion-king');
-    let promotionKnight = document.querySelector('.promotion-knight');
-    let promotionRook = document.querySelector('.promotion-rook');
+    const promotionBG = document.querySelector('.promotion-bg');
+    const promotionQueen = document.querySelector('.promotion-queen');
+    const promotionBishop = document.querySelector('.promotion-bishop');
+    const promotionKnight = document.querySelector('.promotion-knight');
+    const promotionRook = document.querySelector('.promotion-rook');
+
+    const pieces = [
+      { handler: promotionQueen, pieceName: Queen },
+      { handler: promotionBishop, pieceName: Bishop },
+      { handler: promotionKnight, pieceName: Knight },
+      { handler: promotionRook, pieceName: Rook },
+    ];
 
     document.getElementById(`${this.x},${this.y}`).innerHTML = '';
 
     promotionBG.classList.add('bg-active');
 
-    promotionQueen.addEventListener('click', () => {
-      let queen = new Queen(this.x, this.y, 'white');
+    for (const piece of pieces) {
+      const { handler, pieceName: PieceName } = piece;
+      const pieceToCreate = new PieceName(this.x, this.y, this.side);
+      handler.innerHTML = pieceToCreate.display;
 
-      gameArea[this.x][this.y] = queen;
-      document.getElementById(`${this.x},${this.y}`).innerHTML = queen.display;
-      promotionBG.classList.remove('bg-active');
-      // document.getElementById(`${this.x},${this.y}`).innerHTML = '';
-    });
+      const handlePromotionSelect = () => {
+        gameArea[this.x][this.y] = pieceToCreate;
+        document.getElementById(`${this.x},${this.y}`).innerHTML = pieceToCreate.display;
+        promotionBG.classList.remove('bg-active');
+        removeEventListeners();
+      };
 
-    promotionBishop.addEventListener('click', () => {
-      let bishop = new Bishop(this.x, this.y, 'white');
-
-      gameArea[this.x][this.y] = bishop;
-      document.getElementById(`${this.x},${this.y}`).innerHTML = bishop.display;
-      promotionBG.classList.remove('bg-active');
-    });
-
-    promotionKnight.addEventListener('click', () => {
-      let knight = new Knight(this.x, this.y, 'white');
-      console.log(this.x);
-      console.log(this.y);
-      gameArea[this.x][this.y] = knight;
-      document.getElementById(`${this.x},${this.y}`).innerHTML = knight.display;
-      promotionBG.classList.remove('bg-active');
-    });
-    promotionRook.addEventListener('click', () => {
-      let rook = new Rook(this.x, this.y, 'white');
-      gameArea[this.x][this.y] = rook;
-      document.getElementById(`${this.x},${this.y}`).innerHTML = rook.display;
-      promotionBG.classList.remove('bg-active');
-    });
+      handler.addEventListener('click', handlePromotionSelect);
+      piece.listener = handlePromotionSelect;
+    }
+    function removeEventListeners() {
+      for (let i = 0; i < pieces.length; i++) {
+        const { handler } = pieces[i];
+        handler.removeEventListener('click', pieces[i].listener);
+      }
+    }
   }
 
   enPassant() {}

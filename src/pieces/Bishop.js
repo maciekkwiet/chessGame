@@ -21,13 +21,14 @@ class Bishop extends Piece {
 
     for (let lu = 1; lu <= leftUp; lu++) {
       if (board[this.x - lu][this.y - lu]) {
-        // if(board[this.x - lu][this.y - lu].side !==this.side){
-        //   possibleMoves.push(`${this.x - lu},${this.y - lu}`);
-        //   break;
+        if (board[this.x - lu][this.y - lu].side !== this.side) {
+          possibleMoves.push(`${this.x - lu},${this.y - lu}`);
+          break;
+        }
+        break;
       }
-      break;
+      leftUp > 0 && possibleMoves.push(`${this.x - lu},${this.y - lu}`);
     }
-    leftUp > 0 && possibleMoves.push(`${this.x - lu},${this.y - lu}`);
 
     //  console.log(possibleMoves);
 
