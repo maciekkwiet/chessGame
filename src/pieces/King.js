@@ -21,28 +21,35 @@ class King extends Piece {
     return oponentMoves2;
   }
 
-  findLegalMoves(gameArea) {
+  findLegalMoves() {
+    const possibleMoves = [];
+    const attack = this.findAttackingMoves(gameArea);
+
+    attack.forEach(piece => {
+      if (gameArea[piece[0]][piece[2]]) {
+        if (gameArea[piece[0]][piece[2]].side === this.side) possibleMoves.push(`${piece[0]},${piece[2]}`);
+      }
+    });
+
+    console.log(possibleMoves);
+    let filteredMoves = attack.filter(move => !possibleMoves.includes(move));
+    let twiceFilteredMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
+
+    return twiceFilteredMoves;
+  }
+  findAttackingMoves(gameArea) {
     const moves = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, -1], [0, 1]];
-    const oponentKingExists = [[2, 2], [-2, 2], [-2, -2], [2, -2], [2, 0], [-2, 0], [0, -2], [0, 2]];
-    let opoX = 0;
-    let opoY = 0;
     let newX = 0;
     let newY = 0;
-    const possibleMoves = [];
-
+    const attackingMoves = [];
     for (const subTab of moves) {
       newX = this.x + subTab[0];
       newY = this.y + subTab[1];
-
-      if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) {
-        if (gameArea[newX][newY]) {
-          if (gameArea[newX][newY].side !== this.side) possibleMoves.push(`${newX},${newY}`);
-        } else possibleMoves.push(`${newX},${newY}`);
-      }
+      if (newX <= 7 && newX >= 0 && newY <= 7 && newY >= 0) attackingMoves.push(`${newX},${newY}`);
     }
-    let filteredMoves = possibleMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
 
-    return filteredMoves;
+    return attackingMoves;
   }
 }
+
 export default King;
