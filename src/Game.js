@@ -49,16 +49,15 @@ class Game {
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
-    if (this.isCheck) this.correctLegalMoves(this.gameArea);
     this.possibleMoves = [];
     this.changeTurn();
     this.check(this.gameArea);
+    if (this.isCheck) this.correctLegalMoves(this.gameArea);
   }
 
   check(gameArea) {
     this.isCheck = false;
     const oponentattack = this.oponentMoves(gameArea);
-    //console.log(oponentattack);
 
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
@@ -68,12 +67,14 @@ class Game {
               const tab = oponentattack[k];
               if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
                 this.isCheck = true;
+                //console.log('SZACH');
               }
             }
           }
         }
       }
     }
+
     return this.isCheck;
   }
 
@@ -102,7 +103,6 @@ class Game {
 
       if (gameArea[tab[0]][tab[2]]) {
         if (gameArea[tab[0]][tab[2]].name !== 'king') {
-          console.log(gameArea[tab[0]][tab[2]]);
           let replacement = this.gameArea[tab[0]][tab[2]];
           let piece = new Piece([tab[0]], [tab[2]], this.currentPlayer);
           this.gameArea[piece.x][piece.y] = piece;
@@ -114,8 +114,6 @@ class Game {
         }
       }
     }
-
-    console.log('SZACH!');
 
     console.log(possibleMovesCheck);
 
