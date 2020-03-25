@@ -1,6 +1,7 @@
 import Board from './Board';
 import { parseId } from './utils';
 import King, { oponentMoves2 } from './pieces/King';
+import Rook from './pieces/Rook';
 
 class Game {
   constructor() {
@@ -59,8 +60,6 @@ class Game {
     this.isCheck = false;
     const oponentattack = this.oponentMoves(gameArea);
     //console.log(oponentattack);
-    // const oponentattack2 = oponentMoves2;
-    // console.log(oponentattack2);
 
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
@@ -76,22 +75,32 @@ class Game {
         }
       }
     }
-    return this.checkflag;
+    return this.isCheck;
   }
 
   correctLegalMoves(gameArea) {
     const possibleMovesCheck = [];
     const param = this.oponentMoves(this.gameArea);
+    console.log(param.length);
 
     for (let i = 0; i < param.length; i++) {
       const tab = param[i];
 
-      //if(param[i])
+      if (!gameArea[tab[0]][tab[2]]) {
+        let rook = new Rook([tab[0]], [tab[2]], this.currentPlayer);
+        this.gameArea[rook.x][rook.y] = rook;
+        this.check(gameArea);
+        if (!this.isCheck) {
+          possibleMovesCheck.push(param[i]);
+        }
 
-      console.log(param[i]);
+        this.gameArea[tab[0]][tab[2]] = 0;
+      }
     }
 
     console.log('SZACH!');
+
+    console.log(possibleMovesCheck);
 
     return possibleMovesCheck;
   }
