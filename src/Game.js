@@ -1,8 +1,6 @@
 import Board from './Board';
 import { parseId } from './utils';
 import Piece from './pieces/Piece';
-import King, { findLegalMoves } from './pieces/King';
-//import King from './pieces/King';
 
 class Game {
   constructor() {
@@ -70,7 +68,6 @@ class Game {
     this.changeTurn();
     this.check(this.gameArea);
     if (this.isCheck) this.correctLegalMoves(this.gameArea);
-    //this.checkMate(gameArea);
   }
 
   check(gameArea) {
@@ -118,7 +115,6 @@ class Game {
   correctLegalMoves(gameArea) {
     this.possibleMovesCheck = [];
     const param = this.oponentMovesTwo(this.gameArea);
-    const paramTwo = this.oponentMovesTwo(this.gameArea);
 
     for (let i = 0; i < param.length; i++) {
       const tab = param[i];
@@ -135,8 +131,8 @@ class Game {
       }
     }
 
-    for (let i = 0; i < paramTwo.length; i++) {
-      const tab = paramTwo[i];
+    for (let i = 0; i < param.length; i++) {
+      const tab = param[i];
 
       if (gameArea[tab[0]][tab[2]]) {
         if (gameArea[tab[0]][tab[2]].name !== 'king') {
@@ -145,7 +141,7 @@ class Game {
           this.gameArea[piece.x][piece.y] = piece;
           this.check(gameArea);
           if (!this.isCheck) {
-            this.possibleMovesCheck.push(paramTwo[i]);
+            this.possibleMovesCheck.push(param[i]);
           }
           this.gameArea[tab[0]][tab[2]] = replacement;
         }
@@ -159,6 +155,7 @@ class Game {
   }
 
   oponentMoves(gameArea) {
+    // to powinna być funkcja zamiast findLegalMoves - findAttackingMoves dla szacha i zbicia w trakcie szachu
     let oponentMoves = [];
 
     for (let i = 0; i <= 7; i++) {
