@@ -42,10 +42,14 @@ class Game {
 
     if (this.selectedPiece.side === this.currentPlayer) {
       if (this.isCheck) {
-        for (let i = 0; i < this.selectedPiece.findLegalMoves(this.gameArea).length; i++) {
-          for (let j = 0; j < this.possibleMovesCheck.length; j++) {
-            if (this.selectedPiece.findLegalMoves(this.gameArea)[i] == this.possibleMovesCheck[j]) {
-              this.possibleMoves.push(this.selectedPiece.findLegalMoves(this.gameArea)[i]);
+        if (this.selectedPiece.name == 'king') {
+          this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+        } else {
+          for (let i = 0; i < this.selectedPiece.findLegalMoves(this.gameArea).length; i++) {
+            for (let j = 0; j < this.possibleMovesCheck.length; j++) {
+              if (this.selectedPiece.findLegalMoves(this.gameArea)[i] == this.possibleMovesCheck[j]) {
+                this.possibleMoves.push(this.selectedPiece.findLegalMoves(this.gameArea)[i]);
+              }
             }
           }
         }
