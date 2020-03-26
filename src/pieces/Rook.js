@@ -10,7 +10,7 @@ class Rook extends Piece {
   findLegalMoves(board) {
     const possibleMoves = [];
     const attackingMoves = this.findAttackingMoves(board);
-    console.log('Rook -> findLegalMoves -> attackingMoves', attackingMoves);
+    //console.log('Rook -> findLegalMoves -> attackingMoves', attackingMoves);
     for (let move of attackingMoves) {
       if (board[move.charAt(0)][move.charAt(2)] && board[move.charAt(0)][move.charAt(2)].side === this.side) continue;
       possibleMoves.push(move);

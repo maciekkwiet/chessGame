@@ -70,7 +70,7 @@ class Game {
     this.changeTurn();
     this.check(this.gameArea);
     if (this.isCheck) this.correctLegalMoves(this.gameArea);
-    //this.checkMate();
+    //this.checkMate(gameArea);
   }
 
   check(gameArea) {
@@ -96,14 +96,22 @@ class Game {
     return this.isCheck;
   }
 
-  checkMate() {
-    //console.log(King.findLegalMoves(this.gameArea));
-    // tab = King.twiceFilteredMoves;
-    // console.log(tab);
+  checkMate(gameArea) {
+    let tab = [];
 
-    if (this.isCheck && this.possibleMovesCheck.length == 0) {
+    for (let i = 0; i <= 7; i++) {
+      for (let j = 0; j <= 7; j++) {
+        if (gameArea[i][j]) {
+          if (gameArea[i][j].name == 'king' && this.currentPlayer == gameArea[i][j].side) {
+            tab = gameArea[i][j].findLegalMoves(gameArea).concat(tab);
+          }
+        }
+      }
+    }
+
+    if (this.isCheck && this.possibleMovesCheck.length == 0 && tab.length == 0) {
       console.log('SZACH MAT');
-      //alert('SZACH MAT');
+      alert('SZACH MAT');
     }
   }
 
@@ -144,7 +152,7 @@ class Game {
       }
     }
 
-    this.checkMate();
+    this.checkMate(gameArea);
     console.log(this.possibleMovesCheck);
 
     return this.possibleMovesCheck;
@@ -156,11 +164,7 @@ class Game {
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
-          if (
-            gameArea[i][j].side !== this.currentPlayer &&
-            gameArea[i][j].name !== 'king' &&
-            gameArea[i][j].name !== 'pawn'
-          ) {
+          if (gameArea[i][j].side !== this.currentPlayer && gameArea[i][j].name !== 'king') {
             oponentMoves = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMoves);
           }
         }
@@ -175,11 +179,7 @@ class Game {
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
-          if (
-            gameArea[i][j].side == this.currentPlayer &&
-            gameArea[i][j].name !== 'king' &&
-            gameArea[i][j].name !== 'pawn'
-          ) {
+          if (gameArea[i][j].side == this.currentPlayer && gameArea[i][j].name !== 'king') {
             oponentMovesTwo = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMovesTwo);
           }
         }

@@ -8,7 +8,6 @@ class Queen extends Piece {
     this.display = `<i class="fas fa-chess-queen ${side}"></i>`; //fontawesome queen
   }
   findLegalMoves(board) {
-
     const attack = [];
     const param = this.findAttackingMoves(board);
 
@@ -18,11 +17,9 @@ class Queen extends Piece {
       if (board[tab[0]][tab[2]]) {
         if (board[tab[0]][tab[2]].side == this.side) {
           attack.push(param[i]);
-
         }
       }
     }
-
 
     const filteredMoves = param.filter(move => !attack.includes(move));
 
@@ -34,7 +31,7 @@ class Queen extends Piece {
 
     let leftUp = this.x <= this.y ? this.x : this.y;
     let leftDown = 7 - this.y <= this.x ? 7 - this.y : this.x;
-    let rightUp = this.y <= 7 - this.y - this.x ? this.y : 7 - this.x;
+    let rightUp = this.y <= 7 - this.x ? this.y : 7 - this.x;
     let rightDown = 7 - this.y <= 7 - this.x ? 7 - this.y : 7 - this.x;
 
     for (let lu = 1; lu <= leftUp; lu++) {
@@ -44,7 +41,6 @@ class Queen extends Piece {
       }
       leftUp > 0 && attackingMoves.push(`${this.x - lu},${this.y - lu}`);
     }
-
 
     for (let ld = 1; ld <= leftDown; ld++) {
       if (board[this.x - ld][this.y + ld]) {
@@ -61,7 +57,6 @@ class Queen extends Piece {
       rightDown > 0 && attackingMoves.push(`${this.x + rd},${this.y + rd}`);
     }
 
-
     for (let ru = 1; ru <= rightUp; ru++) {
       if (board[this.x + ru][this.y - ru]) {
         attackingMoves.push(`${this.x + ru},${this.y - ru}`);
@@ -73,8 +68,8 @@ class Queen extends Piece {
     for (let u = 1; u <= 7; u++) {
       if (this.y - u < 0) break;
       if (board[this.x][this.y - u]) {
-      attackingMoves.push(`${this.x},${this.y - u}`);
-      break;
+        attackingMoves.push(`${this.x},${this.y - u}`);
+        break;
       }
       attackinMoves.push(`${this.x},${this.y - u}`);
     }
