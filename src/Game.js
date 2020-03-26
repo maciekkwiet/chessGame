@@ -1,6 +1,7 @@
 import Board from './Board';
 import { parseId } from './utils';
 import Piece from './pieces/Piece';
+import King from './pieces/King';
 
 class Game {
   constructor() {
@@ -11,6 +12,7 @@ class Game {
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
     this.possibleMoves = [];
+    this.possibleMovesCheck = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
   }
@@ -63,6 +65,7 @@ class Game {
     this.changeTurn();
     this.check(this.gameArea);
     if (this.isCheck) this.correctLegalMoves(this.gameArea);
+    //this.checkMate();
   }
 
   check(gameArea) {
@@ -88,8 +91,15 @@ class Game {
     return this.isCheck;
   }
 
+  checkMate() {
+    //console.log(King.findLegalMoves());
+    if (this.isCheck && this.possibleMovesCheck.length == 0) {
+      console.log('SZACH MAT');
+    }
+  }
+
   correctLegalMoves(gameArea) {
-    const possibleMovesCheck = [];
+    this.possibleMovesCheck = [];
     const param = this.oponentMovesTwo(this.gameArea);
     const paramTwo = this.oponentMovesTwo(this.gameArea);
 
@@ -101,7 +111,7 @@ class Game {
         this.gameArea[piece.x][piece.y] = piece;
         this.check(gameArea);
         if (!this.isCheck) {
-          possibleMovesCheck.push(param[i]);
+          this.possibleMovesCheck.push(param[i]);
         }
 
         this.gameArea[tab[0]][tab[2]] = '';
@@ -118,16 +128,20 @@ class Game {
           this.gameArea[piece.x][piece.y] = piece;
           this.check(gameArea);
           if (!this.isCheck) {
-            possibleMovesCheck.push(paramTwo[i]);
+            this.possibleMovesCheck.push(paramTwo[i]);
           }
           this.gameArea[tab[0]][tab[2]] = replacement;
         }
       }
     }
 
-    console.log(possibleMovesCheck);
+    //console.log(possibleMovesCheck);
 
-    return possibleMovesCheck;
+    //console.log(this.possibleMovesCheck.length);
+
+    this.checkMate();
+
+    return this.possibleMovesCheck;
   }
 
   oponentMoves(gameArea) {
