@@ -6,7 +6,7 @@ class Pawn extends Piece {
     this.name = 'pawn';
     this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
   }
-  findAttackingMoves(board) {
+  findAttackingMoves() {
     const attackingMoves = [];
 
     if (this.side == 'white') {
@@ -35,17 +35,17 @@ class Pawn extends Piece {
 
   findLegalMoves(board)
 {
-  let attack=this.findAttackingMoves(board);
+  
   const legalMoves=[];
 
 
   if (this.side == 'white') {
-    if (!board[this.x][this.y - 1]) {//ruch na przód
+    if (!board[this.x][this.y - 1]) {
       legalMoves.push(`${this.x},${this.y - 1}`);
     }
-    console.log(board)
+   
 
-    if (this.y == 6 && !board[this.x][this.y - 1]  && !board[this.x][this.y - 2]) { /*ruch o dwa do przodu z pozycji  y=6*/
+    if (this.y == 6 && !board[this.x][this.y - 1]  && !board[this.x][this.y - 2]) { 
       legalMoves.push(`${this.x},${this.y - 2}`);
     }
 
