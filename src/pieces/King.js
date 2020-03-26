@@ -21,7 +21,7 @@ class King extends Piece {
     return oponentMoves2;
   }
 
-  findLegalMoves() {
+  findLegalMoves(gameArea) {
     const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
 
