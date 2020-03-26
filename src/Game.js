@@ -1,8 +1,8 @@
 import Board from './Board';
 import { parseId } from './utils';
 import Piece from './pieces/Piece';
-//import King, { twiceFilteredMoves } from './pieces/King';
-import King from './pieces/King';
+import King, { findLegalMoves } from './pieces/King';
+//import King from './pieces/King';
 
 class Game {
   constructor() {
@@ -20,12 +20,7 @@ class Game {
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-    //const tab = [];
-    //tab = this.possibleMoves && this.possibleMovesCheck;
-    //console.log(this.possibleMoves);
-    //console.log(this.possibleMovesCheck);
     if (this.possibleMoves.length !== 0) {
-      //if (tab.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
@@ -46,12 +41,17 @@ class Game {
     this.selectedPiece = this.gameArea[x][y];
 
     if (this.selectedPiece.side === this.currentPlayer) {
-      // if (this.isCheck) {
-      //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea) && this.possibleMovesCheck;
-      // } else if (!this.isCheck) {
-      //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-      // }
-      this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+      if (this.isCheck) {
+        for (let i = 0; i < this.selectedPiece.findLegalMoves(this.gameArea).length; i++) {
+          for (let j = 0; j < this.possibleMovesCheck.length; j++) {
+            if (this.selectedPiece.findLegalMoves(this.gameArea)[i] == this.possibleMovesCheck[j]) {
+              this.possibleMoves.push(this.selectedPiece.findLegalMoves(this.gameArea)[i]);
+            }
+          }
+        }
+      } else if (!this.isCheck) {
+        this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+      }
       this.board.highlightPossibleMoves(this.possibleMoves);
     }
   }
@@ -96,8 +96,10 @@ class Game {
     //console.log(King.findLegalMoves(this.gameArea));
     // tab = King.twiceFilteredMoves;
     // console.log(tab);
+
     if (this.isCheck && this.possibleMovesCheck.length == 0) {
       console.log('SZACH MAT');
+      //alert('SZACH MAT');
     }
   }
 
@@ -138,11 +140,8 @@ class Game {
       }
     }
 
-    //console.log(possibleMovesCheck);
-
-    //console.log(this.possibleMovesCheck.length);
-
     this.checkMate();
+    console.log(this.possibleMovesCheck);
 
     return this.possibleMovesCheck;
   }
