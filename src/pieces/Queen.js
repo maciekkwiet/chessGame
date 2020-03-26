@@ -1,5 +1,5 @@
 // Learn more or give us feedback
-import Piece from './piece';
+import Piece from './Piece';
 
 class Queen extends Piece {
   constructor(x, y, side) {

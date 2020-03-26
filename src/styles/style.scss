@@ -1,0 +1,168 @@
+@font-face {
+  font-family: 'Neon Tubes 2';
+  src: url('../font/NeonTubes2.otf') format('opentype');
+}
+$screen-sm-min: 576px;
+$light: #bfe3ed;
+$dark: #171844;
+$black: #5228c9;
+$white: #ffffff;
+$orange: #00ff0a;
+$yellow: #ffe600;
+$moves: #00ffaf;
+$board-size: 70vh;
+$gradient-size: 80vh;
+
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  background-image: linear-gradient(
+      180deg,
+      #0e0b21 0%,
+      rgba(54, 34, 176, 0.15) 71.88%,
+      rgba(57, 37, 175, 0.125) 84.9%,
+      rgba(255, 255, 255, 0) 100%,
+      #00ffff 100%
+    ),
+    url('../img/background.jpg');
+
+  background-size: auto;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+}
+
+#startScreen {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: $dark;
+  justify-content: center;
+  align-items: center;
+  opacity: 0.95;
+  display: flex;
+  mix-blend-mode: normal;
+  z-index: 2;
+  font-family: 'Neon Tubes 2';
+
+  #startTextBorder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px ;
+  
+    outline: solid 3px #f5b7ff;
+    #startText {
+      background: linear-gradient(
+        180deg,
+        rgba(173, 0, 255, 0.14) 0%,
+        rgba(23, 24, 68, 0.26) 36.98%,
+        rgba(24, 24, 70, 0.44) 69.27%,
+        rgba(173, 0, 255, 0.12) 100%
+      );
+      #play:hover {
+        cursor: pointer;
+      }
+      display: inline-block;
+      margin: auto;
+      // height: 100vh;
+      box-shadow: 5px 3px 4px #f5b7ff;
+      filter: blur(1px);
+
+      h1,
+      h2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 80px;
+        line-height: 120px;
+        color: $orange;
+        text-shadow: 0px 4px 20px #24ff00;
+        text-shadow: 5px 3px 4px #f5b7ff;
+        text-decoration-line: underline;
+      }
+      h2 {
+        font-size: 50px;
+        line-height: 72px;
+        color: $yellow;
+        text-shadow: 0px 0px 10px #dbff00;
+        text-shadow: 5px 3px 4px #f5b7ff;
+      }
+    }
+  }
+}
+#game-title {
+  font-family: 'Neon Tubes 2';
+  font-style: normal;
+  font-weight: normal;
+  font-size: 55px;
+  line-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 3vh;
+  color: #00f0ff;
+  text-shadow: 0px 4px 30px #00f0ff, 0px 4px 25px #00f0ff, 0px 4px 10px rgba(0, 194, 255, 0.25);
+}
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 98vh;
+}
+
+#board {
+  $size: $board-size;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0px 4px 50px #00a3ff;
+  opacity: 0.95;
+  width: $size;
+  height: $size;
+  opacity: 0.95;
+  outline: 10px solid rgba(0, 222, 255, 0.6);
+}
+
+.square {
+  /* border: 1px darkslategrey solid; */
+  $size: $board-size/8;
+  width: $size;
+  height: $size;
+  text-align: center;
+  line-height: $size;
+  font-size: 6.5vh;
+}
+.light {
+  background: #6bc4db;
+}
+.dark {
+  background: $dark;
+}
+.black {
+  color: #0f6bb9;
+}
+.white {
+  color: #ffff;
+}
+.possibleMove {
+  background: $moves;
+}
