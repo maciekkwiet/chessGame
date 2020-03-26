@@ -6,4 +6,14 @@ export const create2DArray = () => {
   return board;
 };
 
+export const copy2DArray = arr => {
+  const arrCopy = [];
+  for (let i = 0; i < arr.length; i++) {
+    arrCopy[i] = [...arr[i]];
+  }
+  return arrCopy;
+};
+
+copy2DArray([[1, 2], [3, 4]]);
+
 export const parseId = id => [Number(id[0]), Number(id[2])];

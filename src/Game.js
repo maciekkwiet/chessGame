@@ -2,7 +2,7 @@ import Board from './Board';
 import { parseId } from './utils';
 import Piece from './pieces/Piece';
 //import King, { twiceFilteredMoves } from './pieces/King';
-import King from './pieces/King';
+// import King from './pieces/King';
 
 class Game {
   constructor() {
@@ -40,6 +40,7 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
+    // console.log(x, y);
     if (!this.gameArea[x][y]) {
       return;
     }
@@ -52,6 +53,12 @@ class Game {
       //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
       // }
       this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+
+      this.possibleMoves = this.possibleMoves.filter(move => {
+        const suspectedGameState = this.board.testMovePiece(this.selectedPiece, parseId(move));
+        return !this.check(suspectedGameState);
+      });
+
       this.board.highlightPossibleMoves(this.possibleMoves);
     }
   }
@@ -64,13 +71,16 @@ class Game {
     this.selectedPiece = null;
     this.possibleMoves = [];
     this.changeTurn();
-    this.check(this.gameArea);
-    if (this.isCheck) this.correctLegalMoves(this.gameArea);
+    this.isCheck = false;
+    if (this.check(this.gameArea)) {
+      this.isCheck = true;
+      this.correctLegalMoves(this.gameArea);
+    }
     //this.checkMate();
   }
 
   check(gameArea) {
-    this.isCheck = false;
+    let isCheck = false;
     const oponentattack = this.oponentMoves(gameArea);
 
     for (let i = 0; i <= 7; i++) {
@@ -80,8 +90,8 @@ class Game {
             for (let k = 0; k < oponentattack.length; k++) {
               const tab = oponentattack[k];
               if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
-                this.isCheck = true;
-                //console.log('SZACH');
+                isCheck = true;
+                console.log('SZACH');
               }
             }
           }
@@ -89,7 +99,7 @@ class Game {
       }
     }
 
-    return this.isCheck;
+    return isCheck;
   }
 
   checkMate() {
