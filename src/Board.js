@@ -7,6 +7,7 @@ import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
 import { create2DArray } from './utils';
+import {handleOverlay} from './utils';
 
 
 class Board {
@@ -105,5 +106,6 @@ class Board {
     this.gameArea[toX][toY] = pieceToMove;
   }
 }
+  handleOverlay();
 
 export default Board;

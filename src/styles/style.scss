@@ -65,7 +65,9 @@ body {
         rgba(24, 24, 70, 0.44) 69.27%,
         rgba(173, 0, 255, 0.12) 100%
       );
-
+      #play:hover {
+        cursor: pointer;
+      }
       display: inline-block;
       margin: auto;
       // height: 100vh;
