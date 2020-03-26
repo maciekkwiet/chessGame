@@ -31,7 +31,7 @@ class King extends Piece {
       }
     });
 
-    console.log(possibleMoves);
+    //console.log(possibleMoves);
     let filteredMoves = attack.filter(move => !possibleMoves.includes(move));
     let twiceFilteredMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
 

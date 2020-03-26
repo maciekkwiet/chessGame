@@ -71,7 +71,7 @@ class Queen extends Piece {
         attackingMoves.push(`${this.x},${this.y - u}`);
         break;
       }
-      attackinMoves.push(`${this.x},${this.y - u}`);
+      attackingMoves.push(`${this.x},${this.y - u}`);
     }
 
     for (let d = 1; d <= 7; d++) {

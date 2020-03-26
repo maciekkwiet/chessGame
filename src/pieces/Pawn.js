@@ -27,7 +27,7 @@ class Pawn extends Piece {
         attackingMoves.push(`${this.x + 1},${this.y + 1}`);
       }
     }
-    console.log('attack ' + attackingMoves);
+    //console.log('attack ' + attackingMoves);
     return attackingMoves;
   }
 
