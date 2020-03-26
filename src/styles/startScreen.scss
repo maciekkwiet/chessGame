@@ -1,0 +1,58 @@
+#startScreen {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: $dark;
+  opacity: 0.95;
+  mix-blend-mode: normal;
+  z-index: 2;
+  font-family: 'Neon Tubes 2';
+  #startTextBorder {
+    #startText {
+      background: linear-gradient(
+        180deg,
+        rgba(173, 0, 255, 0.14) 0%,
+        rgba(23, 24, 68, 0.26) 36.98%,
+        rgba(24, 24, 70, 0.44) 69.27%,
+        rgba(173, 0, 255, 0.12) 100%
+      );
+      #play:hover {
+        cursor: pointer;
+      }
+      display: inline-block;
+      margin: auto;
+      // height: 100vh;
+      box-shadow: 5px 3px 4px #f5b7ff;
+      filter: blur(1px);
+
+      h1,
+      h2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 0;
+        margin: 0;
+      }
+
+      h1 {
+        font-size: 100px;
+        line-height: 120px;
+        color: $orange;
+        text-shadow: 0px 4px 20px #24ff00;
+        text-shadow: 5px 3px 4px #f5b7ff;
+        text-decoration-line: underline;
+      }
+      h2 {
+        font-size: 60px;
+        line-height: 72px;
+        color: $yellow;
+        text-shadow: 0px 0px 10px #dbff00;
+        text-shadow: 5px 3px 4px #f5b7ff;
+      }
+    }
+  }
+}

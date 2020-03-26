@@ -1,0 +1,37 @@
+
+#board {
+  $size: $board-size;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: 0px 4px 50px #00a3ff;
+  opacity: 0.95;
+  width: $size;
+  height: $size;
+  opacity: 0.95;
+  outline: 10px solid rgba(0, 222, 255, 0.6);
+}
+
+.square {
+  /* border: 1px darkslategrey solid; */
+  $size: $board-size/8;
+  width: $size;
+  height: $size;
+  text-align: center;
+  line-height: $size;
+  font-size: 6.5vh;
+}
+.light {
+  background: #6bc4db;
+}
+.dark {
+  background: $dark;
+}
+.black {
+  color: $black;
+}
+.white {
+  color: $white;
+}
+.possibleMove {
+  background: $moves;
+}
