@@ -12,8 +12,8 @@ class King extends Piece {
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
-          if (gameArea[i][j].side !== this.side && gameArea[i][j].name !== 'king' && gameArea[i][j].name !== 'pawn') {
-            oponentMoves2 = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMoves2);
+          if (gameArea[i][j].side !== this.side) {
+            oponentMoves2 = gameArea[i][j].findAttackingMoves(gameArea).concat(oponentMoves2);
           }
         }
       }
@@ -53,6 +53,4 @@ class King extends Piece {
   }
 }
 
-//export { King as default, {twiceFilteredMoves} };
 export default King;
-//export default twiceFilteredMoves;
