@@ -1,6 +1,7 @@
 import Board from './Board';
 import { parseId } from './utils';
 import Piece from './pieces/Piece';
+//import King, { twiceFilteredMoves } from './pieces/King';
 import King from './pieces/King';
 
 class Game {
@@ -92,7 +93,9 @@ class Game {
   }
 
   checkMate() {
-    //console.log(King.findLegalMoves());
+    //console.log(King.findLegalMoves(this.gameArea));
+    // tab = King.twiceFilteredMoves;
+    // console.log(tab);
     if (this.isCheck && this.possibleMovesCheck.length == 0) {
       console.log('SZACH MAT');
     }

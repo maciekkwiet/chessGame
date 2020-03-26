@@ -37,6 +37,7 @@ class King extends Piece {
 
     return twiceFilteredMoves;
   }
+
   findAttackingMoves(gameArea) {
     const moves = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, -1], [0, 1]];
     let newX = 0;
@@ -52,4 +53,6 @@ class King extends Piece {
   }
 }
 
+//export { King as default, {twiceFilteredMoves} };
 export default King;
+//export default twiceFilteredMoves;
