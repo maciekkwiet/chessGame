@@ -3,6 +3,7 @@ class Piece {
     this.x = x;
     this.y = y;
     this.side = side; //'black' or 'white'
+    this.hasMoved = false;
   }
   move(to) {
     const newX = Number(to[0]);
@@ -17,6 +18,7 @@ class Piece {
     this.y = newY;
     document.getElementById(to).innerHTML = this.display;
     console.log(document.getElementById(`${this.x},${this.y}`));
+    this.hasMoved = true;
   }
 
   findLegalMoves() {}
