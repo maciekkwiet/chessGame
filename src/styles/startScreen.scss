@@ -25,7 +25,9 @@
       display: inline-block;
       margin: auto;
       // height: 100vh;
-      box-shadow: 5px 3px 4px #f5b7ff;
+      box-shadow: 0px 0px 25px #ad00ff;
+      outline: 3px solid #ad00ff;
+      padding: 20px;
       filter: blur(1px);
 
       h1,
@@ -39,20 +41,25 @@
       }
 
       h1 {
-        font-size: 100px;
-        line-height: 120px;
+        font-size: 80px;
+        line-height: 100px;
         color: $orange;
-        text-shadow: 0px 4px 20px #24ff00;
-        text-shadow: 5px 3px 4px #f5b7ff;
+        text-shadow: 0px 4px 10px #24ff00;
+        text-shadow: 3px 3px 2px #f5b7ff;
         text-decoration-line: underline;
       }
       h2 {
-        font-size: 60px;
+        font-size: 50px;
         line-height: 72px;
         color: $yellow;
         text-shadow: 0px 0px 10px #dbff00;
-        text-shadow: 5px 3px 4px #f5b7ff;
+        text-shadow: 2px 2px 2px #f5b7ff;
       }
     }
   }
+}
+#startScreen :active {
+animation-play-state: paused;
+opacity: 0;
+transition: opacity 0.3s linear;
 }
