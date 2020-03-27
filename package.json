@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack-dev-server --open --watch",
     "build": "webpack --mode production",
-    "test": "jest --watch"
+    "test": "jest --watch-all"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,7 @@
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
+    "@types/jest": "^25.1.4",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.2",
     "eslint": "^6.1.0",

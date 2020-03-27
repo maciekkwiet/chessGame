@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import Game from '../Game.js';
 import King from '../pieces/King.js';
 import Rook from '../pieces/Rook.js';
@@ -22,7 +20,7 @@ describe('Check logic behaves according to rules', () => {
     gameArea[7][7] = new Rook(7, 7, 'white');
     game.handleSelect({ id: '7,7' });
     game.handleMove({ id: '0,7' });
-    // expect(game.isChecked).toBe(true);
+    expect(game.isCheck).toBe(true);
   });
   test('King cannot move into check', () => {
     const { gameArea } = game;
@@ -30,6 +28,8 @@ describe('Check logic behaves according to rules', () => {
     gameArea[0][6] = new Rook(0, 6, 'white');
     game.handleSelect({ id: '0,0' });
     game.handleMove({ id: '0,1' });
-    // expect(game.isChecked).toBe(true);
+    expect(game.isCheck).toBe(false);
+    expect(gameArea[0][0]).toBeInstanceOf(King);
   });
+  // test('');
 });
