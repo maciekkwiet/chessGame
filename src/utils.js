@@ -8,7 +8,10 @@ export const create2DArray = () => {
 
 export const parseId = id => [Number(id[0]), Number(id[2])];
 
-export const handleOverlay = () =>
+export const handleOverlay = function() {
   document.getElementById('play').addEventListener('click', function() {
-    document.getElementById('startScreen').style.display = 'none';
+    document.getElementById('startScreen').style.animationPlayState = 'paused';
+    document.getElementById('startScreen').style.opacity = '0';
+    document.getElementById('startScreen').style.transition = 'opacity 0.3s linear';
   });
+};
