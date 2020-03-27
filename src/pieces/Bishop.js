@@ -42,6 +42,7 @@ class Bishop extends Piece {
       if (board[this.x + ru][this.y - ru]) {
         attackingMoves.push(`${this.x + ru},${this.y - ru}`);
         break;
+
       }
       rightUp > 0 && attackingMoves.push(`${this.x + ru},${this.y - ru}`);
     }
@@ -62,6 +63,7 @@ class Bishop extends Piece {
         }
       }
     }
+
     const filteredMoves = param.filter(move => !attack.includes(move));
 
     return filteredMoves;

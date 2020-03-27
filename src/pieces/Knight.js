@@ -27,7 +27,7 @@ class Knight extends Piece {
 
   findLegalMoves(gameArea) {
     let attack = this.findAttackingMoves(gameArea);
-    console.log(attack);
+    //console.log(attack);
     let legal = [];
 
     for (const move of attack) {
