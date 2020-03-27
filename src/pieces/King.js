@@ -21,7 +21,7 @@ class King extends Piece {
     return oponentMoves2;
   }
 
-  findLegalMoves() {
+  findLegalMoves(gameArea) {
     const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
 
@@ -31,13 +31,12 @@ class King extends Piece {
       }
     });
 
-    console.log(possibleMoves);
     let filteredMoves = attack.filter(move => !possibleMoves.includes(move));
     let twiceFilteredMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
 
     return twiceFilteredMoves;
   }
-  findAttackingMoves(gameArea) {
+  findAttackingMoves() {
     const moves = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, -1], [0, 1]];
     let newX = 0;
     let newY = 0;

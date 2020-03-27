@@ -3,7 +3,7 @@ import { parseId } from './utils';
 
 class Game {
   constructor() {
-    this.currentPlayer= "white";
+    this.currentPlayer = 'white';
     this.round = 0;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
@@ -11,18 +11,16 @@ class Game {
     this.possibleMoves = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    
   }
 
-
   onClick(e) {
-    
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
     if (this.possibleMoves.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
     }
+    console.log(this.selectedPiece);
   }
 
   changeTurn() {
@@ -38,21 +36,27 @@ class Game {
     }
     this.selectedPiece = this.gameArea[x][y];
 
-
     if (this.selectedPiece.side === this.currentPlayer) {
-    this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-    this.board.highlightPossibleMoves(this.possibleMoves);
+      this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+      this.board.highlightPossibleMoves(this.possibleMoves);
     }
-
   }
 
   handleMove(element) {
     const { id } = element;
     if (!this.possibleMoves.includes(id)) return;
     this.board.movePiece(this.selectedPiece, parseId(id));
+    if (this.selectedPiece.name === 'pawn') {
+      if (
+        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
+        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
+      )
+        this.selectedPiece.promote(this.gameArea);
+    }
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.possibleMoves = [];
+
     this.changeTurn();
   }
 }
