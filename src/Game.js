@@ -15,29 +15,25 @@ class Game {
     this.possibleMoves = [];
     this.possibleMovesCheck = [];
     this.selectedPiece = null;
-    this.counter=0;
+    this.counter = 0;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-                }
-
-
-  onClick(e) {
-    
-    const element = e.target.classList.contains('square') ? e.target : e.target.parentElement; 
-    const { id } = element; 
-    console.log("this.possibleMoves.length = "+this.possibleMoves.length);
-    console.log(" length possibleMoves = " + this.possibleMoves.length);
-    if (this.possibleMoves.length !== 0)  /*PossibleMoves==true*/
-    {           
-      console.log("!this.possibleMoves.includes(id)= "+ !this.possibleMoves.includes(id) );
-
-        if (!this.possibleMoves.includes(id)) this.board.removeHighlight()   
-          else this.handleMove(element);
-    } 
-    else {    
-      this.handleSelect(element);
-    }   
   }
 
+  onClick(e) {
+    const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
+    const { id } = element;
+    if (this.possibleMoves.length !== 0) {
+      if (this.possibleMoves.includes(id)) this.handleMove(element);
+      else this.removeSelection();
+    } else {
+      this.handleSelect(element);
+    }
+  }
+  removeSelection() {
+    this.board.removeHighlight();
+    this.selectedPiece = null;
+    this.possibleMoves = [];
+  }
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
