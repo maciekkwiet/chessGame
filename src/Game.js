@@ -5,14 +5,11 @@ class Game {
   constructor() {
     this.currentPlayer = 'white';
     this.round = 0;
-    this.isCheck = false;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
-    this.gameAreaHandler = this.board.gameAreaHandler;
     this.legalMoves = [];
-    this.possibleMovesCheck = [];
     this.selectedPiece = null;
-    this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
   }
 
   onClick(e) {
