@@ -14,4 +14,12 @@ export const copy2DArray = arr => {
   return arrCopy;
 };
 
+export const iterateOver2DArray = (callback, arr) => {
+  for (let x = 0; x < arr.length; x++) {
+    for (let y = 0; y < arr[0].length; y++) {
+      callback(arr[x][y], x, y);
+    }
+  }
+};
+
 export const parseId = id => [Number(id[0]), Number(id[2])];
