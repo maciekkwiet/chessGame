@@ -39,13 +39,22 @@ class Game {
     if (this.selectedPiece.side === this.currentPlayer) {
       this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
       this.board.highlightPossibleMoves(this.possibleMoves);
+      if (this.selectedPiece.name === 'king' && !this.checkK()) {
+        this.possibleMoves = this.selectedPiece.castling(this.gameArea, {});
+        this.board.highlightPossibleMoves(this.possibleMoves);
+      }
     }
   }
 
   handleMove(element) {
     const { id } = element;
+
     if (!this.possibleMoves.includes(id)) return;
-    this.board.movePiece(this.selectedPiece, parseId(id));
+    if (this.selectedPiece.name === 'king') {
+      console.log('wywolanie castling');
+      this.selectedPiece.castling(this.gameArea, parseId(id));
+    } else this.board.movePiece(this.selectedPiece, parseId(id));
+
     if (this.selectedPiece.name === 'pawn') {
       if (
         (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
@@ -56,8 +65,12 @@ class Game {
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.possibleMoves = [];
+    this.timer();
 
     this.changeTurn();
+  }
+  checkK() {
+    return false;
   }
 }
 
