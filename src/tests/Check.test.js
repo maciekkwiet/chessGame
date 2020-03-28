@@ -20,7 +20,7 @@ describe('Check logic behaves according to rules', () => {
     gameArea[7][7] = new Rook(7, 7, 'white');
     game.handleSelect({ id: '7,7' });
     game.handleMove({ id: '0,7' });
-    expect(game.isCheck).toBe(true);
+    expect(game.isChecked()).toBe(true);
   });
   test('King cannot move into check', () => {
     const { gameArea } = game;
@@ -28,8 +28,17 @@ describe('Check logic behaves according to rules', () => {
     gameArea[0][6] = new Rook(0, 6, 'white');
     game.handleSelect({ id: '0,0' });
     game.handleMove({ id: '0,1' });
-    expect(game.isCheck).toBe(false);
     expect(gameArea[0][0]).toBeInstanceOf(King);
+    expect(game.isChecked()).toBe(false);
   });
-  // test('');
+  test('Piece cannot move causing king to be checked', () => {
+    const { gameArea } = game;
+    gameArea[0][0] = new King(0, 0, 'black');
+    gameArea[0][1] = new Rook(0, 1, 'black');
+    gameArea[0][7] = new Rook(0, 7, 'white');
+    game.handleSelect({ id: '0,1' });
+    game.handleMove({ id: '1,1' });
+    expect(gameArea[0][1]).toBeInstanceOf(Rook);
+    expect(game.isChecked()).toBe(false);
+  });
 });
