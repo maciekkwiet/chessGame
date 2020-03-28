@@ -31,7 +31,7 @@ class Queen extends Piece {
 
     let leftUp = this.x <= this.y ? this.x : this.y;
     let leftDown = 7 - this.y <= this.x ? 7 - this.y : this.x;
-    let rightUp = this.y <= 7 - this.y - this.x ? this.y : 7 - this.x;
+    let rightUp = this.y <= 7 - this.x ? this.y : 7 - this.x;
     let rightDown = 7 - this.y <= 7 - this.x ? 7 - this.y : 7 - this.x;
 
     for (let lu = 1; lu <= leftUp; lu++) {
@@ -45,6 +45,7 @@ class Queen extends Piece {
     for (let ld = 1; ld <= leftDown; ld++) {
       if (board[this.x - ld][this.y + ld]) {
         attackingMoves.push(`${this.x - ld},${this.y + ld}`);
+        break;
       }
       leftDown > 0 && attackingMoves.push(`${this.x - ld},${this.y + ld}`);
     }
