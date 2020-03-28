@@ -39,6 +39,7 @@ class Game {
 
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
+      console.log(suspectedGameState);
       return !this.isChecked(suspectedGameState);
     });
     this.board.highlightPossibleMoves(this.legalMoves);
@@ -48,6 +49,13 @@ class Game {
     const { id } = element;
     if (!this.legalMoves.includes(id)) return;
     this.board.movePiece(this.selectedPiece, parseId(id));
+    if (this.selectedPiece.name === 'pawn') {
+      if (
+        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
+        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
+      )
+        this.selectedPiece.promote(this.gameArea);
+    }
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
@@ -61,6 +69,7 @@ class Game {
   isChecked(gameArea = this.gameArea) {
     const king = this.getKingPosition(gameArea);
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'black' : 'white', gameArea);
+    console.log(opponentMoves.filter(move => move[0] == king.x && move[2] == king.y));
     return opponentMoves.some(move => move[0] == king.x && move[2] == king.y) ? true : false;
   }
 
@@ -90,7 +99,7 @@ class Game {
   }
 
   getPlayerMoves(player, gameArea = this.gameArea) {
-    const pieces = this.getPlayerPieces(player);
+    const pieces = this.getPlayerPieces(player, gameArea);
     return pieces.map(piece => piece.findLegalMoves(gameArea)).flat();
   }
 }
