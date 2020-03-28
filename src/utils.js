@@ -15,3 +15,14 @@ export const handleOverlay = () =>
     document.getElementById('startScreen').style.transition = 'opacity 0.3s linear';
   });
 ;
+export const handleOverlay = () =>
+  document.getElementById('play').addEventListener('click', function() {
+    document.getElementById('startScreen').style.animationPlayState = 'paused';
+    document.getElementById('startScreen').style.opacity = '0';
+    document.getElementById('startScreen').style.transition = 'opacity 0.3s linear';
+    const isFinished = document.getElementById('startScreen').style.transition;
+    console.log(isFinished);
+    if (isFinished === 'opacity 0.3s linear 0s') {
+      document.getElementById('startScreen').style.display = 'none';
+    }
+  });
