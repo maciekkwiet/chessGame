@@ -38,7 +38,7 @@ class King extends Piece {
     return twiceFilteredMoves;
   }
 
-  findAttackingMoves(gameArea) {
+  findAttackingMoves() {
     const moves = [[1, 1], [-1, 1], [-1, -1], [1, -1], [1, 0], [-1, 0], [0, -1], [0, 1]];
     let newX = 0;
     let newY = 0;
