@@ -99,7 +99,7 @@ class Board {
   }
   testMovePiece(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
-
+    console.log(pieceToMove);
     const [toX, toY] = to;
     copyOfGameArea[pieceToMove.x][pieceToMove.y] = null;
     copyOfGameArea[toX][toY] = pieceToMove;

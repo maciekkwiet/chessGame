@@ -45,6 +45,7 @@ class Queen extends Piece {
     for (let ld = 1; ld <= leftDown; ld++) {
       if (board[this.x - ld][this.y + ld]) {
         attackingMoves.push(`${this.x - ld},${this.y + ld}`);
+        break;
       }
       leftDown > 0 && attackingMoves.push(`${this.x - ld},${this.y + ld}`);
     }

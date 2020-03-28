@@ -14,6 +14,4 @@ export const copy2DArray = arr => {
   return arrCopy;
 };
 
-copy2DArray([[1, 2], [3, 4]]);
-
 export const parseId = id => [Number(id[0]), Number(id[2])];

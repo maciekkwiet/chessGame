@@ -10,7 +10,7 @@ class Game {
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
-    this.possibleMoves = [];
+    this.legalMoves = [];
     this.possibleMovesCheck = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
@@ -18,7 +18,7 @@ class Game {
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-    if (this.possibleMoves.length !== 0) {
+    if (this.legalMoves.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
@@ -33,76 +33,105 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-    console.log();
-    // console.log(x, y);
-    if (!this.gameArea[x][y]) {
-      return;
-    }
+    if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
+
     this.selectedPiece = this.gameArea[x][y];
-    if (this.selectedPiece.side !== this.currentPlayer) return;
-    console.log('this.selectedPiece', this.selectedPiece.name, 'this.isCheck', this.isCheck);
-    if (this.selectedPiece.name != 'king' && this.isCheck) {
-      this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-      console.log('Game1 -> handleSelect -> this.possibleMoves', this.possibleMoves);
-      console.log('Game1 -> handleSelect -> this.possibleMovesCheck', this.possibleMovesCheck);
-      for (let i = 0; i < this.selectedPiece.findLegalMoves(this.gameArea).length; i++) {
-        for (let j = 0; j < this.possibleMovesCheck.length; j++) {
-          console.log('Game2 -> handleSelect -> this.possibleMovesCheck', this.possibleMovesCheck);
+    const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
 
-          if (this.selectedPiece.findLegalMoves(this.gameArea)[i] == this.possibleMovesCheck[j]) {
-            this.possibleMoves.push(this.selectedPiece.findLegalMoves(this.gameArea)[i]);
-          }
-        }
-      }
-    } else {
-      this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-    }
-    console.log('Game2 -> handleSelect -> this.possibleMoves', this.possibleMoves);
-    // this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-
-    this.possibleMoves = this.possibleMoves.filter(move => {
+    for (const move of possibleMoves) {
       const suspectedGameState = this.board.testMovePiece(this.selectedPiece, parseId(move));
-      return !this.check(suspectedGameState);
-    });
+      if (!this.check(suspectedGameState)) this.legalMoves.push(move);
+      // if (this.check(this.gameArea)) {
+      //   // Ruch będzie legalny jeśli po jego wykonaniu nie będę w szachu
+      //   if (!this.check(suspectedGameState)) this.legalMoves.push(move);
+      // } else {
+      //   // Ruch będzie legalny jeśli po jego wykonaniu nie będę w szachu
+      //   if (!this.check(suspectedGameState)) this.legalMoves.push(move);
+      // }
+    }
+    // if (this.check(this.gameArea)) {
+    //   this.isCheck = true;
+    //   console.log('isInCheck');
+    // } else {
+    //   console.log('notInCheck');
+    //   this.legalMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+    //   this.legalMoves = this.legalMoves.filter(move => {
+    //     const suspectedGameState = this.board.testMovePiece(this.selectedPiece, parseId(move));
+    //     this.check(suspectedGameState);
+    //     return !this.check(suspectedGameState);
+    //   });
+    // }
 
-    this.board.highlightPossibleMoves(this.possibleMoves);
+    this.board.highlightPossibleMoves(this.legalMoves);
+
+    // if (this.selectedPiece.name != 'king' && this.isCheck) {
+    //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+    //   for (let i = 0; i < this.selectedPiece.findLegalMoves(this.gameArea).length; i++) {
+    //     for (let j = 0; j < this.possibleMovesCheck.length; j++) {
+    //       if (this.selectedPiece.findLegalMoves(this.gameArea)[i] == this.possibleMovesCheck[j]) {
+    //         this.possibleMoves.push(this.selectedPiece.findLegalMoves(this.gameArea)[i]);
+    //       }
+    //     }
+    //   }
+    // } else {
+    //   this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+    // }
+
+    // this.possibleMoves = this.possibleMoves.filter(move => {
+    //   const suspectedGameState = this.board.testMovePiece(this.selectedPiece, parseId(move));
+    //   return !this.check(suspectedGameState);
+    // });
   }
 
   handleMove(element) {
     const { id } = element;
-    if (!this.possibleMoves.includes(id)) return;
+    if (!this.legalMoves.includes(id)) return;
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
-    this.possibleMoves = [];
+    this.legalMoves = [];
     this.changeTurn();
-    this.isCheck = false;
-    if (this.check(this.gameArea)) {
-      this.isCheck = true;
-      this.correctLegalMoves(this.gameArea);
-    }
+    // if (this.check(this.gameArea)) {
+    //   this.correctLegalMoves(this.gameArea);
+    // }
     //this.checkMate();
   }
 
   check(gameArea) {
     let isCheck = false;
-    const oponentattack = this.oponentMoves(gameArea);
 
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 0; j <= 7; j++) {
-        if (gameArea[i][j]) {
-          if (gameArea[i][j].name == 'king' && this.currentPlayer == gameArea[i][j].side) {
-            for (let k = 0; k < oponentattack.length; k++) {
-              const tab = oponentattack[k];
-              if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
-                isCheck = true;
-                console.log('SZACH');
-              }
-            }
-          }
+    const king = gameArea.flat().find(piece => piece && piece.side === this.currentPlayer && piece.name === 'king');
+    gameArea.flat().forEach(piece => {
+      if (piece && piece.side !== this.currentPlayer) {
+        if (
+          piece.findLegalMoves(gameArea).some(move => {
+            return move[0] == king.x && move[2] == king.y;
+          })
+        ) {
+          console.log('Piece that checks king', piece);
+          console.log('Piece moves that checks king', piece.findLegalMoves(gameArea));
+          isCheck = true;
         }
       }
-    }
+    });
+
+    // const oponentattack = this.oponentMoves(gameArea);
+
+    // for (let i = 0; i <= 7; i++) {
+    //   for (let j = 0; j <= 7; j++) {
+    //     if (gameArea[i][j]) {
+    //       if (gameArea[i][j].name == 'king' && this.currentPlayer == gameArea[i][j].side) {
+    //         for (let k = 0; k < oponentattack.length; k++) {
+    //           const tab = oponentattack[k];
+    //           if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
+    //             isCheck = true;
+    //             return isCheck;
+    //           }
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
 
     return isCheck;
   }
@@ -163,7 +192,6 @@ class Game {
     }
 
     this.checkMate(gameArea);
-    console.log(this.possibleMovesCheck);
 
     return this.possibleMovesCheck;
   }
@@ -171,7 +199,6 @@ class Game {
   oponentMoves(gameArea) {
     // to powinna być funkcja zamiast findLegalMoves - findAttackingMoves dla szacha i zbicia w trakcie szachu
     let oponentMoves = [];
-
     for (let i = 0; i <= 7; i++) {
       for (let j = 0; j <= 7; j++) {
         if (gameArea[i][j]) {
