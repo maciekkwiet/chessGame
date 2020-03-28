@@ -1,6 +1,5 @@
 import Board from './Board';
-import { parseId } from './utils';
-import Piece from './pieces/Piece';
+import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
   constructor() {
@@ -10,7 +9,7 @@ class Game {
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.gameAreaHandler = this.board.gameAreaHandler;
-    this.possibleMoves = [];
+    this.legalMoves = [];
     this.possibleMovesCheck = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
@@ -18,7 +17,7 @@ class Game {
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-    if (this.possibleMoves.length !== 0) {
+    if (this.legalMoves.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
@@ -33,156 +32,73 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-    if (!this.gameArea[x][y]) {
-      return;
-    }
-    this.selectedPiece = this.gameArea[x][y];
+    if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
 
-    if (this.selectedPiece.side === this.currentPlayer) {
-      if (this.isCheck) {
-        if (this.selectedPiece.name == 'king') {
-          this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-        } else {
-          for (let i = 0; i < this.selectedPiece.findLegalMoves(this.gameArea).length; i++) {
-            for (let j = 0; j < this.possibleMovesCheck.length; j++) {
-              if (this.selectedPiece.findLegalMoves(this.gameArea)[i] == this.possibleMovesCheck[j]) {
-                this.possibleMoves.push(this.selectedPiece.findLegalMoves(this.gameArea)[i]);
-              }
-            }
-          }
-        }
-      } else if (!this.isCheck) {
-        this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-      }
-      this.board.highlightPossibleMoves(this.possibleMoves);
-    }
+    this.selectedPiece = this.gameArea[x][y];
+    const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+
+    this.legalMoves = possibleMoves.filter(move => {
+      const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
+      return !this.isChecked(suspectedGameState);
+    });
+    this.board.highlightPossibleMoves(this.legalMoves);
   }
 
   handleMove(element) {
     const { id } = element;
-    if (!this.possibleMoves.includes(id)) return;
+    if (!this.legalMoves.includes(id)) return;
     this.board.movePiece(this.selectedPiece, parseId(id));
+    if (this.selectedPiece.name === 'pawn') {
+      if (
+        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
+        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
+      )
+        this.selectedPiece.promote(this.gameArea);
+    }
     this.board.removeHighlight();
     this.selectedPiece = null;
-    this.possibleMoves = [];
+    this.legalMoves = [];
     this.changeTurn();
-    this.check(this.gameArea);
-    if (this.isCheck) this.correctLegalMoves(this.gameArea);
-  }
-
-  check(gameArea) {
-    this.isCheck = false;
-    const oponentattack = this.oponentMoves(gameArea);
-
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 0; j <= 7; j++) {
-        if (gameArea[i][j]) {
-          if (gameArea[i][j].name == 'king' && this.currentPlayer == gameArea[i][j].side) {
-            for (let k = 0; k < oponentattack.length; k++) {
-              const tab = oponentattack[k];
-              if (tab[0] == gameArea[i][j].x && tab[2] == gameArea[i][j].y) {
-                this.isCheck = true;
-                //console.log('SZACH');
-              }
-            }
-          }
-        }
-      }
-    }
-
-    return this.isCheck;
-  }
-
-  checkMate(gameArea) {
-    let tab = [];
-
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 0; j <= 7; j++) {
-        if (gameArea[i][j]) {
-          if (gameArea[i][j].name == 'king' && this.currentPlayer == gameArea[i][j].side) {
-            tab = gameArea[i][j].findLegalMoves(gameArea).concat(tab);
-          }
-        }
-      }
-    }
-
-    if (this.isCheck && this.possibleMovesCheck.length == 0 && tab.length == 0) {
-      console.log('SZACH MAT');
-      alert('SZACH MAT');
+    if (this.isChecked()) {
+      console.log('Szach');
+      if (this.isCheckMate()) alert('Szach i Mat');
     }
   }
 
-  correctLegalMoves(gameArea) {
-    this.possibleMovesCheck = [];
-    const param = this.oponentMovesTwo(this.gameArea);
-
-    for (let i = 0; i < param.length; i++) {
-      const tab = param[i];
-
-      if (!gameArea[tab[0]][tab[2]]) {
-        let piece = new Piece([tab[0]], [tab[2]], this.currentPlayer);
-        this.gameArea[piece.x][piece.y] = piece;
-        this.check(gameArea);
-        if (!this.isCheck) {
-          this.possibleMovesCheck.push(param[i]);
-        }
-
-        this.gameArea[tab[0]][tab[2]] = '';
-      }
-    }
-
-    for (let i = 0; i < param.length; i++) {
-      const tab = param[i];
-
-      if (gameArea[tab[0]][tab[2]]) {
-        if (gameArea[tab[0]][tab[2]].name !== 'king') {
-          let replacement = this.gameArea[tab[0]][tab[2]];
-          let piece = new Piece([tab[0]], [tab[2]], this.currentPlayer);
-          this.gameArea[piece.x][piece.y] = piece;
-          this.check(gameArea);
-          if (!this.isCheck) {
-            this.possibleMovesCheck.push(param[i]);
-          }
-          this.gameArea[tab[0]][tab[2]] = replacement;
-        }
-      }
-    }
-
-    this.checkMate(gameArea);
-    console.log(this.possibleMovesCheck);
-
-    return this.possibleMovesCheck;
+  isChecked(gameArea = this.gameArea) {
+    const king = this.getKingPosition(gameArea);
+    const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'black' : 'white', gameArea);
+    return opponentMoves.some(move => move[0] == king.x && move[2] == king.y) ? true : false;
   }
 
-  oponentMoves(gameArea) {
-    // to powinna być funkcja zamiast findLegalMoves - findAttackingMoves dla szacha i zbicia w trakcie szachu
-    let oponentMoves = [];
-
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 0; j <= 7; j++) {
-        if (gameArea[i][j]) {
-          if (gameArea[i][j].side !== this.currentPlayer && gameArea[i][j].name !== 'king') {
-            oponentMoves = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMoves);
-          }
-        }
-      }
-    }
-    return oponentMoves;
+  isCheckMate(gameArea = this.gameArea) {
+    const currentPlayerPieces = this.getPlayerPieces(this.currentPlayer, gameArea);
+    return currentPlayerPieces.every(piece =>
+      piece.findLegalMoves(gameArea).every(move => {
+        const suspectedGameState = this.board.tryPieceMove(piece, parseId(move));
+        return this.isChecked(suspectedGameState);
+      }),
+    );
   }
 
-  oponentMovesTwo(gameArea) {
-    let oponentMovesTwo = [];
-
-    for (let i = 0; i <= 7; i++) {
-      for (let j = 0; j <= 7; j++) {
-        if (gameArea[i][j]) {
-          if (gameArea[i][j].side == this.currentPlayer && gameArea[i][j].name !== 'king') {
-            oponentMovesTwo = gameArea[i][j].findLegalMoves(gameArea).concat(oponentMovesTwo);
-          }
-        }
+  getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
+    const king = {};
+    iterateOver2DArray((piece, x, y) => {
+      if (piece && piece.side === player && piece.name === 'king') {
+        king.x = x;
+        king.y = y;
       }
-    }
-    return oponentMovesTwo;
+    }, gameArea);
+    return king;
+  }
+
+  getPlayerPieces(player, gameArea = this.gameArea) {
+    return gameArea.flat().filter(piece => piece && piece.side === player);
+  }
+
+  getPlayerMoves(player, gameArea = this.gameArea) {
+    const pieces = this.getPlayerPieces(player, gameArea);
+    return pieces.map(piece => piece.findLegalMoves(gameArea)).flat();
   }
 }
 
