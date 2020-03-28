@@ -39,7 +39,6 @@ class Game {
 
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
-      console.log(suspectedGameState);
       return !this.isChecked(suspectedGameState);
     });
     this.board.highlightPossibleMoves(this.legalMoves);
@@ -62,14 +61,13 @@ class Game {
     this.changeTurn();
     if (this.isChecked()) {
       console.log('Szach');
-      this.isCheckMate() && console.log(' i Mat');
+      if (this.isCheckMate()) alert('Szach i Mat');
     }
   }
 
   isChecked(gameArea = this.gameArea) {
     const king = this.getKingPosition(gameArea);
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'black' : 'white', gameArea);
-    console.log(opponentMoves.filter(move => move[0] == king.x && move[2] == king.y));
     return opponentMoves.some(move => move[0] == king.x && move[2] == king.y) ? true : false;
   }
 
