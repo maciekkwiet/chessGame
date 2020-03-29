@@ -4,9 +4,7 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
-import { create2DArray } from './utils';
-import {handleOverlay} from './utils';
-
+import { copy2DArray, create2DArray } from './utils';
 
 class Board {
   constructor() {
@@ -106,6 +104,5 @@ class Board {
     return copyOfGameArea;
   }
 }
-  handleOverlay();
 
 export default Board;
