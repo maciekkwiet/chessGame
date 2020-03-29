@@ -31,6 +31,10 @@ module.exports = {
           'sass-loader', //1. Turns sass into css
         ],
       },
+<<<<<<< HEAD
+=======
+
+>>>>>>> c0e8620fd8a26118570adc4549ecaf60dffacd03
       {
         test: /\.(svg|png|jpg|gif)$/,
         use: {
@@ -53,6 +57,10 @@ module.exports = {
           },
         ],
       },
+<<<<<<< HEAD
+=======
+
+>>>>>>> c0e8620fd8a26118570adc4549ecaf60dffacd03
     ],
   },
 };
