@@ -20,7 +20,8 @@
   "license": "ISC",
   "homepage": "/",
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "url-loader": "^4.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
