@@ -31,6 +31,7 @@ module.exports = {
           'sass-loader', //1. Turns sass into css
         ],
       },
+
       {
         test: /\.(svg|png|jpg|gif)$/,
         use: {
@@ -53,6 +54,7 @@ module.exports = {
           },
         ],
       },
+
     ],
   },
 };

@@ -1,4 +1,3 @@
-
 import Piece from './piece';
 
 class Rook extends Piece {
@@ -9,6 +8,7 @@ class Rook extends Piece {
   }
 
 
+
   findLegalMoves (board) {
     const possibleMoves = [];
     const attackingMoves = this.findAttackingMoves(board);
@@ -16,9 +16,11 @@ class Rook extends Piece {
     for (let move of attackingMoves) {
      if(board[move.charAt(0)][move.charAt(2)] && board[move.charAt(0)][move.charAt(2)].side === this.side) continue;
      possibleMoves.push(move);
+
     }
     return possibleMoves;
   }
+
 
 
 
@@ -30,18 +32,22 @@ findAttackingMoves(board) {
     if (board[this.x][this.y - u]) {
       if (board[this.x][this.y - u]) attackingMoves.push(`${this.x},${this.y - u}`);
       break;
+
     }
     attackingMoves.push(`${this.x},${this.y - u}`);
   }
+
 
   for (let d = 1; d <= 7; d++) {
     if (this.y + d > 7) break;
     if (board[this.x][this.y + d]) {
       if (board[this.x][this.y + d]) attackingMoves.push(`${this.x},${this.y + d}`);
       break;
+
     }
     attackingMoves.push(`${this.x},${this.y + d}`);
   }
+
 
   for (let l = 1; l <= 7; l++) {
     if (this.x - l < 0) break;
@@ -59,9 +65,12 @@ findAttackingMoves(board) {
       break;
     }
     attackingMoves.push(`${this.x + r},${this.y}`);
+
   }
   return attackingMoves;
 }
+
       
   }
 export default Rook;
+
