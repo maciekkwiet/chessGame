@@ -1,10 +1,11 @@
+
 import Piece from './Piece';
 
 class Rook extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'rook';
-    this.display = `<img src='../img/Rook.svg' class='rook ${side}'>`; //fontawesome rook
+    this.display = `<i class="fas fa-chess-rook ${side}"></i>`; //fontawesome rook
   }
   findLegalMoves(board) {
     const possibleMoves = [];
@@ -50,3 +51,5 @@ class Rook extends Piece {
 }
 
 export default Rook;
+
+
