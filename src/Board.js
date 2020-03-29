@@ -4,13 +4,9 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
-<<<<<<< HEAD
 import { create2DArray } from './utils';
 import {handleOverlay} from './utils';
 
-=======
-import { create2DArray, copy2DArray } from './utils';
->>>>>>> c0e8620fd8a26118570adc4549ecaf60dffacd03
 
 class Board {
   constructor() {
