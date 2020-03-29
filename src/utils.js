@@ -14,6 +14,25 @@ export const copy2DArray = arr => {
   return arrCopy;
 };
 
-copy2DArray([[1, 2], [3, 4]]);
+
+export const iterateOver2DArray = (callback, arr) => {
+  for (let x = 0; x < arr.length; x++) {
+    for (let y = 0; y < arr[0].length; y++) {
+      callback(arr[x][y], x, y);
+    }
+  }
+};
 
 export const parseId = id => [Number(id[0]), Number(id[2])];
+
+export const handleOverlay = () =>
+  document.getElementById('play').addEventListener('click', function() {
+    document.getElementById('startScreen').style.animationPlayState = 'paused';
+    document.getElementById('startScreen').style.opacity = '0';
+    document.getElementById('startScreen').style.transition = 'opacity 0.3s linear';
+    const isFinished = document.getElementById('startScreen').style.transition;
+    console.log(isFinished);
+    if (isFinished === 'opacity 0.3s linear 0s') {
+      document.getElementById('startScreen').style.display = 'none';
+    }
+  });

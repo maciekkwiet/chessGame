@@ -42,6 +42,7 @@ class Bishop extends Piece {
       if (board[this.x + ru][this.y - ru]) {
         attackingMoves.push(`${this.x + ru},${this.y - ru}`);
         break;
+
       }
       rightUp > 0 && attackingMoves.push(`${this.x + ru},${this.y - ru}`);
     }

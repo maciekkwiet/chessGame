@@ -5,6 +5,8 @@ import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
 import { create2DArray, copy2DArray } from './utils';
+import {handleOverlay} from './utils';
+
 
 class Board {
   constructor() {
@@ -93,11 +95,15 @@ class Board {
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
-
     pieceToMove.move(to);
     this.gameArea[toX][toY] = pieceToMove;
   }
-  testMovePiece(pieceToMove, to) {
+
+  //testMovePiece(pieceToMove, to) {
+  //  const copyOfGameArea = copy2DArray(this.gameArea);
+
+
+  tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
 
     const [toX, toY] = to;
@@ -106,5 +112,6 @@ class Board {
     return copyOfGameArea;
   }
 }
+  handleOverlay();
 
 export default Board;
