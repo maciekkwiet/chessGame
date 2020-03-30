@@ -33,11 +33,6 @@ class Game {
 
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-
-    // ToDo refactor
-    if (this.selectedPiece.name === 'king' && !this.isChecked())
-      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -49,10 +44,11 @@ class Game {
     const { id } = element;
     if (!this.legalMoves.includes(id)) return;
 
-    // ToDo refactor
-    if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
-      this.selectedPiece.castling(this.gameArea, parseId(id));
-    } else this.board.movePiece(this.selectedPiece, parseId(id));
+    // // ToDo refactor
+    // if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
+    //   this.selectedPiece.castling(this.gameArea, parseId(id));
+    // } else
+    this.board.movePiece(this.selectedPiece, parseId(id));
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
       if (
