@@ -1,10 +1,11 @@
 import Piece from './Piece';
-
+import '../img/knight-black.svg';
+import '../img/knight-white.svg';
 class Knight extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'knight';
-    this.display = `<i class="fas fa-chess-knight ${side}"></i>`; //fontawesome knight
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   findAttackingMoves(gameArea) {
     const moves = [[2, 1], [1, 2], [-2, 1], [1, -2], [-2, -1], [2, -1], [-1, 2], [-1, -2]];

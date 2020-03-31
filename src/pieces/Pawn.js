@@ -4,11 +4,13 @@ import Bishop from './Bishop';
 import Rook from './Rook';
 import Knight from './Knight';
 
+import '../img/pawn-black.svg';
+import '../img/pawn-white.svg';
 class Pawn extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'pawn';
-    this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   findAttackingMoves() {
     const attackingMoves = [];
@@ -36,20 +38,16 @@ class Pawn extends Piece {
 
   findLegalMoves(board) {
     const legalMoves = [];
-
     if (this.side == 'white') {
       if (!board[this.x][this.y - 1]) {
         legalMoves.push(`${this.x},${this.y - 1}`);
       }
-
       if (this.y == 6 && !board[this.x][this.y - 1] && !board[this.x][this.y - 2]) {
         legalMoves.push(`${this.x},${this.y - 2}`);
       }
-
       if (this.x != 0 && board[this.x - 1][this.y - 1] && this.side != board[this.x - 1][this.y - 1].side) {
         legalMoves.push(`${this.x - 1},${this.y - 1}`);
       }
-
       if (this.x != 7 && board[this.x + 1][this.y - 1] && this.side != board[this.x + 1][this.y - 1].side) {
         legalMoves.push(`${this.x + 1},${this.y - 1}`);
       }
@@ -58,14 +56,12 @@ class Pawn extends Piece {
       if (!board[this.x][this.y + 1]) {
         legalMoves.push(`${this.x},${this.y + 1}`);
       }
-
       if (this.y == 1 && !board[this.x][this.y + 1] && !board[this.x][this.y + 2]) {
         legalMoves.push(`${this.x},${this.y + 2}`);
       }
       if (this.x != 0 && board[this.x - 1][this.y + 1] && this.side != board[this.x - 1][this.y + 1].side) {
         legalMoves.push(`${this.x - 1},${this.y + 1}`);
       }
-
       if (this.x != 7 && board[this.x + 1][this.y + 1] && this.side != board[this.x + 1][this.y + 1].side) {
         legalMoves.push(`${this.x + 1},${this.y + 1}`);
       }
