@@ -1,10 +1,11 @@
 import Piece from './Piece';
-
+import '../img/king-black.svg';
+import '../img/king-white.svg';
 class King extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'king';
-    this.display = `<i class="fas fa-chess-king ${side}"></i>`; //fontawesome king
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   oponentMoves(gameArea) {
     let oponentMoves2 = [];

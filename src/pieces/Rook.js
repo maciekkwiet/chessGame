@@ -1,11 +1,11 @@
-
 import Piece from './Piece';
-
+import '../img/rook-black.svg';
+import '../img/rook-white.svg';
 class Rook extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'rook';
-    this.display = `<img src="../img/Rook-${side}.svg">`; //fontawesome rook
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   findLegalMoves(board) {
     const possibleMoves = [];
@@ -51,5 +51,3 @@ class Rook extends Piece {
 }
 
 export default Rook;
-
-

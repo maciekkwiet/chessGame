@@ -1,10 +1,11 @@
 import Piece from './Piece';
-
+import '../img/bishop-black.svg';
+import '../img/bishop-white.svg';
 class Bishop extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'bishop';
-    this.display = `<i class="fas fa-chess-bishop ${side}"></i>`; //fontawesome bishop
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   findLegalMoves(board) {
     const possibleMoves = [];

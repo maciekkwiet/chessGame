@@ -3,7 +3,7 @@ import { parseId } from './utils';
 
 class Game {
   constructor() {
-    this.currentPlayer= "white";
+    this.currentPlayer = 'white';
     this.round = 0;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
@@ -11,12 +11,9 @@ class Game {
     this.possibleMoves = [];
     this.selectedPiece = null;
     this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    
   }
 
-
   onClick(e) {
-    
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
     if (this.possibleMoves.length !== 0) {
       this.handleMove(element);
@@ -38,12 +35,10 @@ class Game {
     }
     this.selectedPiece = this.gameArea[x][y];
 
-
     if (this.selectedPiece.side === this.currentPlayer) {
-    this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-    this.board.highlightPossibleMoves(this.possibleMoves);
+      this.possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+      this.board.highlightPossibleMoves(this.possibleMoves);
     }
-
   }
 
   handleMove(element) {
