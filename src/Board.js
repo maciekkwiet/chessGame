@@ -41,8 +41,8 @@ class Board {
 
     let queen = new Queen(3, 7, 'white');
     this.gameArea[queen.x][queen.y] = queen;
-    queen = new Queen(3, 0, 'black');
-    this.gameArea[queen.x][queen.y] = queen;
+    // queen = new Queen(3, 0, 'black');
+    // this.gameArea[queen.x][queen.y] = queen;
 
     // let knight = new Knight(1, 7, 'white');
     // this.gameArea[knight.x][knight.y] = knight;
@@ -61,6 +61,11 @@ class Board {
     // for (let i = 0; i < this.gameArea.length; i++) {
     //   this.gameArea[i][6] = new Pawn(i, 6, 'white');
     // }
+
+    let pawn = new Pawn(7, 6, 'white');
+    this.gameArea[pawn.x][pawn.y] = pawn;
+    pawn = new Pawn(7, 1, 'black');
+    this.gameArea[pawn.x][pawn.y] = pawn;
 
     // for (let i = 0; i < this.gameArea.length; i++) {
     //   this.gameArea[i][1] = new Pawn(i, 1, 'black');

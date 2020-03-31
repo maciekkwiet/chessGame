@@ -66,8 +66,37 @@ class Game {
     this.legalMoves = [];
     this.changeTurn();
     if (this.isChecked()) {
-      console.log('Szach');
-      this.changeBackgroundColor();
+      // const interval = setInterval(function() {
+      //   this.lastClassName;
+      //   console.log(this.lastClassName);
+      //   // setTimeout(function() {
+      //   //   this.lastClassName;
+      //   // }, 250);
+      //   console.log('X');
+      // }, 500);
+
+      // const foo = (this.gameArea) => {
+      //   // let lastClassName = document.getElementById(
+      //   //  `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+      //   // ).className;
+      //   // let nextCLassName = (document.getElementById(
+      //   //   `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+      //   // ).className = 'square check');
+      // }
+
+      const king = document.getElementById(
+        `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+      );
+      const lastClassName = king.className;
+
+      //const interval = setInterval(() => foo('this.gameArea'), 500);
+      const interval = setInterval(this.changeBackgroundColor, 500);
+
+      //console.log('X');
+
+      setTimeout(function() {
+        clearInterval(interval);
+      }, 2000);
       if (this.isCheckMate()) {
         document.getElementById(
           `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
@@ -79,15 +108,13 @@ class Game {
   }
 
   changeBackgroundColor() {
-    const lastClassName = document.getElementById(
-      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
-    ).className;
-    const nextCLassName = (document.getElementById(
-      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
-    ).className = 'square check');
-    // setTimeout,setInterval(() => {
+    console.log('X');
 
-    // }, interval);
+    // if (king.className == 'square check') {
+    //   king.className == lastClassName;
+    // } else {
+    //   king.className = 'square check';
+    // }
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -107,18 +134,14 @@ class Game {
   }
 
   pat(gameArea = this.gameArea) {
-    if (!this.isChecked) console.log('PAT');
-    const currentPlayerPieces = this.getPlayerPieces(this.currentPlayer, gameArea);
-    //console.log(currentPlayerPieces);
-    // const legalMoves = currentPlayerPieces.findLegalMoves(this.gameArea);
-    // console.log(legalMoves);
-    //console.log(!this.isChecked);
+    const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
+    if (!this.isChecked() && opponentMoves.length == 0) {
+      console.log('PAT');
 
-    //console.log(this.currentPlayerPieces.every(piece => piece.findLegalMoves(this.gameArea)));
-
-    document.getElementById(
-      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
-    ).className = 'square yellow';
+      document.getElementById(
+        `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+      ).className = 'square pat';
+    }
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
