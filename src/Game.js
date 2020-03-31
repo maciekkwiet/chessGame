@@ -89,10 +89,7 @@ class Game {
       );
       const lastClassName = king.className;
 
-      //const interval = setInterval(() => foo('this.gameArea'), 500);
-      const interval = setInterval(this.changeBackgroundColor, 500);
-
-      //console.log('X');
+      const interval = setInterval(gameArea => this.changeBackgroundColor(gameArea), 500);
 
       setTimeout(function() {
         clearInterval(interval);
@@ -107,9 +104,10 @@ class Game {
     this.pat();
   }
 
-  changeBackgroundColor() {
+  changeBackgroundColor(gameArea) {
     console.log('X');
 
+    console.log(gameArea);
     // if (king.className == 'square check') {
     //   king.className == lastClassName;
     // } else {
