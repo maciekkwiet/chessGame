@@ -31,16 +31,7 @@ module.exports = {
           'sass-loader', //1. Turns sass into css
         ],
       },
-      {
-        test: /\.(svg|png|jpg|gif)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[hash].[ext]',
-            outputPath: 'imgs',
-          },
-        },
-      },
+
       {
         test: /\.(woff(2)?|otf|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
@@ -52,6 +43,20 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.html$/,
+        use: ['html-loader'],
+      },
+      {
+        test: /\.(svg|png|jpg|gif)$/,
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'imgs',
+          },
+        },
       },
     ],
   },
