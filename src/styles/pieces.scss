@@ -1,4 +1,6 @@
 .piece {
-  height: $board-size/8;
-  width: $board-size/8;
+  max-height: $board-size/8;
+  max-width: $board-size/8;
+  margin: 0;
+  align-self: flex-end;
 }
