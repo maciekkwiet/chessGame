@@ -43,20 +43,7 @@ class Game {
   handleMove(element) {
     const { id } = element;
     if (!this.legalMoves.includes(id)) return;
-
-    // // ToDo refactor
-    // if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
-    //   this.gielectedPiece.castling(this.gameArea, parseId(id));
-    // } else
     this.board.movePiece(this.selectedPiece, parseId(id));
-    // ToDo refactor
-    if (this.selectedPiece.name === 'pawn') {
-      if (
-        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
-        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
-      )
-        this.selectedPiece.promote(this.gameArea);
-    }
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];

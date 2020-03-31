@@ -10,6 +10,12 @@ class Pawn extends Piece {
     this.name = 'pawn';
     this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
   }
+  move(to, gameArea) {
+    super.move(to);
+    console.log(this.y, this.side);
+    if (this.y === 7 && this.side === 'black') this.promote(gameArea);
+    if (this.y === 0 && this.side === 'white') this.promote(gameArea);
+  }
   findAttackingMoves() {
     const attackingMoves = [];
 
