@@ -8,9 +8,13 @@ class King extends Piece {
   }
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {
+      // Long castling rook's move
       if (to[0] - this.x < -1) gameArea[0][this.y].move([to[0] + 1, this.y]);
+      // Short castling rook's move
       if (to[0] - this.x > 1) gameArea[7][this.y].move([to[0] - 1, this.y]);
+      // King's move during castling
       super.move(to);
+      // Normal king's move
     } else super.move(to);
   }
   oponentMoves(gameArea) {
@@ -27,31 +31,51 @@ class King extends Piece {
     }
     return oponentMoves2;
   }
+  isLongCastlingPossible(gameArea) {
+    return (
+      //check if rook exists
+      gameArea[0][this.y] &&
+      // check if king road is passable
+      !gameArea[1][this.y] &&
+      !gameArea[2][this.y] &&
+      !gameArea[3][this.y] &&
+      // check if rook moved
+      !gameArea[0][this.y].hasMoved
+    );
+  }
+  isShortCastlingPossible(gameArea) {
+    return (
+      //check if rook exists
+      gameArea[7][this.y] &&
+      // check if king road is passable
+      !gameArea[5][this.y] &&
+      !gameArea[6][this.y] &&
+      // check if rook moved
+      !gameArea[7][this.y].hasMoved
+    );
+  }
 
   findLegalMoves(gameArea) {
-    const possibleMoves = [];
+    const sameSideMoves = [];
     const attack = this.findAttackingMoves(gameArea);
 
-    attack.forEach(piece => {
-      if (gameArea[piece[0]][piece[2]]) {
-        if (gameArea[piece[0]][piece[2]].side === this.side) possibleMoves.push(`${piece[0]},${piece[2]}`);
-      }
+    attack.forEach(move => {
+      if (gameArea[move[0]][move[2]] && gameArea[move[0]][move[2]].side === this.side)
+        sameSideMoves.push(`${move[0]},${move[2]}`);
     });
-    if (!this.hasMoved) {
-      if (gameArea[0][this.y]) {
-        if (!gameArea[1][this.y] && !gameArea[2][this.y] && !gameArea[3][this.y] && !gameArea[0][this.y].hasMoved)
-          attack.push(`${[2]},${[this.y]}`);
-      }
-      if (gameArea[7][this.y]) {
-        if (!gameArea[5][this.y] && !gameArea[6][this.y] && !gameArea[7][this.y].hasMoved)
-          attack.push(`${[6]},${[this.y]}`);
-      }
+    if (
+      //check if King moved
+      !this.hasMoved
+    ) {
+      // add field if long castling is possible
+      if (this.isLongCastlingPossible(gameArea)) attack.push(`${[2]},${[this.y]}`);
+      // add field if short castling is possible
+      if (this.isShortCastlingPossible(gameArea)) attack.push(`${[6]},${[this.y]}`);
     }
+    let filteredMoves = attack.filter(move => !sameSideMoves.includes(move));
+    let possibleMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
 
-    let filteredMoves = attack.filter(move => !possibleMoves.includes(move));
-    let twiceFilteredMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
-
-    return twiceFilteredMoves;
+    return possibleMoves;
   }
 
   findAttackingMoves() {
