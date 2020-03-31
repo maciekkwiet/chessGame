@@ -1,6 +1,11 @@
-import Game from './Game';
-import './style.scss';
+import './styles/style.scss';
 
-const startNewGame = () => new Game();
+import Game from './Game';
+import { handleOverlay } from './utils';
+
+const startNewGame = () => {
+  handleOverlay();
+  new Game();
+};
 
 window.onload = startNewGame;

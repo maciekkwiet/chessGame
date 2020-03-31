@@ -5,14 +5,11 @@ class Game {
   constructor() {
     this.currentPlayer = 'white';
     this.round = 0;
-    this.isCheck = false;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
-    this.gameAreaHandler = this.board.gameAreaHandler;
     this.legalMoves = [];
-    this.possibleMovesCheck = [];
     this.selectedPiece = null;
-    this.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
   }
 
   onClick(e) {
@@ -37,6 +34,10 @@ class Game {
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
 
+    // ToDo refactor
+    if (this.selectedPiece.name === 'king' && !this.isChecked())
+      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
+
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -47,7 +48,12 @@ class Game {
   handleMove(element) {
     const { id } = element;
     if (!this.legalMoves.includes(id)) return;
-    this.board.movePiece(this.selectedPiece, parseId(id));
+
+    // ToDo refactor
+    if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
+      this.selectedPiece.castling(this.gameArea, parseId(id));
+    } else this.board.movePiece(this.selectedPiece, parseId(id));
+    // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
       if (
         (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
