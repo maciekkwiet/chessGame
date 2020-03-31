@@ -27,14 +27,10 @@
 }
 .check {
   background: red;
-  $size: $board-size/8;
-  width: $size;
-  height: $size;
-  text-align: center;
-  line-height: $size;
-  font-size: 6.5vh;
 }
-
+.pat {
+  background: yellow;
+}
 .black {
   color: $black;
 }

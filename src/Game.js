@@ -66,17 +66,12 @@ class Game {
     this.legalMoves = [];
     this.changeTurn();
     if (this.isChecked()) {
-      ///-------------------------------
       console.log('Szach');
       this.changeBackgroundColor();
-      //const king = this.getKingPosition(this.gameArea);
-      //const lastClassName = document.getElementById(`${king.x},${king.y}`).className;
-      //document.getElementById(`${king.x},${king.y}`).className = 'check';
-
       if (this.isCheckMate()) {
         document.getElementById(
           `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
-        ).className = 'check';
+        ).className = 'square check';
         alert('Szach i Mat');
       }
     }
@@ -84,10 +79,12 @@ class Game {
   }
 
   changeBackgroundColor() {
-    const king = this.getKingPosition(this.gameArea);
-    const lastClassName = document.getElementById(`${king.x},${king.y}`).className;
-    console.log(king);
-    //document.getElementById(`${king.x},${king.y}`).className = 'check';
+    const lastClassName = document.getElementById(
+      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+    ).className;
+    const nextCLassName = (document.getElementById(
+      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+    ).className = 'square check');
     // setTimeout,setInterval(() => {
 
     // }, interval);
@@ -118,6 +115,10 @@ class Game {
     //console.log(!this.isChecked);
 
     //console.log(this.currentPlayerPieces.every(piece => piece.findLegalMoves(this.gameArea)));
+
+    document.getElementById(
+      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+    ).className = 'square yellow';
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
