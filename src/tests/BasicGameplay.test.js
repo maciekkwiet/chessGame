@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import Game from '../Game.js';
 import Rook from '../pieces/Rook.js';
 import Bishop from '../pieces/Bishop.js';
