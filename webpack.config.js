@@ -1,4 +1,5 @@
 /* eslint-disable */
+
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -12,6 +13,7 @@ module.exports = {
   resolve: {
     extensions: ['.js'],
   },
+  devtool: 'source-map',
   module: {
     rules: [
       {

@@ -11,6 +11,7 @@ beforeAll(() => {
 beforeEach(() => {
   game = new Game();
   for (let i = 0; i < 8; i++) for (let j = 0; j < 8; j++) game.gameArea[i][j] = null;
+  game.currentPlayer = 'black';
 });
 
 describe('Castling works as intended', () => {
