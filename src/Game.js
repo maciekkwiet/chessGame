@@ -66,9 +66,31 @@ class Game {
     this.legalMoves = [];
     this.changeTurn();
     if (this.isChecked()) {
+      ///-------------------------------
       console.log('Szach');
-      if (this.isCheckMate()) alert('Szach i Mat');
+      this.changeBackgroundColor();
+      //const king = this.getKingPosition(this.gameArea);
+      //const lastClassName = document.getElementById(`${king.x},${king.y}`).className;
+      //document.getElementById(`${king.x},${king.y}`).className = 'check';
+
+      if (this.isCheckMate()) {
+        document.getElementById(
+          `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+        ).className = 'check';
+        alert('Szach i Mat');
+      }
     }
+    this.pat();
+  }
+
+  changeBackgroundColor() {
+    const king = this.getKingPosition(this.gameArea);
+    const lastClassName = document.getElementById(`${king.x},${king.y}`).className;
+    console.log(king);
+    //document.getElementById(`${king.x},${king.y}`).className = 'check';
+    // setTimeout,setInterval(() => {
+
+    // }, interval);
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -85,6 +107,17 @@ class Game {
         return this.isChecked(suspectedGameState);
       }),
     );
+  }
+
+  pat(gameArea = this.gameArea) {
+    if (!this.isChecked) console.log('PAT');
+    const currentPlayerPieces = this.getPlayerPieces(this.currentPlayer, gameArea);
+    //console.log(currentPlayerPieces);
+    // const legalMoves = currentPlayerPieces.findLegalMoves(this.gameArea);
+    // console.log(legalMoves);
+    //console.log(!this.isChecked);
+
+    //console.log(this.currentPlayerPieces.every(piece => piece.findLegalMoves(this.gameArea)));
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {

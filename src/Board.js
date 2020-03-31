@@ -30,50 +30,50 @@ class Board {
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
 
-    let rook = new Rook(0, 7, 'white');
-    this.gameArea[rook.x][rook.y] = rook;
-    rook = new Rook(7, 7, 'white');
-    this.gameArea[rook.x][rook.y] = rook;
-    rook = new Rook(0, 0, 'black');
-    this.gameArea[rook.x][rook.y] = rook;
-    rook = new Rook(7, 0, 'black');
-    this.gameArea[rook.x][rook.y] = rook;
+    // let rook = new Rook(0, 7, 'white');
+    // this.gameArea[rook.x][rook.y] = rook;
+    // rook = new Rook(7, 7, 'white');
+    // this.gameArea[rook.x][rook.y] = rook;
+    // rook = new Rook(0, 0, 'black');
+    // this.gameArea[rook.x][rook.y] = rook;
+    // rook = new Rook(7, 0, 'black');
+    // this.gameArea[rook.x][rook.y] = rook;
 
     let queen = new Queen(3, 7, 'white');
     this.gameArea[queen.x][queen.y] = queen;
     queen = new Queen(3, 0, 'black');
     this.gameArea[queen.x][queen.y] = queen;
 
-    let knight = new Knight(1, 7, 'white');
-    this.gameArea[knight.x][knight.y] = knight;
-    knight = new Knight(6, 7, 'white');
-    this.gameArea[knight.x][knight.y] = knight;
-    knight = new Knight(6, 0, 'black');
-    this.gameArea[knight.x][knight.y] = knight;
-    knight = new Knight(1, 0, 'black');
-    this.gameArea[knight.x][knight.y] = knight;
+    // let knight = new Knight(1, 7, 'white');
+    // this.gameArea[knight.x][knight.y] = knight;
+    // knight = new Knight(6, 7, 'white');
+    // this.gameArea[knight.x][knight.y] = knight;
+    // knight = new Knight(6, 0, 'black');
+    // this.gameArea[knight.x][knight.y] = knight;
+    // knight = new Knight(1, 0, 'black');
+    // this.gameArea[knight.x][knight.y] = knight;
 
     let king = new King(4, 7, 'white');
     this.gameArea[king.x][king.y] = king;
     king = new King(4, 0, 'black');
     this.gameArea[king.x][king.y] = king;
 
-    for (let i = 0; i < this.gameArea.length; i++) {
-      this.gameArea[i][6] = new Pawn(i, 6, 'white');
-    }
+    // for (let i = 0; i < this.gameArea.length; i++) {
+    //   this.gameArea[i][6] = new Pawn(i, 6, 'white');
+    // }
 
-    for (let i = 0; i < this.gameArea.length; i++) {
-      this.gameArea[i][1] = new Pawn(i, 1, 'black');
-    }
+    // for (let i = 0; i < this.gameArea.length; i++) {
+    //   this.gameArea[i][1] = new Pawn(i, 1, 'black');
+    // }
 
-    let bishop = new Bishop(2, 7, 'white');
-    this.gameArea[bishop.x][bishop.y] = bishop;
-    bishop = new Bishop(5, 7, 'white');
-    this.gameArea[bishop.x][bishop.y] = bishop;
-    bishop = new Bishop(5, 0, 'black');
-    this.gameArea[bishop.x][bishop.y] = bishop;
-    bishop = new Bishop(2, 0, 'black');
-    this.gameArea[bishop.x][bishop.y] = bishop;
+    // let bishop = new Bishop(2, 7, 'white');
+    // this.gameArea[bishop.x][bishop.y] = bishop;
+    // bishop = new Bishop(5, 7, 'white');
+    // this.gameArea[bishop.x][bishop.y] = bishop;
+    // bishop = new Bishop(5, 0, 'black');
+    // this.gameArea[bishop.x][bishop.y] = bishop;
+    // bishop = new Bishop(2, 0, 'black');
+    // this.gameArea[bishop.x][bishop.y] = bishop;
   }
 
   highlightPossibleMoves(possibleMoves) {
