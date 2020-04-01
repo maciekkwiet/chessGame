@@ -10,11 +10,12 @@
   mix-blend-mode: normal;
   z-index: 2;
   font-family: 'Neon Tubes 2';
-  animation-name: overlay;
-  animation-play-state: paused;
-  animation-duration: 1s;
-  animation-fill-mode: forwards;
-
+  animation: overlay paused 0.25s forwards;
+  //transition: visibility 1s;
+  //&.hidden {
+  //  opacity: 0;
+  //  visibility: hidden;
+  //}
   #startTextBorder {
     display: flex;
     justify-content: center;
