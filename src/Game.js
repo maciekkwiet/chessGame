@@ -83,25 +83,13 @@ class Game {
   }
 
   changeBackgroundColor(gameArea = this.gameArea) {
-    let param = '';
     const king = document.getElementById(
       `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
     );
     const moduloX = this.getKingPosition(this.gameArea).x % 2;
-    console.log(moduloX);
     const moduloY = this.getKingPosition(this.gameArea).y % 2;
-    console.log(moduloY);
-    if (moduloY == moduloX) {
-      param = 'square light';
-    } else {
-      param = 'square dark';
-    }
-
-    if (king.className == 'square check') {
-      king.className = param;
-    } else {
-      king.className = 'square check';
-    }
+    const param = moduloY == moduloX ? 'square light' : 'square dark';
+    king.className = king.className == 'square check' ? param : 'square check';
   }
 
   isChecked(gameArea = this.gameArea) {
