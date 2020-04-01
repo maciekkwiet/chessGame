@@ -13,6 +13,7 @@ class Board {
     this.setPieces();
     this.setup();
   }
+
   setup() {
     for (let y = 0; y < this.gameArea.length; y++) {
       for (let x = 0; x < this.gameArea[y].length; x++) {
@@ -25,6 +26,28 @@ class Board {
         this.gameAreaHandler.appendChild(square);
       }
     }
+  }
+
+  lightUpCheck() {
+    const interval = setInterval(gameArea => this.changeBackgroundColor(gameArea), 300);
+    setTimeout(function() {
+      clearInterval(interval);
+    }, 1200);
+  }
+
+  changeBackgroundColor(kingPosition) {
+    const param = kingPosition;
+    //console.log(param);
+    //console.log(kingPosition.x);
+    // const king = document.getElementById(`${kingPosition.x},${kingPosition.y}`);
+    // const moduloX = kingPosition.x % 2;
+    // const moduloY = kingPosition.y % 2;
+    // const param = moduloY == moduloX ? 'square light' : 'square dark';
+    // king.className = king.className == 'square check' ? param : 'square check';
+  }
+
+  changeSquareStyle(squareId, classNamed) {
+    document.getElementById(`${squareId[0]},${squareId[1]}`).className = classNamed;
   }
 
   setPieces() {

@@ -66,30 +66,19 @@ class Game {
     this.legalMoves = [];
     this.changeTurn();
     if (this.isChecked()) {
-      const interval = setInterval(gameArea => this.changeBackgroundColor(gameArea), 300);
-      setTimeout(function() {
-        clearInterval(interval);
-      }, 1200);
+      this.board.lightUpCheck();
+      this.board.changeBackgroundColor(this.getKingPosition(this.gameArea));
       if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
     }
-    this.pat();
+    this.isPat();
   }
 
   endGame(gameArea = this.gameArea) {
-    document.getElementById(
-      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
-    ).className = 'square check';
-    alert('Szach i Mat');
-  }
-
-  changeBackgroundColor(gameArea = this.gameArea) {
-    const king = document.getElementById(
-      `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
+    this.board.changeSquareStyle(
+      this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
+      'square check',
     );
-    const moduloX = this.getKingPosition(this.gameArea).x % 2;
-    const moduloY = this.getKingPosition(this.gameArea).y % 2;
-    const param = moduloY == moduloX ? 'square light' : 'square dark';
-    king.className = king.className == 'square check' ? param : 'square check';
+    alert('Szach i Mat');
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -108,14 +97,15 @@ class Game {
     );
   }
 
-  pat(gameArea = this.gameArea) {
+  isPat(gameArea = this.gameArea) {
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
     if (!this.isChecked() && opponentMoves.length == 0) {
       console.log('PAT');
 
-      document.getElementById(
-        `${this.getKingPosition(this.gameArea).x},${this.getKingPosition(this.gameArea).y}`,
-      ).className = 'square pat';
+      this.board.changeSquareStyle(
+        this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
+        'square pat',
+      );
     }
   }
 
