@@ -1,0 +1,9 @@
+@keyframes overlay {
+  from {
+    opacity: 0.95;
+  }
+  to {
+    opacity: 0;
+    display: none;
+  }
+}

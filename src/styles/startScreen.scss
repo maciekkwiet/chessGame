@@ -10,6 +10,10 @@
   mix-blend-mode: normal;
   z-index: 2;
   font-family: 'Neon Tubes 2';
+  animation-name: overlay;
+  animation-play-state: paused;
+  animation-duration: 1s;
+  animation-fill-mode: forwards;
 
   #startTextBorder {
     display: flex;
