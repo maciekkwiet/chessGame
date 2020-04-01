@@ -4,7 +4,7 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
-import { create2DArray } from './utils';
+import { copy2DArray, create2DArray } from './utils';
 
 class Board {
   constructor() {
@@ -93,9 +93,15 @@ class Board {
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
-
     pieceToMove.move(to, this.gameArea);
     this.gameArea[toX][toY] = pieceToMove;
+  }
+  tryPieceMove(pieceToMove, to) {
+    const copyOfGameArea = copy2DArray(this.gameArea);
+    const [toX, toY] = to;
+    copyOfGameArea[pieceToMove.x][pieceToMove.y] = null;
+    copyOfGameArea[toX][toY] = pieceToMove;
+    return copyOfGameArea;
   }
 }
 

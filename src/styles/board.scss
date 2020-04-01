@@ -1,45 +1,38 @@
-html {
-  margin: 0;
-}
-* {
-  box-sizing: border-box;
-}
-#wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
 #board {
+  $size: $board-size;
   display: flex;
   flex-wrap: wrap;
-  outline: 5px black solid;
-  width: 80vh;
-  height: 80vh;
+  box-shadow: 0px 4px 50px #00a3ff;
+  opacity: 0.95;
+  width: $size;
+  height: $size;
+  opacity: 0.95;
+  outline: 10px solid rgba(0, 222, 255, 0.6);
 }
+
 .square {
   /* border: 1px darkslategrey solid; */
-  width: 10vh;
-  height: 10vh;
+  $size: $board-size/8;
+  width: $size;
+  height: $size;
   text-align: center;
-  line-height: 10vh;
-  font-size: 7.5vh;
+  line-height: $size;
+  font-size: 6.5vh;
 }
 .light {
-  background: rgb(215, 235, 243);
+  background: #6bc4db;
 }
 .dark {
-  background: rgb(43, 43, 43);
+  background: $dark;
 }
 .black {
-  color: black;
+  color: $black;
 }
 .white {
-  color: silver;
+  color: $white;
 }
 .possibleMove {
-  background: rgba(222, 247, 2, 0.6);
+  background: $moves;
 }
 
 .promotion-bg {
@@ -62,7 +55,7 @@ html {
 }
 
 .promotion {
-  background-color: white;
+  background-color: rgba(0, 0, 0, 0.5);
   width: 70%;
   height: 200px;
   display: flex;

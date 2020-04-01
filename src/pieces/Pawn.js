@@ -15,45 +15,68 @@ class Pawn extends Piece {
     if (this.y === 0 && this.side === 'white') this.promote(gameArea);
     if (this.y === 7 && this.side === 'black') this.promote(gameArea);
   }
+  findAttackingMoves() {
+    const attackingMoves = [];
+
+    if (this.side == 'white') {
+      if (this.x != 0) {
+        attackingMoves.push(`${this.x - 1},${this.y - 1}`);
+      }
+
+      if (this.x != 7) {
+        attackingMoves.push(`${this.x + 1},${this.y - 1}`);
+      }
+    }
+    if (this.side == 'black') {
+      if (this.x != 0) {
+        attackingMoves.push(`${this.x - 1},${this.y + 1}`);
+      }
+
+      if (this.x != 7) {
+        attackingMoves.push(`${this.x + 1},${this.y + 1}`);
+      }
+    }
+    return attackingMoves;
+  }
   findLegalMoves(board) {
-    const possibleMoves = [];
+    const legalMoves = [];
 
     if (this.side == 'white') {
       if (!board[this.x][this.y - 1]) {
-        possibleMoves.push(`${this.x},${this.y - 1}`);
+        legalMoves.push(`${this.x},${this.y - 1}`);
       }
 
-      if (this.y == 6 && !board[this.x][this.y - 2]) {
-        possibleMoves.push(`${this.x},${this.y - 2}`);
+      if (this.y == 6 && !board[this.x][this.y - 1] && !board[this.x][this.y - 2]) {
+        legalMoves.push(`${this.x},${this.y - 2}`);
       }
 
       if (this.x != 0 && board[this.x - 1][this.y - 1] && this.side != board[this.x - 1][this.y - 1].side) {
-        possibleMoves.push(`${this.x - 1},${this.y - 1}`);
+        legalMoves.push(`${this.x - 1},${this.y - 1}`);
       }
 
       if (this.x != 7 && board[this.x + 1][this.y - 1] && this.side != board[this.x + 1][this.y - 1].side) {
-        possibleMoves.push(`${this.x + 1},${this.y - 1}`);
+        legalMoves.push(`${this.x + 1},${this.y - 1}`);
       }
     }
     if (this.side == 'black') {
       if (!board[this.x][this.y + 1]) {
-        possibleMoves.push(`${this.x},${this.y + 1}`);
+        legalMoves.push(`${this.x},${this.y + 1}`);
       }
 
-      if (this.y == 1 && !board[this.x][this.y + 2]) {
-        possibleMoves.push(`${this.x},${this.y + 2}`);
+      if (this.y == 1 && !board[this.x][this.y + 1] && !board[this.x][this.y + 2]) {
+        legalMoves.push(`${this.x},${this.y + 2}`);
       }
       if (this.x != 0 && board[this.x - 1][this.y + 1] && this.side != board[this.x - 1][this.y + 1].side) {
-        possibleMoves.push(`${this.x - 1},${this.y + 1}`);
+        legalMoves.push(`${this.x - 1},${this.y + 1}`);
       }
 
       if (this.x != 7 && board[this.x + 1][this.y + 1] && this.side != board[this.x + 1][this.y + 1].side) {
-        possibleMoves.push(`${this.x + 1},${this.y + 1}`);
+        legalMoves.push(`${this.x + 1},${this.y + 1}`);
       }
     }
-
-    return possibleMoves;
+    return legalMoves;
   }
+
   promote(gameArea) {
     const promotionBG = document.querySelector('.promotion-bg');
     const promotionQueen = document.querySelector('.promotion-queen');
@@ -97,5 +120,4 @@ class Pawn extends Piece {
 
   enPassant() {}
 }
-
 export default Pawn;
