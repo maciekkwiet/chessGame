@@ -61,6 +61,7 @@ class Game {
       )
         this.selectedPiece.promote(this.gameArea);
     }
+
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];

@@ -4,6 +4,8 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
+import HistoryElement from './HistoryElement';
+import History from './History';
 import { copy2DArray, create2DArray } from './utils';
 
 class Board {
@@ -12,6 +14,8 @@ class Board {
     this.gameAreaHandler = document.getElementById('board');
     this.setPieces();
     this.setup();
+    this.historyArray = [];
+    this.history = new History();
   }
   setup() {
     for (let y = 0; y < this.gameArea.length; y++) {
@@ -92,6 +96,7 @@ class Board {
 
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
+    this.createHistoryArray(pieceToMove, to);
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
     pieceToMove.move(to);
     this.gameArea[toX][toY] = pieceToMove;
@@ -102,6 +107,20 @@ class Board {
     copyOfGameArea[pieceToMove.x][pieceToMove.y] = null;
     copyOfGameArea[toX][toY] = pieceToMove;
     return copyOfGameArea;
+  }
+  createHistoryArray(pieceToMove, to) {
+    console.log(pieceToMove);
+    let historyElement = new HistoryElement(
+      pieceToMove.x,
+      pieceToMove.y,
+      pieceToMove.side,
+      pieceToMove.name,
+      to[0],
+      to[1],
+    );
+    historyElement.parseElement(this.gameArea);
+    this.historyArray.push(historyElement);
+    this.history.generateHistoryTable(this.historyArray);
   }
 }
 
