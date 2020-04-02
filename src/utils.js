@@ -24,19 +24,11 @@ export const iterateOver2DArray = (callback, arr) => {
 
 export const parseId = id => [Number(id[0]), Number(id[2])];
 
-// export const handleOverlay = () => {
-//   const play = document.querySelector('#play');
-//   const overlay = document.querySelector('#startScreen');
-//   play.addEventListener('click', function() {
-//     console.log('click!');
-//     overlay.classList.add('hidden');
-//   });
-// };
+
 export const handleOverlay = () => {
   const play = document.querySelector('#play');
   const overlay = document.querySelector('#startScreen');
   play.addEventListener('click', function() {
-    console.log('click!');
     overlay.style.animationPlayState = 'running';
   });
 };
