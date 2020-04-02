@@ -93,7 +93,6 @@ class Board {
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
-    console.log(this);
     pieceToMove.move(to, this.gameArea);
     this.gameArea[toX][toY] = pieceToMove;
   }

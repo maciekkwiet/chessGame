@@ -42,7 +42,7 @@ class Game {
 
   handleMove(element) {
     const { id } = element;
-    if (!this.legalMoves.includes(id)) return;
+    if (!this.possibleMoves.includes(id)) return;
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
