@@ -12,23 +12,24 @@ class Historyelement extends Piece {
   }
 
   parseNotation() {
-    const row = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-    const column = [7, 6, 5, 4, 3, 2, 1];
-    console.log('sprawdza', this.x, row[this.x]);
-    this.x = row[this.x];
-    this.y = column[this.y];
-    this.toX = row[this.toX];
-    this.toY = column[this.toY];
+    const column = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const row = [1, 2, 3, 4, 5, 6, 7, 8];
+    console.log('sprawdzax', this.x, column[this.x], 'sprawdzay', this.y, row[this.y]);
+    this.x = column[this.x];
+    this.y = row[this.y];
+    this.toX = column[this.toX];
+    this.toY = row[this.toY];
     console.log('to parser');
   }
   checkCastling() {
     console.log('sprcast', this.toX, this.x);
-    if (this.name === 'king' && this.toX - this.x < -1) this.castling = true;
-    if (this.name === 'king' && this.toX - this.x > 11) this.castling = true;
+    if (this.name === 'king' && this.toX - this.x < -1) this.castling = 'long';
+    if (this.name === 'king' && this.toX - this.x > 1) this.castling = 'short';
   }
 
   checkAttack(gameArea) {
-    if (gameArea[(this.toX, this.toY)]) this.attack = true;
+    console.log(gameArea[this.toX][this.toY]);
+    if (gameArea[this.toX][this.toY]) this.attack = true;
   }
   checkPromotion() {
     if (this.toY === 7 && this.name === 'pawn' && this.side === 'black') this.promotion = true;

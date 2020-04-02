@@ -1,56 +1,46 @@
 class History {
-  generateHistoryTable(historyArray, gameArea) {
-    let historyTable = historyArray;
+  generateHistoryTable(historyArray) {
+    let historyTable = [];
+    for (let i = 0; i < historyArray.length; i++) {
+      let element = historyArray[i];
 
-    console.log(historyTable);
-
-    //Build an array containing Customer records.
-
+      let toPush = element.name.charAt(0).toUpperCase() + element.toX + element.toY;
+      // pawn standard move
+      if (element.name === 'pawn') toPush = element.toX + element.toY;
+      // knight standard move
+      if (element.name === 'knight') toPush = 'N' + element.toX + element.toY;
+      if (element.attack === true) {
+        toPush = element.name.charAt(0).toUpperCase() + 'x' + element.toX + element.toY;
+        // pawn attack
+        if (element.name === 'pawn') toPush = element.x + 'x' + element.toX + element.toY;
+        // knight attack
+        if (element.name === 'knight') toPush = 'N' + 'x' + element.toX + element.toY;
+      }
+      if (element.castling === 'long') {
+        toPush = 'O-O-O';
+      }
+      if (element.castling === 'short') {
+        toPush = 'O-O';
+      }
+      historyTable.push(toPush);
+    }
     //Create a HTML Table element.
     let table = document.createElement('TABLE');
     table.border = '1';
+    let tableToDisplay = [];
 
-    //Get the count of columns.
-    let columnCount = 2;
-
-    //Add the header row.
-    let row = table.insertRow(-1);
-    for (let i = 0; i < 2; i++) {
-      let headerCell = document.createElement('TH');
-      headerCell.innerHTML = 'white';
-      headerCell.innerHTML = 'black';
-
-      row.appendChild(headerCell);
+    for (let i = 0; i < historyTable.length; i = i + 2) {
+      if (historyTable[i + 1]) tableToDisplay.push([historyTable[i], historyTable[i + 1]]);
+      else tableToDisplay.push([historyTable[i], '']);
     }
-    console.log(historyTable);
+    console.log('tabletodisplay', tableToDisplay);
 
     //Add the data rows.
-    for (let i = 1; i < historyTable.length; i++) {
-      row = table.insertRow(-1);
-      for (let j = 0; j < columnCount; j++) {
+    for (let i = 0; i < tableToDisplay.length; i++) {
+      let row = table.insertRow(-1);
+      for (let j = 0; j < 2; j++) {
         let cell = row.insertCell(-1);
-        let piece = historyTable[i];
-        if (piece.attack === true) {
-          // pawn attack
-          if (piece.name === 'pawn' && piece.attack === true)
-            cell.innerHTML = piece.x + 'x' + piece.toX + historyTable[i].toY;
-          // knight attack
-          if (piece.name === 'knight' && piece.attack === true) cell.innerHTML = 'N' + 'x' + piece.toX + piece.toY;
-          else cell.innerHTML = piece.name.charAt(0).toUpperCase() + 'x' + piece.toX + piece.toY;
-        }
-        //castling
-        if (piece.castling === true) {
-          console.log('dupsko');
-          cell.innerHTML = 'O-O-O';
-        }
-        //if (piece.name === 'king' && piece.castling === 'short') cell.innerHTML = 'O-O';
-        {
-          // pawn standard
-          if (piece.name === 'pawn') cell.innerHTML = piece.toX + historyTable[i].toY;
-          // knight standard
-          if (piece.name === 'knight') cell.innerHTML = 'N' + piece.toY;
-          else cell.innerHTML = piece.name.charAt(0).toUpperCase() + piece.toX + piece.toY;
-        }
+        cell.innerHTML = tableToDisplay[i][j];
       }
     }
 
