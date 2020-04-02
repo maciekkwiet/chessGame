@@ -3,6 +3,7 @@
   width: 100vw;
   height: 100vh;
   background: $dark;
+  
   opacity: 0.95;
   display: flex;
   justify-content: center;
@@ -15,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    top: 30px ;
     #startText {
       background: linear-gradient(
         180deg,
@@ -43,15 +44,15 @@
       }
 
       h1 {
-        font-size: 70px;
-        line-height: 90px;
+        font-size: 60px;
+        line-height: 70px;
         color: $orange;
         text-shadow: 0px 4px 10px #24ff00;
         text-shadow: 3px 3px 2px #f5b7ff;
         text-decoration-line: underline;
       }
       h2 {
-        font-size: 45px;
+        font-size: 40px;
         line-height: 60px;
         color: $yellow;
         text-shadow: 0px 0px 10px #dbff00;
@@ -64,3 +65,98 @@
 #play:hover {
   cursor: pointer;
 }
+
+
+#chooseButton {
+  font-size: 10px ;
+  padding: 6px ;
+  position: fixed;
+  display: flex;
+  width: 400px ;
+  text-align: center ;
+border-radius: 0px 0px 30px 30px;
+align-self: flex-start;
+  justify-content: center;
+  align-items: flex-start;
+  color: white;
+  background-color: #1E1F57;
+  box-shadow: 0px 0px 15px #ad00ff;
+  border-bottom: 2px solid #ad00ff;
+}
+
+ul {
+  left: 50%;
+  top: 20%;
+  position: fixed;
+  display: flex;
+  justify-content: left;
+  align-items: flex-start;
+  transform: translate(-50%,-50%);
+  color: white;
+  width: 450px ;
+  cursor: pointer ;
+ }
+ 
+ ul li
+ {
+  list-style: none;
+  width:30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  margin: 0 30px;
+  background: rgba(173,0,255,.3);
+  border-radius: 50%;
+  color:#000635;
+  transition:.5s;
+ }
+ 
+ ul li:nth-child(1):hover{
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,245,255,1),
+     0 0 20px rgba(0,240,255,1),
+     0 0 30px rgba(0,240,255,1),
+     0 0 0 75px rgba(0,240,255,0.05),
+     0 0 0 60px rgba(0,240,255,0.05),
+     0 0 0 50px rgba(255,255,255,0.05),
+     0 0 0 40px rgba(255,255,255,0.05),
+     0 0 0 30px rgba(255,255,255,0.05);
+ }
+
+ ul li:nth-child(2):hover{
+  background: #fff;
+  box-shadow: 0 0 10px rgba(255,0,77,1),
+     0 0 20px rgba(255,0,77,1),
+     0 0 30px rgba(255,0,77,1),
+     0 0 0 75px rgba(255,0,77,0.05),
+     0 0 0 60px rgba(255,0,77,0.05),
+     0 0 0 50px rgba(255,255,255,0.05),
+     0 0 0 40px rgba(255,255,255,0.05),
+     0 0 0 30px rgba(255,255,255,0.05);
+ }
+
+
+ ul li:nth-child(3):hover{
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0,255,66,1),
+     0 0 20px rgba(0,255,66,1),
+     0 0 30px rgba(0,255,66,1),
+     0 0 0 75px rgba(0,255,66,0.05),
+     0 0 0 60px rgba(0,255,66,0.05),
+     0 0 0 50px rgba(255,255,255,0.05),
+     0 0 0 40px rgba(255,255,255,0.05),
+     0 0 0 30px rgba(255,255,255,0.05);
+ }
+
+
+ ul li:nth-child(4):hover{
+  background: #fff;
+  box-shadow: 0 0 10px rgba(189,0,255,1),
+     0 0 20px rgba(189,0,255,1),
+     0 0 30px rgba(189,0,255,1),
+     0 0 0 75px rgba(189,0,255,0.05),
+     0 0 0 60px rgba(189,0,255,0.05),
+     0 0 0 50px rgba(255,255,255,0.05),
+     0 0 0 40px rgba(255,255,255,0.05),
+     0 0 0 30px rgba(255,255,255,0.05);
+ }
