@@ -33,11 +33,6 @@ class Game {
 
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-
-    // ToDo refactor
-    if (this.selectedPiece.name === 'king' && !this.isChecked())
-      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
