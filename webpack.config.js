@@ -1,7 +1,6 @@
 /* eslint-disable */
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -16,6 +15,9 @@ module.exports = {
       template: './index.html',
     }),
   ],
+  externals: {
+    gsap: 'gsap',
+  },
   resolve: {
     extensions: ['.js'],
   },
