@@ -105,6 +105,5 @@ class Board {
     return copyOfGameArea;
   }
 }
-handleOverlay();
 
 export default Board;
