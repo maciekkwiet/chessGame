@@ -1,5 +1,6 @@
 import Board from './Board';
 import { parseId, iterateOver2DArray } from './utils';
+import TIME from './clock.js';
 
 class Game {
   constructor() {
@@ -9,18 +10,24 @@ class Game {
     this.gameArea = this.board.gameArea;
     this.legalMoves = [];
     this.selectedPiece = null;
-    this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));    
+    this.whiteplayer = new TIME(900);
+    this.blackplayer = new TIME(900);
   }
+
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
+
+    //this.currentPlayer =='white' ? (this.whiteplayer.start() && this.blackplayer.pause()) :  (this.blackplayer.start() && this.whiteplayer.pause());
+
     if (this.legalMoves.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
     }
   }
-
+  
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
@@ -37,7 +44,6 @@ class Game {
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && !this.isChecked())
       possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -53,6 +59,9 @@ class Game {
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
+
+    this.currentPlayer =='white' ? (this.whiteplayer.start() && this.blackplayer.pause()) :  (this.blackplayer.start() && this.whiteplayer.pause());
+   
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
       if (
