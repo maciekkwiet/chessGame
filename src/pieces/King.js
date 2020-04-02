@@ -56,12 +56,12 @@ class King extends Piece {
   }
 
   findLegalMoves(gameArea) {
-    const sameSideMoves = [];
+    const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
 
     attack.forEach(move => {
       if (gameArea[move[0]][move[2]] && gameArea[move[0]][move[2]].side === this.side)
-        sameSideMoves.push(`${move[0]},${move[2]}`);
+        possibleMoves.push(`${move[0]},${move[2]}`);
     });
     if (
       //check if King moved
@@ -72,10 +72,9 @@ class King extends Piece {
       // add field if short castling is possible
       if (this.isShortCastlingPossible(gameArea)) attack.push(`${[6]},${[this.y]}`);
     }
-    let filteredMoves = attack.filter(move => !sameSideMoves.includes(move));
-    let possibleMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
+    const legalMoves = attack.filter(move => !possibleMoves.includes(move));
 
-    return possibleMoves;
+    return legalMoves;
   }
 
   findAttackingMoves() {
