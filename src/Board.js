@@ -12,6 +12,8 @@ class Board {
     this.gameAreaHandler = document.getElementById('board');
     this.setPieces();
     this.setup();
+    this.a = '';
+    this.b = '';
   }
 
   setup() {
@@ -29,21 +31,23 @@ class Board {
   }
 
   lightUpCheck() {
-    const interval = setInterval(gameArea => this.changeBackgroundColor(gameArea), 300);
+    const interval = setInterval((param1, param2) => this.changeBackgroundColor(param1, param2), 300);
     setTimeout(function() {
       clearInterval(interval);
-    }, 1200);
+    }, 900);
   }
 
-  changeBackgroundColor(kingPosition) {
-    const param = kingPosition;
-    //console.log(param);
-    //console.log(kingPosition.x);
-    // const king = document.getElementById(`${kingPosition.x},${kingPosition.y}`);
-    // const moduloX = kingPosition.x % 2;
-    // const moduloY = kingPosition.y % 2;
-    // const param = moduloY == moduloX ? 'square light' : 'square dark';
-    // king.className = king.className == 'square check' ? param : 'square check';
+  changeBackgroundColor(param1, param2) {
+    this.a += param1;
+    this.b += param2;
+    console.log(this.a[0]);
+    console.log(this.b[0]);
+
+    const king = document.getElementById(`${this.a[0]},${this.b[0]}`);
+    const moduloX = this.a[0] % 2;
+    const moduloY = this.b[0] % 2;
+    const param = moduloY == moduloX ? 'square light' : 'square dark';
+    king.className = king.className == 'square check' ? param : 'square check';
   }
 
   changeSquareStyle(squareId, classNamed) {

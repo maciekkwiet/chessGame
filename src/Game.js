@@ -67,7 +67,10 @@ class Game {
     this.changeTurn();
     if (this.isChecked()) {
       this.board.lightUpCheck();
-      this.board.changeBackgroundColor(this.getKingPosition(this.gameArea));
+      this.board.changeBackgroundColor(
+        this.getKingPosition(this.gameArea).x.toString(),
+        this.getKingPosition(this.gameArea).y.toString(),
+      );
       if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
     }
     this.isPat();
