@@ -2,12 +2,22 @@
 
 class TIME
 {
-    constructor(seconds,timer)
+    constructor(seconds)
     {
         this.start=this.start.bind(this);
         this.pause=this.pause.bind(this);
         this.seconds=seconds;
-        this.timer=timer;
+        
+        const el = document.createElement("div");
+
+        el.innerText = "Timer";
+        el.setAttribute("title", "Gamer");
+        el.classList.add("timer");
+        
+
+        const div = document.querySelector(".chessTimer");
+      
+        div.appendChild(el);
 
         //this.Start=document.querySelector('#Start');
         //this.Stop=document.querySelector('#Stop');
@@ -34,7 +44,7 @@ class TIME
     
     if(this.seconds>0)
     this.seconds--;
-   this.Timer.innerHTML=this.convertSeconds(this.seconds);
+   //this.Timer.innerHTML=this.convertSeconds(this.seconds);
     console.log(this.convertSeconds(this.seconds))
     return this.seconds;       
     }
