@@ -8,6 +8,11 @@ class Piece {
     const newX = Number(to[0]);
     const newY = Number(to[1]);
 
+    let param2 = this.y;
+    console.log(param2);
+    let param4 = newY;
+    console.log(param4);
+
     //clearing previous place
     document.getElementById(`${this.x},${this.y}`).innerHTML = '';
 

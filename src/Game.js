@@ -52,6 +52,9 @@ class Game {
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
+    }
+    if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
+      //this.selectedPiece.castling(this.gameArea, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
@@ -60,10 +63,14 @@ class Game {
         (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
       )
         this.selectedPiece.promote(this.gameArea);
+      // if(){
+
+      // }
     }
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
+    console.log(this.board);
     this.changeTurn();
     if (this.isChecked()) {
       console.log('Szach');

@@ -9,6 +9,7 @@ class Pawn extends Piece {
     super(x, y, side);
     this.name = 'pawn';
     this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
+    this.isPassage = false;
   }
   findAttackingMoves() {
     const attackingMoves = [];
@@ -114,6 +115,8 @@ class Pawn extends Piece {
     }
   }
 
-  enPassant() {}
+  enPassant() {
+    console.log('JESTEM PIONKIEM');
+  }
 }
 export default Pawn;
