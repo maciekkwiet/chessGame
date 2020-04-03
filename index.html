@@ -16,11 +16,23 @@
 
   <body>
     <div id="startScreen">
-      <div id="startTextBorder"><div id="startText"><h2>c'mon man</h2><h1 id="play">let's play</h1></div></div>
-  </div>
-    <div id="wrapper">
-      <div id="game-title">retro chess</div>
-      <div id="board"></div>
+      <div id="startTextBorder">
+        <div id="startText">
+          <h2>c'mon man</h2>
+          <h1 id="play">let's play</h1>
+        </div>
+      </div>
+    </div>
+    <div id="horizontal-wrapper">
+      <div id="wrapper">
+        <div id="game-title">retro chess</div>
+        <div id="board"></div>
+        <div id="notation-horizontal"></div>
+      </div>
+      <div id="notation-vertical"></div>
+      <div class="table-bg">
+        <div id="dvTable"></div>
+      </div>
     </div>
 
     <div class="promotion-bg">
@@ -31,12 +43,7 @@
         <div class="promotion-rook"></div>
       </div>
     </div>
-  <div class="table-bg">
-  <div id="dvTable"></div>
-</div>
-
 
     <script src="bundle.js"></script>
-  </div>
   </body>
 </html>

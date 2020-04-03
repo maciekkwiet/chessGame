@@ -12,6 +12,7 @@ class Board {
   constructor() {
     this.gameArea = create2DArray();
     this.gameAreaHandler = document.getElementById('board');
+    this.generateNotation();
     this.setPieces();
     this.setup();
     this.historyArray = [];
@@ -31,6 +32,22 @@ class Board {
     }
   }
 
+  generateNotation() {
+    const column = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const row = [1, 2, 3, 4, 5, 6, 7, 8];
+    const notationX = document.getElementById('notation-horizontal');
+    const notationY = document.getElementById('notation-vertical');
+    for (let i = 0; i < column.length; i++) {
+      const notationBlock = document.createElement('div');
+      notationBlock.innerHTML = column[i];
+      notationX.appendChild(notationBlock);
+    }
+    for (let i = 0; i < row.length; i++) {
+      const notationBlock = document.createElement('div');
+      notationBlock.innerHTML = row[i];
+      notationY.appendChild(notationBlock);
+    }
+  }
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
 
