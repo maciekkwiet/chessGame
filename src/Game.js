@@ -1,5 +1,4 @@
 import Board from './Board';
-import Pawn from './pieces/Pawn';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
@@ -53,10 +52,14 @@ class Game {
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
-    }
-    if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
+    } else if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
       this.board.movePiece(this.selectedPiece, parseId(id));
       this.selectedPiece.isPassage = true;
+      // } else if (this.selectedPiece.name === 'pawn' && this.selectedPiece.enPassant.length != 0) {
+      //   console.log('XYZ');
+      //   this.board.movePiece(this.selectedPiece, parseId(id));
+
+      //opponentMoves.some(move => move[0] == king.x && move[2] == king.y) ? true : false;
     } else this.board.movePiece(this.selectedPiece, parseId(id));
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
