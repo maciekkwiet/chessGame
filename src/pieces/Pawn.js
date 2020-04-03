@@ -50,8 +50,31 @@ class Pawn extends Piece {
       if (this.x != 0 && board[this.x - 1][this.y - 1] && this.side != board[this.x - 1][this.y - 1].side) {
         legalMoves.push(`${this.x - 1},${this.y - 1}`);
       }
+      // 1
+      if (
+        this.x != 0 &&
+        board[this.x - 1][this.y] &&
+        this.side != board[this.x - 1][this.y].side &&
+        this.name == board[this.x - 1][this.y].name &&
+        board[this.x - 1][this.y].isPassage == true
+      ) {
+        //console.log("Bicie w przelocie");
+        legalMoves.push(`${this.x - 1},${this.y - 1}`);
+      }
 
       if (this.x != 7 && board[this.x + 1][this.y - 1] && this.side != board[this.x + 1][this.y - 1].side) {
+        legalMoves.push(`${this.x + 1},${this.y - 1}`);
+      }
+
+      // 2
+      if (
+        this.x != 7 &&
+        board[this.x + 1][this.y] &&
+        this.side != board[this.x + 1][this.y].side &&
+        this.name == board[this.x + 1][this.y].name &&
+        board[this.x + 1][this.y].isPassage == true
+      ) {
+        //console.log("Bicie w przelocie");
         legalMoves.push(`${this.x + 1},${this.y - 1}`);
       }
     }
@@ -67,7 +90,31 @@ class Pawn extends Piece {
         legalMoves.push(`${this.x - 1},${this.y + 1}`);
       }
 
+      // 3
+      if (
+        this.x != 0 &&
+        board[this.x - 1][this.y] &&
+        this.side != board[this.x - 1][this.y].side &&
+        this.name == board[this.x - 1][this.y].name &&
+        board[this.x - 1][this.y].isPassage == true
+      ) {
+        //console.log("Bicie w przelocie");
+        legalMoves.push(`${this.x - 1},${this.y + 1}`);
+      }
+
       if (this.x != 7 && board[this.x + 1][this.y + 1] && this.side != board[this.x + 1][this.y + 1].side) {
+        legalMoves.push(`${this.x + 1},${this.y + 1}`);
+      }
+
+      // 4
+      if (
+        this.x != 7 &&
+        board[this.x + 1][this.y] &&
+        this.side != board[this.x + 1][this.y].side &&
+        this.name == board[this.x + 1][this.y].name &&
+        board[this.x + 1][this.y].isPassage == true
+      ) {
+        //console.log("Bicie w przelocie");
         legalMoves.push(`${this.x + 1},${this.y + 1}`);
       }
     }
@@ -113,10 +160,6 @@ class Pawn extends Piece {
         handler.removeEventListener('click', pieces[i].listener);
       }
     }
-  }
-
-  enPassant() {
-    console.log('JESTEM PIONKIEM');
   }
 }
 export default Pawn;

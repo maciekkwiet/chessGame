@@ -1,4 +1,5 @@
 import Board from './Board';
+import Pawn from './pieces/Pawn';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
@@ -53,8 +54,9 @@ class Game {
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     }
-    if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
-      //this.selectedPiece.castling(this.gameArea, parseId(id));
+    if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
+      this.board.movePiece(this.selectedPiece, parseId(id));
+      this.selectedPiece.isPassage = true;
     } else this.board.movePiece(this.selectedPiece, parseId(id));
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
@@ -63,15 +65,12 @@ class Game {
         (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
       )
         this.selectedPiece.promote(this.gameArea);
-      // if(){
-
-      // }
     }
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
-    console.log(this.board);
     this.changeTurn();
+    this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
       console.log('Szach');
       if (this.isCheckMate()) alert('Szach i Mat');
@@ -92,6 +91,12 @@ class Game {
         return this.isChecked(suspectedGameState);
       }),
     );
+  }
+
+  resetPawnFlag(player, gameArea = this.gameArea) {
+    const pieces = this.getPlayerPieces(player, gameArea);
+    let pawns = pieces.filter(param => param.name == 'pawn');
+    return pawns.forEach(param2 => (param2.isPassage = false));
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
