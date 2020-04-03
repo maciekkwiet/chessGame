@@ -2,15 +2,16 @@
 
 class TIME
 {
-    constructor(seconds)
+    constructor(seconds,class)
     {
         this.start=this.start.bind(this);
         this.pause=this.pause.bind(this);
         this.seconds=seconds;
+        this.time=time;
 
         //this.Start=document.querySelector('#Start');
         //this.Stop=document.querySelector('#Stop');
-        //this.Timer=document.querySelector('#Timer');
+        this.Timer=document.querySelector("#"+this.class);
         //this.Pause=document.querySelector('#Pause');
     
         //this.Start.addEventListener('click',this.start);
@@ -33,7 +34,7 @@ class TIME
     
     if(this.seconds>0)
     this.seconds--;
-   // this.Timer.innerHTML=this.convertSeconds(this.seconds);
+   this.Timer.innerHTML=this.convertSeconds(this.seconds);
     console.log(this.convertSeconds(this.seconds))
     return this.seconds;       
     }

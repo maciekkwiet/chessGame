@@ -11,16 +11,16 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));    
-    this.whiteplayer = new TIME(900);
-    this.blackplayer = new TIME(900);
+    this.whiteplayer = new TIME(900,"white")
+    this.blackplayer = new TIME(900,"black");
+    
+    //this.whiteplayer = document.querySelector('#Startwhite');
+    //this.whiteplayer = document.querySelector('#Startblack');
   }
 
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-
-    //this.currentPlayer =='white' ? (this.whiteplayer.start() && this.blackplayer.pause()) :  (this.blackplayer.start() && this.whiteplayer.pause());
-
     if (this.legalMoves.length !== 0) {
       this.handleMove(element);
     } else {
@@ -37,6 +37,7 @@ class Game {
   handleSelect(element) {
     const [x, y] = parseId(element.id);
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
+
 
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
@@ -60,7 +61,13 @@ class Game {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
 
-    this.currentPlayer =='white' ? (this.whiteplayer.start() && this.blackplayer.pause()) :  (this.blackplayer.start() && this.whiteplayer.pause());
+    if(this.currentPlayer =='white') this.whiteplayer.start(); 
+    else this.whiteplayer.pause();
+   if(this.currentPlayer =='black') this.blackplayer.start(); 
+    else this.blackplayer.pause();
+    
+      // this.currentPlayer =='white' ? this.whiteplayer.start() :  this.whiteplayer.pause();
+      //this.currentPlayer =='black' ? this.blackplayer.start() :  this.blackplayer.pause();
    
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
