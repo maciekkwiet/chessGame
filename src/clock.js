@@ -2,16 +2,16 @@
 
 class TIME
 {
-    constructor(seconds,class)
+    constructor(seconds,timer)
     {
         this.start=this.start.bind(this);
         this.pause=this.pause.bind(this);
         this.seconds=seconds;
-        this.time=time;
+        this.timer=timer;
 
         //this.Start=document.querySelector('#Start');
         //this.Stop=document.querySelector('#Stop');
-        this.Timer=document.querySelector("#"+this.class);
+        this.Timer=document.querySelector("#"+this.timer);
         //this.Pause=document.querySelector('#Pause');
     
         //this.Start.addEventListener('click',this.start);
