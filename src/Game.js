@@ -11,36 +11,44 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));    
-    this.whiteplayer = new TIME(900,"white")
-    this.blackplayer = new TIME(900,"black");
-    
+    this.whiteplayer = new TIME(900,"timerwhite");
+    this.blackplayer = new TIME(900,"timerblack");    
     //this.whiteplayer = document.querySelector('#Startwhite');
     //this.whiteplayer = document.querySelector('#Startblack');
+    
   }
 
 
   onClick(e) {
+   
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
+    console.log(element);
+    
+    const [x, y] = parseId(element.id);
+    console.log("obecne współrzędne "+ [x, y])
+
     if (this.legalMoves.length !== 0) {
       this.handleMove(element);
     } else {
       this.handleSelect(element);
     }
   }
-  
+
+
+
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
     this.round++;
   }
 
+
   handleSelect(element) {
     const [x, y] = parseId(element.id);
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
-
-
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+    
 
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && !this.isChecked())
@@ -65,9 +73,8 @@ class Game {
     else this.whiteplayer.pause();
    if(this.currentPlayer =='black') this.blackplayer.start(); 
     else this.blackplayer.pause();
-    
-      // this.currentPlayer =='white' ? this.whiteplayer.start() :  this.whiteplayer.pause();
-      //this.currentPlayer =='black' ? this.blackplayer.start() :  this.blackplayer.pause();
+
+
    
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
