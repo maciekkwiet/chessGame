@@ -55,11 +55,15 @@ class Game {
     } else if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
       this.board.movePiece(this.selectedPiece, parseId(id));
       this.selectedPiece.isPassage = true;
-      // } else if (this.selectedPiece.name === 'pawn' && this.selectedPiece.enPassant.length != 0) {
-      //   console.log('XYZ');
-      //   this.board.movePiece(this.selectedPiece, parseId(id));
+    } else if (this.selectedPiece.name === 'pawn' && this.selectedPiece.enPassant.length != 0) {
+      const param = this.selectedPiece.enPassant(this.gameArea);
+      param.forEach(x => {
+        if (x[0] == id[0]) {
+          this.selectedPiece.destroyPawn(this.gameArea);
+        }
+      });
 
-      //opponentMoves.some(move => move[0] == king.x && move[2] == king.y) ? true : false;
+      this.board.movePiece(this.selectedPiece, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
