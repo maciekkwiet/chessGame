@@ -12,7 +12,7 @@ class Board {
   constructor() {
     this.gameArea = create2DArray();
     this.gameAreaHandler = document.getElementById('board');
-    this.generateNotation();
+    // this.generateNotation();
     this.setPieces();
     this.setup();
     this.historyArray = [];

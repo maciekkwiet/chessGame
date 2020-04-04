@@ -2,8 +2,7 @@
   font-family: 'Munro';
   src: url('../font/munro-small.ttf') format('truetype');
 }
-#board,
-#notation-horizontal, #notation-vertical{
+#board {
   justify-self: center;
   grid-column: 2/3;
   $size: $board-size;
@@ -15,42 +14,8 @@
   height: $size;
   outline: 10px solid rgba(0, 222, 255, 0.6);
 }
-#notation-horizontal, #notation-vertical{
-  margin: 0;
-  padding: 0 ;
-  box-shadow: none;
-  justify-content: space-between;
-  height: 10vh;
-  outline: none;
-  div {
-    $size: $board-size/8;
-    width: $size;
-    align-self: center;
-    text-align: center;
-    font-family: Munro;
-    font-size: inherit;
-    color: white;
-    line-height: 5vh;
-  }
-}
 
-#notation-vertical{
-  $size: $board-size/8;
-  height: $size;
-  width: $size;
-  flex-direction: column-reverse;
-  div {
-    $size: $board-size/8;
-    width: $size;
-    align-self: center;
-    text-align: center;
-    font-family: Munro;
-    font-size: inherit;
-    color: white;
-    justify-self: center;
-    line-height: $size;
-  }
-}
+
 
 .square {
   /* border: 1px darkslategrey solid; */
@@ -132,10 +97,4 @@
 .promotion-rook i {
   font-size: 100px;
   cursor: pointer;
-}
-
-#notation-vertical{
-  $size: $board-size;
-  height: $board-size;
-  margin-bottom: 9.5vh;
 }
