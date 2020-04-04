@@ -4,6 +4,8 @@
 }
 #board,
 #notation-horizontal, #notation-vertical{
+  justify-self: center;
+  grid-column: 2/3;
   $size: $board-size;
   display: flex;
   flex-wrap: wrap;
@@ -58,6 +60,9 @@
   text-align: center;
   line-height: $size;
   font-size: 6.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .light {
