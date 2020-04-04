@@ -96,6 +96,12 @@ class Board {
     pieceToMove.move(to);
     this.gameArea[toX][toY] = pieceToMove;
   }
+
+  destroyPawn(gameArea, x, y) {
+    this.gameArea[+x][+y] = null;
+    document.getElementById(`${+x},${+y}`).innerHTML = '';
+  }
+
   tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
     const [toX, toY] = to;
