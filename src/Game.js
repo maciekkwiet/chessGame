@@ -59,7 +59,7 @@ class Game {
       const param = this.selectedPiece.enPassant(this.gameArea);
       param.forEach(x => {
         if (x[0] == id[0]) {
-          this.selectedPiece.destroyPawn(this.gameArea);
+          this.selectedPiece.destroyPawn(this.gameArea, id[0], id[2]);
         }
       });
 

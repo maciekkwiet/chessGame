@@ -122,11 +122,11 @@ class Pawn extends Piece {
     return enPassant;
   }
 
-  destroyPawn(board) {
-    console.log(board[this.x + 1][this.y]);
-    board[this.x + 1][this.y] = null;
-    console.log(board[this.x + 1][this.y]);
-    console.log(board);
+  destroyPawn(board, x, y) {
+    console.log(x);
+    console.log(y);
+
+    board[x][y + 1] = null;
   }
 
   promote(gameArea) {
