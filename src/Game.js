@@ -20,11 +20,7 @@ class Game {
   onClick(e) {
    
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-    console.log(element);
-    
-    const [x, y] = parseId(element.id);
-    console.log("obecne współrzędne "+ [x, y])
-
+   
     if (this.legalMoves.length !== 0) {
       this.handleMove(element);
     } else {
@@ -32,18 +28,41 @@ class Game {
     }
   }
 
-
-
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
     this.round++;
   }
 
+  changecolor(x,y)
+  {   
+    if(this.gameArea[x][y])  
+    {
+      const currentColorPlayer=document.getElementById(x,y);
+      currentColorPlayer.className = 'currentcolor square';     
+      return x,y;
+    }  
+  
+  }
+
+ backchangecolor()
+  {
+    this.changecolor();
+    const newx =this.changecolor.x;
+    const newy=this.changecolor.y;
+    const currentColorPlayerback=document.getElementById(newx,newy);    
+     newy % 2 == newx % 2 ? currentColorPlayerback.className='square light' : currentColorPlayerback.className='square dark'; 
+  }
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
+   
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
+     
+    {
+      this.changecolor(`${x},${y}`)
+        
+    }
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
     
@@ -59,9 +78,12 @@ class Game {
   }
 
   handleMove(element) {
+    //const [x, y] = parseId(element.id);
     const { id } = element;
+    console.log({ id })
+    this.backchangecolor()
     if (!this.legalMoves.includes(id)) return;
-
+      
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
