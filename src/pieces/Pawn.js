@@ -11,6 +11,27 @@ class Pawn extends Piece {
     this.display = `<i class="fas fa-chess-pawn ${side}"></i>`;
     this.isPassage = false;
   }
+
+  move(to, gameArea) {
+    if (Math.abs(this.y - to[1]) > 1) this.isPassage = true;
+    let param = this.enPassant(gameArea);
+    if (param != 0) {
+      param.forEach(x => {
+        if (x[0] == to[0]) {
+          this.destroyEnPassantPawn(gameArea, to[0], this.y);
+        }
+      });
+    }
+    super.move(to);
+    if (this.y === 0 && this.side === 'white') this.promote(gameArea);
+    if (this.y === 7 && this.side === 'black') this.promote(gameArea);
+  }
+
+  destroyEnPassantPawn(gameArea, x, y) {
+    gameArea[x][y] = null;
+    document.getElementById(`${+x},${+y}`).innerHTML = '';
+  }
+
   findAttackingMoves() {
     const attackingMoves = [];
 

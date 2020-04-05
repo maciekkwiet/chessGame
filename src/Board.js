@@ -28,8 +28,6 @@ class Board {
   }
 
   setPieces() {
-    //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-
     let rook = new Rook(0, 7, 'white');
     this.gameArea[rook.x][rook.y] = rook;
     rook = new Rook(7, 7, 'white');
@@ -93,13 +91,8 @@ class Board {
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
-    pieceToMove.move(to);
+    pieceToMove.move(to, this.gameArea);
     this.gameArea[toX][toY] = pieceToMove;
-  }
-
-  destroyEnPassantPawn(gameArea, x, y) {
-    this.gameArea[+x][+y] = null;
-    document.getElementById(`${+x},${+y}`).innerHTML = '';
   }
 
   tryPieceMove(pieceToMove, to) {

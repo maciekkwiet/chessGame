@@ -54,19 +54,6 @@ class Game {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     }
 
-    if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
-      this.selectedPiece.isPassage = true;
-    }
-
-    if (this.selectedPiece.name === 'pawn' && this.selectedPiece.enPassant.length != 0) {
-      const param = this.selectedPiece.enPassant(this.gameArea);
-      param.forEach(x => {
-        if (x[0] == id[0]) {
-          this.board.destroyEnPassantPawn(this.gameArea, id[0], this.selectedPiece.y);
-        }
-      });
-    }
-
     this.board.movePiece(this.selectedPiece, parseId(id));
 
     // ToDo refactor
@@ -105,7 +92,6 @@ class Game {
     );
   }
 
-  // here?
   resetPawnFlag(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
     let pawns = pieces.filter(param => param.name == 'pawn');
