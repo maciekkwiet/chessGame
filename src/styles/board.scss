@@ -27,8 +27,9 @@
     width: $board-size/8;
     text-align: center;
     font-family: Munro;
-    font-size: 1.25rem;
+    font-size: $notation-font-size;
     color: white;
+    line-height: $notation-font-size;
   }
 }
 #notation-vertical {
@@ -46,8 +47,9 @@
     height: $board-size/8;
     text-align: center;
     font-family: Munro;
-    font-size: 1.25rem;
+    font-size: $notation-font-size;
     color: white;
+    line-height: $board-size/8;
   }
 }
 
