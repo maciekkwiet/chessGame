@@ -49,9 +49,18 @@ class Game {
     this.legalMoves = [];
     this.changeTurn();
     if (this.isChecked()) {
-      console.log('Szach');
-      if (this.isCheckMate()) alert('Szach i Mat');
+      this.board.lightUpCheck(this.getKingPosition(this.gameArea));
+      if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
     }
+    this.isPat();
+  }
+
+  endGame(gameArea = this.gameArea) {
+    this.board.changeSquareStyle(
+      this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
+      'square check',
+    );
+    alert('Szach i Mat');
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -68,6 +77,18 @@ class Game {
         return this.isChecked(suspectedGameState);
       }),
     );
+  }
+
+  isPat(gameArea = this.gameArea) {
+    const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
+    if (!this.isChecked() && opponentMoves.length == 0) {
+      console.log('PAT');
+
+      this.board.changeSquareStyle(
+        this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
+        'square pat',
+      );
+    }
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
