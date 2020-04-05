@@ -3,7 +3,7 @@
   src: url('../font/munro-small.ttf') format('truetype');
 }
 #board {
-  grid-column: 3 / span 8;
+  grid-column: span 8;
   $size: $board-size;
   display: flex;
   flex-wrap: wrap;
@@ -17,7 +17,7 @@
 #notation-horizontal {
   padding-top: 1em;
   display: inline-flex;
-  grid-column: 3 / span 8;
+  grid-column: span 8;
   width: $board-size;
   justify-content: space-evenly;
   align-content: space-evenly;
@@ -54,7 +54,6 @@
 }
 
 .square {
-  /* border: 1px darkslategrey solid; */
   $size: $board-size/8;
   width: $size;
   height: $size;
