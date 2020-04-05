@@ -11,8 +11,6 @@ class TIME
 
  
        this.Timer=document.querySelector("#"+player);
-    
-    
     }
 
     start()
