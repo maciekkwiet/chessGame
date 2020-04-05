@@ -52,18 +52,20 @@ class Game {
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
-    } else if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
-      this.board.movePiece(this.selectedPiece, parseId(id));
-      this.selectedPiece.isPassage = true;
-    } else if (this.selectedPiece.name === 'pawn' && this.selectedPiece.enPassant.length != 0) {
-      const param = this.selectedPiece.enPassant(this.gameArea);
-      param.forEach(x => {
-        if (x[0] == id[0]) {
-          this.board.destroyEnPassantPawn(this.gameArea, id[0], this.selectedPiece.y);
-        }
-      });
-      this.board.movePiece(this.selectedPiece, parseId(id));
+
+      // } else if (this.selectedPiece.name === 'pawn' && Math.abs(this.selectedPiece.y - id[2]) > 1) {
+      //   this.board.movePiece(this.selectedPiece, parseId(id));
+      //   this.selectedPiece.isPassage = true;
+      // } else if (this.selectedPiece.name === 'pawn' && this.selectedPiece.enPassant.length != 0) {
+      //   const param = this.selectedPiece.enPassant(this.gameArea);
+      //   param.forEach(x => {
+      //     if (x[0] == id[0]) {
+      //       this.board.destroyEnPassantPawn(this.gameArea, id[0], this.selectedPiece.y);
+      //     }
+      //   });
+      //   this.board.movePiece(this.selectedPiece, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
+
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
       if (
@@ -72,6 +74,7 @@ class Game {
       )
         this.selectedPiece.promote(this.gameArea);
     }
+
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
@@ -99,6 +102,7 @@ class Game {
     );
   }
 
+  // here?
   resetPawnFlag(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
     let pawns = pieces.filter(param => param.name == 'pawn');
