@@ -1,57 +1,82 @@
 
         .chessTimer {
             font-size: 17px;
+            display: flex;
+            font-family: 'Neon Tubes 2';
+            order: 1;
+            min-height: 30vh;
+            background-color: red;
+            margin: 0 2rem 0 2rem;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            align-items: center;
+            justify-content: flex-start;
+            align-self: flex-end;
+            position: fixed;
+            right: 14%;
+            font-size: 17px;
             color: #fff;
             background: rgba(0, 194, 255, 0.6);
             padding: 10px;
             padding-left: 20px;
             padding-right: 20px;
+            justify-content: center;
             width: 150px ;
-            text-align: center;
-            position: fixed;
-            align-self: center;
-            justify-content: right; 
-            z-index: 1;
-            left: 70% ;
-            font-family: 'Neon Tubes 2';
+            font-weight: bold;
+            text-shadow: 0px 0px 20px white, 0px 0px 3px white;
         }
-        
+      
         h3 { 
-        font-size: 14px;
-        background: rgba(255, 255, 255, 0.4);
-        width: 140px;
-        margin-left: 0px;
-        text-align: center;
-        height: 17px;
-        justify-content: center;
-        align-items: center;
-        }
-        h5 { 
             font-size: 14px;
-            background: rgba(8, 14, 68, 0.4);
+            background: rgba(255, 255, 255, 0.6);
             width: 140px;
-            margin-left: 0px;
+            font-weight: normal;
             text-align: center;
-            justify-content: center;
-            align-items: center;
             height: 17px;
-        }
-        #timerwhite {
-            background: rgba(255, 255, 255, 0.3);
-            width: 140px;
-            margin-left: -15px;
-            height: 60px;
             justify-content: center;
             align-items: center;
-            margin-top: -10px;
-        }
-        #timerblack {
-            background: rgba(13, 3, 43, 0.3);
-            width: 140px;
-            margin-left: -15px;
-            height: 70px;
-            margin-top: -10px;
-            justify-content: center;
-            align-items: center;
-            
-        }
+            top: 50%;
+            margin-top: 8px;
+            text-shadow: 0px 0px 0px white, 0px 0px 0px white;
+            }
+            h5 { 
+                font-size: 14px;
+                background: rgba(8, 14, 68, 0.6);
+                width: 140px;
+                font-weight: normal;
+                text-align: center;
+                justify-content: center;
+                align-items: center;
+                height: 17px;
+                top: 50%;
+                margin-top: 8px;
+                text-shadow: 0px 0px 0px white, 0px 0px 0px white;
+            }
+            #timerwhite {
+                background: rgba(255, 255, 255, 0.3);
+                width: 140px;
+                margin-left: 0px;
+                height: 40px;
+                justify-content: center;
+                align-items: center;
+                top: 50%;
+                margin-top: -14px;
+                display: flex;
+                font-weight: normal;
+                text-shadow: 0px 0px 0px white, 0px 0px 0px white;
+            }
+            #timerblack {
+                background: rgba(13, 3, 43, 0.3);
+                width: 140px;
+                margin-left: 0px;
+                height: 40px;
+                top: 50%;
+                margin-top: -23px;
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                font-weight: normal;
+                text-shadow: 0px 0px 0px white, 0px 0px 0px white;
+            }
+
+       
