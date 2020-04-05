@@ -1,5 +1,7 @@
 import Board from './Board';
+import Piece from './pieces/Piece';
 import { parseId, iterateOver2DArray } from './utils';
+
 
 class Game {
   constructor() {
@@ -10,17 +12,26 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+
   }
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-    if (this.legalMoves.length !== 0) {
-      this.handleMove(element);
+
+    const { id } = element;
+    if (this.possibleMoves.length !== 0) {
+      if (this.possibleMoves.includes(id)) this.handleMove(element);
+      else this.removeSelection();
+
     } else {
       this.handleSelect(element);
     }
   }
-
+  removeSelection() {
+    this.board.removeHighlight();
+    this.selectedPiece = null;
+    this.possibleMoves = [];
+  }
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
@@ -29,10 +40,16 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
+
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
 
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
+
+    if (this.selectedPiece.name === 'king' && !this.isChecked())
+      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
+
+
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
