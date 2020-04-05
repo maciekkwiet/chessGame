@@ -59,10 +59,9 @@ class Game {
       const param = this.selectedPiece.enPassant(this.gameArea);
       param.forEach(x => {
         if (x[0] == id[0]) {
-          this.board.destroyPawn(this.gameArea, id[0], this.selectedPiece.y);
+          this.board.destroyEnPassantPawn(this.gameArea, id[0], this.selectedPiece.y);
         }
       });
-
       this.board.movePiece(this.selectedPiece, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
     // ToDo refactor

@@ -36,8 +36,8 @@ class Pawn extends Piece {
   }
 
   findLegalMoves(board) {
-    const legalMoves = [];
-    let enPassant = this.enPassant(board);
+    let legalMoves = [];
+    const enPassant = this.enPassant(board);
 
     if (this.side == 'white') {
       if (!board[this.x][this.y - 1]) {
@@ -72,8 +72,8 @@ class Pawn extends Piece {
         legalMoves.push(`${this.x + 1},${this.y + 1}`);
       }
     }
-    enPassant = enPassant.concat(legalMoves);
-    return enPassant;
+    legalMoves = legalMoves.concat(enPassant);
+    return legalMoves;
   }
 
   enPassant(board) {

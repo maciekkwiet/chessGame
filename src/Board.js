@@ -97,7 +97,7 @@ class Board {
     this.gameArea[toX][toY] = pieceToMove;
   }
 
-  destroyPawn(gameArea, x, y) {
+  destroyEnPassantPawn(gameArea, x, y) {
     this.gameArea[+x][+y] = null;
     document.getElementById(`${+x},${+y}`).innerHTML = '';
   }
