@@ -13,8 +13,6 @@ class Game {
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));    
     this.whiteplayer = new TIME(900,"timerwhite");
     this.blackplayer = new TIME(900,"timerblack");    
-    //this.whiteplayer = document.querySelector('#Startwhite');
-    //this.whiteplayer = document.querySelector('#Startblack');
     
   }
 
