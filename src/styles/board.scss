@@ -9,6 +9,18 @@
   opacity: 0.95;
   outline: 10px solid rgba(0, 222, 255, 0.6);
 }
+#board.pink {
+  box-shadow: 0px 4px 50px #FF1C1C;
+  outline: 10px solid rgba(255, 88, 66, 0.6);
+}
+#board.green {
+  box-shadow: 0px 4px 50px #00482A;
+  outline: 10px solid rgba(9, 66, 28, 0.6);
+}
+#board.purple {
+  box-shadow: 0px 4px 50px #490063;
+  outline: 10px solid rgba(43, 0, 63, 0.6);
+}
 
 .square {
   /* border: 1px darkslategrey solid; */
@@ -19,21 +31,65 @@
   line-height: $size;
   font-size: 6.5vh;
 }
+
+
 .light {
   background: #6bc4db;
 }
+.light.pink {
+  background: #EEB19E;
+}
+.light.green {
+  background: #B8F09D;
+}
+.light.purple {
+  background: #9E8FCA;
+}
+
 .dark {
   background: $dark;
 }
+.dark.pink {
+  background: #A64260;
+}
+.dark.green {
+  background: #409363;
+}
+.dark.purple {
+  background: #5C42A6;
+}
+
+
 .black {
   color: $black;
 }
+.black.pink {
+  color: #43267E;
+}
+.black.green {
+  color: #19422A;
+}
+.black.purple {
+  color: #391A62;
+}
+
 .white {
   color: $white;
 }
+
 .possibleMove {
   background: $moves;
 }
+.possibleMove.pink {
+  background: #FFE5A1;
+}
+.possibleMove.green {
+background: #62B7D1;
+}
+.possibleMove.purple {
+  background: #370A71;
+  }
+
 
 .promotion-bg {
   position: fixed;
