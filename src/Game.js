@@ -35,23 +35,32 @@ class Game {
   }
 
   changecolor(x,y)
-  {   
-    if(this.gameArea[x][y])  
-    {
+  {    
       const currentColorPlayer=document.getElementById(x,y);
-      currentColorPlayer.className = 'currentcolor square';     
+
+      if(currentColorPlayer.className != "currentcolor square")
+      {
+        currentColorPlayer.className = 'currentcolor square'
+      }
+      else
+      {
+        y % 2 == x % 2 ? currentColorPlayer.className='square light' : currentColorPlayer.className='square dark'; 
+      }     
       return x,y;
-    }  
-  
   }
 
  backchangecolor()
   {
     this.changecolor();
-    const newx =this.changecolor.x;
-    const newy=this.changecolor.y;
-    const currentColorPlayerback=document.getElementById(newx,newy);    
-     newy % 2 == newx % 2 ? currentColorPlayerback.className='square light' : currentColorPlayerback.className='square dark'; 
+    const backx =this.changecolor.x;
+    const backy=this.changecolor.y;
+    const currentColorPlayerback=document.getElementById(backx,backy);
+    
+    if(currentColorPlayerback.className == 'currentcolor square')
+      {
+        backy % 2 == backx % 2 ? currentColorPlayerback.className='square light' : currentColorPlayerback.className='square dark'; 
+      }   
+   
   }
 
   handleSelect(element) {
@@ -59,10 +68,10 @@ class Game {
    
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
      
-    {
+    
       this.changecolor(`${x},${y}`)
         
-    }
+    
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
     
