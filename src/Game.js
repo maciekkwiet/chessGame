@@ -4,7 +4,6 @@ import HistoryTable from './HistoryTable';
 import Piece from './pieces/Piece';
 import { parseId, iterateOver2DArray } from './utils';
 
-
 class Game {
   constructor() {
     this.currentPlayer = 'white';
@@ -25,7 +24,6 @@ class Game {
     if (this.possibleMoves.length !== 0) {
       if (this.possibleMoves.includes(id)) this.handleMove(element);
       else this.removeSelection();
-
     } else {
       this.handleSelect(element);
     }
@@ -51,7 +49,6 @@ class Game {
 
     if (this.selectedPiece.name === 'king' && !this.isChecked())
       possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
 
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
@@ -142,7 +139,6 @@ class Game {
     historyElement.parseElement(this.gameArea);
     this.historyArray.push(historyElement);
     this.HistoryTable.generateHistoryTable(this.historyArray);
-    console.log(historyElement);
   }
 }
 
