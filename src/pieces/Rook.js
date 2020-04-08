@@ -1,10 +1,11 @@
 import Piece from './Piece';
-
+import '../img/rook-black.svg';
+import '../img/rook-white.svg';
 class Rook extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'rook';
-    this.display = `<i class="fas fa-chess-rook ${side}"></i>`; //fontawesome rook
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
 
   findLegalMoves(board) {
