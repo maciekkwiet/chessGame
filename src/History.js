@@ -1,8 +1,8 @@
-import Piece from './pieces/Piece';
-
-class History extends Piece {
+class History {
   constructor(x, y, side, name, toX, toY) {
-    super(x, y, side);
+    this.x = x;
+    this.y = y;
+    this.side = side;
     this.name = name;
     this.toX = toX;
     this.toY = toY;

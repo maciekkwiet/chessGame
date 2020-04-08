@@ -1,4 +1,6 @@
 import Board from './Board';
+import History from './History';
+import HistoryTable from './HistoryTable';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
@@ -10,6 +12,8 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    this.historyArray = [];
+    this.HistoryTable = new HistoryTable();
   }
 
   onClick(e) {
@@ -43,6 +47,7 @@ class Game {
   handleMove(element) {
     const { id } = element;
     if (!this.legalMoves.includes(id)) return;
+    this.createHistoryArray(this.selectedPiece, parseId(id));
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
@@ -88,6 +93,20 @@ class Game {
   getPlayerMoves(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
     return pieces.map(piece => piece.findLegalMoves(gameArea)).flat();
+  }
+  createHistoryArray(selectedPiece, to) {
+    let historyElement = new History(
+      selectedPiece.x,
+      selectedPiece.y,
+      selectedPiece.side,
+      selectedPiece.name,
+      to[0],
+      to[1],
+    );
+    historyElement.parseElement(this.gameArea);
+    this.historyArray.push(historyElement);
+    this.HistoryTable.generateHistoryTable(this.historyArray);
+    console.log(historyElement);
   }
 }
 
