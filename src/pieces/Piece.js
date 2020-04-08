@@ -3,6 +3,7 @@ class Piece {
     this.x = x;
     this.y = y;
     this.side = side; //'black' or 'white'
+
     this.hasMoved = false;
   }
   move(to) {
