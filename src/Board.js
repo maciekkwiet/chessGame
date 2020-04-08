@@ -6,9 +6,6 @@ import Bishop from './pieces/Bishop';
 import King from './pieces/King';
 
 import { create2DArray, copy2DArray } from './utils';
-import {handleOverlay} from './utils';
-
-
 
 class Board {
   constructor() {
@@ -126,7 +123,6 @@ class Board {
 
   //testMovePiece(pieceToMove, to) {
   //  const copyOfGameArea = copy2DArray(this.gameArea);
-
 
   tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
