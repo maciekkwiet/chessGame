@@ -1,7 +1,6 @@
 import Board from './Board';
 import History from './History';
 import HistoryTable from './HistoryTable';
-import Piece from './pieces/Piece';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
@@ -21,8 +20,8 @@ class Game {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
 
     const { id } = element;
-    if (this.possibleMoves.length !== 0) {
-      if (this.possibleMoves.includes(id)) this.handleMove(element);
+    if (this.legalMoves.length !== 0) {
+      if (this.legalMoves.includes(id)) this.handleMove(element);
       else this.removeSelection();
     } else {
       this.handleSelect(element);
@@ -31,7 +30,7 @@ class Game {
   removeSelection() {
     this.board.removeHighlight();
     this.selectedPiece = null;
-    this.possibleMoves = [];
+    this.legalMoves = [];
   }
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
@@ -74,7 +73,7 @@ class Game {
 
   endGame(gameArea = this.gameArea) {
     this.board.changeSquareStyle(
-      this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
+      this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
       'square check',
     );
     alert('Szach i Mat');
