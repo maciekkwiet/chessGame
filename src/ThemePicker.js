@@ -9,13 +9,20 @@ class ThemePicker {
   handleColorPick(e) {
     this.currentColor = e.target.dataset.color;
     ['body', '#wrapper', '#game-title', '#board'].forEach(selector => this.changeElementColor(selector));
+    [...document.querySelectorAll('.square.light')].map(node => (node.classList.add(this.currentColor)).changeElementColor);
+    
 
-    [...document.querySelectorAll('.square.light')].map(node => (node.classList = 'square light'));
-    [...document.querySelectorAll('.square.light')].map(node => node.classList.add(this.currentColor));
+    this.currentColor = e.target.dataset.color;
+    ['body', '#wrapper', '#game-title', '#board'].forEach(selector => this.changeElementColor(selector));
+    [...document.querySelectorAll('.square.dark')].map(node => (node.classList.add(this.currentColor)).changeElementColor);
+
   }
+
+  
 
   changeElementColor(selector, fallback = '') {
     document.querySelector(selector).classList = fallback;
+    // 1 zwr. element wewn. dok. 
     document.querySelector(selector).classList.add(this.currentColor);
   }
 }
