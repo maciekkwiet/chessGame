@@ -1,5 +1,4 @@
 
-
 class Timer
 {
     constructor(seconds,player)
@@ -9,12 +8,11 @@ class Timer
         this.seconds=seconds;
         this.player=player;
         
-
- 
        this.TimerHandler=document.querySelector("#"+player);
+       this.end=document.querySelector("#end");
+       console.log(document.querySelector("#"+player))
+       console.log(document.querySelector("#end"))
       
-     
-    
     }
 
  
@@ -34,13 +32,8 @@ class Timer
     stop()
     {
         this.pause();
-        console.log("GAME OVER")
-
-       // let newDiv = document.createElement("div");
-       // newDiv.body.innerHTML = "GAME OVER";
-        
-       document.querySelector(".end").classList.toggle("visible");
-                 
+        console.log("GAME OVER") 
+        this.end.innerHTML="GAME OVER"                
     }
 
  
