@@ -1,52 +1,58 @@
 class History {
-  generateHistoryTable(historyArray) {
-    let historyTable = [];
-    for (let i = 0; i < historyArray.length; i++) {
-      let element = historyArray[i];
+  constructor(x, y, side, name, toX, toY) {
+    this.x = x;
+    this.y = y;
+    this.side = side;
+    this.name = name;
+    this.toX = toX;
+    this.toY = toY;
+    this.castling = '';
+    this.promotion = false;
+    this.attack = false;
+    this.anotherPieceInRow = '';
+    this.anotherPieceInColumn = '';
+  }
 
-      let toPush = element.name.charAt(0).toUpperCase() + element.toX + element.toY;
-      // pawn standard move
-      if (element.name === 'pawn') toPush = element.toX + element.toY;
-      // knight standard move
-      if (element.name === 'knight') toPush = 'N' + element.toX + element.toY;
-      if (element.attack === true) {
-        toPush = element.name.charAt(0).toUpperCase() + 'x' + element.toX + element.toY;
-        // pawn attack
-        if (element.name === 'pawn') toPush = element.x + 'x' + element.toX + element.toY;
-        // knight attack
-        if (element.name === 'knight') toPush = 'N' + 'x' + element.toX + element.toY;
+  parseNotation() {
+    const column = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const row = [1, 2, 3, 4, 5, 6, 7, 8];
+    this.x = column[this.x];
+    this.y = row[this.y];
+    this.toX = column[this.toX];
+    this.toY = row[this.toY];
+  }
+  checkCastling() {
+    if (this.name === 'king' && this.toX - this.x < -1) this.castling = 'long';
+    if (this.name === 'king' && this.toX - this.x > 1) this.castling = 'short';
+  }
+
+  checkAttack(gameArea) {
+    if (gameArea[this.toX][this.toY]) this.attack = true;
+  }
+  checkPromotion() {
+    if (this.toY === 7 && this.name === 'pawn' && this.side === 'black') this.promotion = true;
+    if (this.toY === 0 && this.name === 'pawn' && this.side === 'white') this.promotion = true;
+  }
+  findAnotherPieces(gameArea) {
+    const column = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const row = [1, 2, 3, 4, 5, 6, 7, 8];
+    for (let i = 0; i <= 7; i++) {
+      for (let j = 0; j <= 7; j++) {
+        if (gameArea[i][j] && gameArea[i][j].side === this.side && gameArea[i][j].name === this.name) {
+          if (gameArea[i][j].x === this.x && gameArea[i][j].y !== this.y) this.anotherPieceInColumn = row[this.y];
+          if (gameArea[i][j].x !== this.x && gameArea[i][j].y === this.y) this.anotherPieceInRow = column[this.x];
+        }
       }
-      if (element.castling === 'long') {
-        toPush = 'O-O-O';
-      }
-      if (element.castling === 'short') {
-        toPush = 'O-O';
-      }
-      historyTable.push(toPush);
     }
-    //Create a HTML Table element.
-    let table = document.createElement('TABLE');
-    table.border = '1';
-    let tableToDisplay = [];
+  }
 
-    for (let i = 0; i < historyTable.length; i = i + 2) {
-      if (historyTable[i + 1]) tableToDisplay.push([historyTable[i], historyTable[i + 1]]);
-      else tableToDisplay.push([historyTable[i], '']);
-    }
-    console.log('tabletodisplay', tableToDisplay);
-
-    //Add the data rows.
-    for (let i = 0; i < tableToDisplay.length; i++) {
-      let row = table.insertRow(-1);
-      for (let j = 0; j < 2; j++) {
-        let cell = row.insertCell(-1);
-        cell.innerHTML = tableToDisplay[i][j];
-      }
-    }
-
-    let dvTable = document.getElementById('dvTable');
-    dvTable.innerHTML = '';
-    dvTable.appendChild(table);
+  parseElement(gameArea) {
+    this.checkPromotion();
+    this.checkCastling();
+    this.checkAttack(gameArea);
+    this.findAnotherPieces(gameArea);
+    this.parseNotation();
   }
 }
+
 export default History;

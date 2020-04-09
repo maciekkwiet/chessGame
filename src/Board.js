@@ -4,9 +4,8 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
-import HistoryElement from './HistoryElement';
-import History from './History';
-import { copy2DArray, create2DArray } from './utils';
+
+import { create2DArray, copy2DArray } from './utils';
 
 class Board {
   constructor() {
@@ -15,9 +14,8 @@ class Board {
     this.generateNotation();
     this.setPieces();
     this.setup();
-    this.historyArray = [];
-    this.history = new History();
   }
+
   setup() {
     for (let y = 0; y < this.gameArea.length; y++) {
       for (let x = 0; x < this.gameArea[y].length; x++) {
@@ -48,6 +46,23 @@ class Board {
       notationY.appendChild(notationBlock);
     }
   }
+  lightUpCheck({ x, y }) {
+    const interval = setInterval(() => this.changeBackgroundColor(x, y), 300);
+    setTimeout(function() {
+      clearInterval(interval);
+    }, 1200);
+  }
+
+  changeBackgroundColor(x, y) {
+    const king = document.getElementById(`${x},${y}`);
+    const param = y % 2 == x % 2 ? 'square light' : 'square dark';
+    king.className = king.className == 'square check' ? param : 'square check';
+  }
+
+  changeSquareStyle(squareId, classNamed) {
+    document.getElementById(`${squareId[0]},${squareId[1]}`).className = classNamed;
+  }
+
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
 
@@ -83,6 +98,11 @@ class Board {
       this.gameArea[i][6] = new Pawn(i, 6, 'white');
     }
 
+    let pawn = new Pawn(7, 6, 'white');
+    this.gameArea[pawn.x][pawn.y] = pawn;
+    pawn = new Pawn(7, 1, 'black');
+    this.gameArea[pawn.x][pawn.y] = pawn;
+
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][1] = new Pawn(i, 1, 'black');
     }
@@ -113,31 +133,21 @@ class Board {
 
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
-    this.createHistoryArray(pieceToMove, to);
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
     pieceToMove.move(to, this.gameArea);
     this.gameArea[toX][toY] = pieceToMove;
   }
+
+  //testMovePiece(pieceToMove, to) {
+  //  const copyOfGameArea = copy2DArray(this.gameArea);
+
   tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
+
     const [toX, toY] = to;
     copyOfGameArea[pieceToMove.x][pieceToMove.y] = null;
     copyOfGameArea[toX][toY] = pieceToMove;
     return copyOfGameArea;
-  }
-  createHistoryArray(pieceToMove, to) {
-    console.log(pieceToMove);
-    let historyElement = new HistoryElement(
-      pieceToMove.x,
-      pieceToMove.y,
-      pieceToMove.side,
-      pieceToMove.name,
-      to[0],
-      to[1],
-    );
-    historyElement.parseElement(this.gameArea);
-    this.historyArray.push(historyElement);
-    this.history.generateHistoryTable(this.historyArray);
   }
 }
 
