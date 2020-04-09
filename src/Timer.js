@@ -1,17 +1,19 @@
 
 class Timer
 {
-    constructor(seconds,player)
+    constructor(seconds,player,fun)
     {
         this.start=this.start.bind(this);
         this.pause=this.pause.bind(this);
         this.seconds=seconds;
         this.player=player;
+        this.fun=fun;
+        console.log(this.fun)
+        
         
        this.TimerHandler=document.querySelector("#"+player);
        this.end=document.querySelector("#end");
-       console.log(document.querySelector("#"+player))
-       console.log(document.querySelector("#end"))
+      
       
     }
 
@@ -27,13 +29,17 @@ class Timer
     pause()
     {
         clearInterval(this.interval)
+        
     }
 
     stop()
     {
         this.pause();
-        console.log("GAME OVER") 
-        this.end.innerHTML="GAME OVER"                
+       // console.log("GAME OVER") 
+        this.end.innerHTML="GAME OVER" 
+        this.fun;
+        console.log(this.fun);
+                         
     }
 
  
