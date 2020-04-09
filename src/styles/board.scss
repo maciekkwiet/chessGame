@@ -19,8 +19,13 @@
   line-height: $size;
   font-size: 6.5vh;
 }
+
 .currentcolor{
-  background-color:pink;
+  background-color:pink !important;
+}
+.end
+{
+  visibility: hidden;
 }
 .light {
   background: #6bc4db;

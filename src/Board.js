@@ -27,6 +27,13 @@ class Board {
     }
   }
 
+  selectedcurrent(id)
+  {
+    document.getElementById(id).classList.toggle("currentcolor");
+
+  }
+
+
   setPieces() {
     //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
 
@@ -86,9 +93,12 @@ class Board {
     for (let x = 0; x < this.gameArea.length; x++) {
       for (let y = 0; y < this.gameArea[x].length; y++) {
         document.getElementById(`${x},${y}`).classList.remove('possibleMove');
+        
+        
       }
     }
   }
+
 
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;

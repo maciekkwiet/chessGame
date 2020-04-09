@@ -1,6 +1,6 @@
 import Board from './Board';
 import { parseId, iterateOver2DArray } from './utils';
-import TIME from './clock.js';
+import Timer from './Timer.js';
 
 class Game {
   constructor() {
@@ -11,9 +11,10 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    this.whiteplayer = new TIME(900, 'timerwhite');
-    this.blackplayer = new TIME(900, 'timerblack');
+    this.whitePlayerTimer = new Timer(10, 'timerwhite');
+    this.blackPlayerTimer= new Timer(10, 'timerblack');
   }
+ 
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
@@ -31,44 +32,17 @@ class Game {
     this.round++;
   }
 
-  // Ta metoda powinna istnieć w klasie board, w game nie robimy interakcji z DOM, ponadto Maciek pisał podobną metode można by ją wykorzystać
-  changecolor(x, y) {
-    // y jest zawsze undefined ponieważ przyjmujesz tutaj dwa parametry a przekazujesz tylko jeden
-    const currentColorPlayer = document.getElementById(x, y);
 
-    //polecam zapoznać się z add, remove i toggle znaczenie uprości ten kod https://developer.mozilla.org/pl/docs/Web/API/Element/classList
-    if (currentColorPlayer.className != 'currentcolor square') {
-      currentColorPlayer.className = 'currentcolor square';
-    } else {
-      y % 2 == x % 2 ? (currentColorPlayer.className = 'square light') : (currentColorPlayer.className = 'square dark');
-    }
-    return x, y; //funkcje w js (i nie tylko) nie mogą zwracać więcej niż jednego elementu
-  }
-
-  // Ta metoda powinna istnieć w klasie board, choć bardzo możliwe że okaże się nie potrzebna
-  // Obczaj metode toggle: https://developer.mozilla.org/pl/docs/Web/API/Element/classList
-  backchangecolor() {
-    this.changecolor(); //wywołałaś funkcję więc cokolwiek ona zwróciła jest dostępne w tej lini i tylko w tej linii
-    // szukasz właściwości x na funkcji (nie na wartości zwróconej przez funkcje). Jako że funkcje są obiektami to jest to możliwe aczkolwiek tutaj nie ma to sensu
-    const backx = this.changecolor.x;
-    const backy = this.changecolor.y;
-
-    const currentColorPlayerback = document.getElementById(backx, backy);
-
-    if (currentColorPlayerback.className == 'currentcolor square') {
-      backy % 2 == backx % 2
-        ? (currentColorPlayerback.className = 'square light')
-        : (currentColorPlayerback.className = 'square dark');
-    }
-  }
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-
+    
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
+   
 
-    this.changecolor(`${x},${y}`);
-
+    this.board.selectedcurrent(element.id);
+    
+    
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
 
@@ -82,22 +56,39 @@ class Game {
     this.board.highlightPossibleMoves(this.legalMoves);
   }
 
+
   handleMove(element) {
     //const [x, y] = parseId(element.id);
     const { id } = element;
-    console.log({ id });
-    this.backchangecolor();
+  //  console.log(id)
+  //  console.log(typeof(id));
     if (!this.legalMoves.includes(id)) return;
-
+    const {x,y}=  this.selectedPiece;
+  //  console.log(this.selectedPiece)
+  //  console.log(`${x,y}`)
+    this.board.selectedcurrent(`${x},${y}`);
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
 
-    if (this.currentPlayer == 'white') this.whiteplayer.start();
-    else this.whiteplayer.pause();
-    if (this.currentPlayer == 'black') this.blackplayer.start();
-    else this.blackplayer.pause();
+   // if (this.currentPlayer == 'white') this.whitePlayerTimer.start();
+    // else this.whitePlayerTimer.pause();
+    // if (this.currentPlayer == 'black') this.blackPlayerTimer.start();
+    // else this.blackPlayerTimer.pause();
+
+    if(this.currentPlayer==="white")
+    {
+      this.blackPlayerTimer.start();
+      this.whitePlayerTimer.pause();
+    }
+   
+    else{this.whitePlayerTimer.start();
+    this.blackPlayerTimer.pause()}
+    if((document.querySelector("#timerwhite").innerHTML)=="0:00" || (document.querySelector("#timerblack").innerHTML)=="0:00")
+    {
+      console.log("END");
+    }
 
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
