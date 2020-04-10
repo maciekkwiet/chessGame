@@ -4,7 +4,8 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
-import { copy2DArray, create2DArray } from './utils';
+
+import { create2DArray, copy2DArray } from './utils';
 
 class Board {
   constructor() {
@@ -13,6 +14,7 @@ class Board {
     this.setPieces();
     this.setup();
   }
+
   setup() {
     for (let y = 0; y < this.gameArea.length; y++) {
       for (let x = 0; x < this.gameArea[y].length; x++) {
@@ -26,8 +28,18 @@ class Board {
       }
     }
   }
+  lightUpCheck({ x, y }) {
+    const interval = setInterval(() => this.changeBackgroundColor(x, y), 300);
+    setTimeout(function() {
+      clearInterval(interval);
+    }, 1200);
+  }
 
-
+  changeBackgroundColor(x, y) {
+    const king = document.getElementById(`${x},${y}`);
+    const param = y % 2 == x % 2 ? 'square light' : 'square dark';
+    king.className = king.className == 'square check' ? param : 'square check';
+  }
 
  
 
@@ -37,10 +49,11 @@ class Board {
 
   }
 
+  changeSquareStyle(squareId, classNamed) {
+    document.getElementById(`${squareId[0]},${squareId[1]}`).className = classNamed;
+  }
 
   setPieces() {
-    //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-
     let rook = new Rook(0, 7, 'white');
     this.gameArea[rook.x][rook.y] = rook;
     rook = new Rook(7, 7, 'white');
@@ -73,6 +86,11 @@ class Board {
       this.gameArea[i][6] = new Pawn(i, 6, 'white');
     }
 
+    let pawn = new Pawn(7, 6, 'white');
+    this.gameArea[pawn.x][pawn.y] = pawn;
+    pawn = new Pawn(7, 1, 'black');
+    this.gameArea[pawn.x][pawn.y] = pawn;
+
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][1] = new Pawn(i, 1, 'black');
     }
@@ -86,7 +104,7 @@ class Board {
     bishop = new Bishop(2, 0, 'black');
     this.gameArea[bishop.x][bishop.y] = bishop;
   }
-
+  
   highlightPossibleMoves(possibleMoves) {
     for (let move of possibleMoves) {
       document.getElementById(move).classList.add('possibleMove');
@@ -107,11 +125,13 @@ class Board {
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
     this.gameArea[pieceToMove.x][pieceToMove.y] = null;
-    pieceToMove.move(to);
+    pieceToMove.move(to, this.gameArea);
     this.gameArea[toX][toY] = pieceToMove;
   }
+
   tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
+
     const [toX, toY] = to;
     copyOfGameArea[pieceToMove.x][pieceToMove.y] = null;
     copyOfGameArea[toX][toY] = pieceToMove;
