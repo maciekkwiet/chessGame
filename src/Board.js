@@ -4,7 +4,8 @@ import Pawn from './pieces/Pawn';
 import Knight from './pieces/Knight';
 import Bishop from './pieces/Bishop';
 import King from './pieces/King';
-import { copy2DArray, create2DArray } from './utils';
+
+import { create2DArray, copy2DArray } from './utils';
 
 class Board {
   constructor() {
@@ -13,6 +14,7 @@ class Board {
     this.setPieces();
     this.setup();
   }
+
   setup() {
     for (let y = 0; y < this.gameArea.length; y++) {
       for (let x = 0; x < this.gameArea[y].length; x++) {
@@ -25,6 +27,23 @@ class Board {
         this.gameAreaHandler.appendChild(square);
       }
     }
+  }
+
+  lightUpCheck({ x, y }) {
+    const interval = setInterval(() => this.changeBackgroundColor(x, y), 300);
+    setTimeout(function() {
+      clearInterval(interval);
+    }, 1200);
+  }
+
+  changeBackgroundColor(x, y) {
+    const king = document.getElementById(`${x},${y}`);
+    const param = y % 2 == x % 2 ? 'square light' : 'square dark';
+    king.className = king.className == 'square check' ? param : 'square check';
+  }
+
+  changeSquareStyle(squareId, classNamed) {
+    document.getElementById(`${squareId[0]},${squareId[1]}`).className = classNamed;
   }
 
   setPieces() {
@@ -59,6 +78,11 @@ class Board {
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][6] = new Pawn(i, 6, 'white');
     }
+
+    let pawn = new Pawn(7, 6, 'white');
+    this.gameArea[pawn.x][pawn.y] = pawn;
+    pawn = new Pawn(7, 1, 'black');
+    this.gameArea[pawn.x][pawn.y] = pawn;
 
     for (let i = 0; i < this.gameArea.length; i++) {
       this.gameArea[i][1] = new Pawn(i, 1, 'black');
@@ -97,6 +121,7 @@ class Board {
 
   tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
+
     const [toX, toY] = to;
     copyOfGameArea[pieceToMove.x][pieceToMove.y] = null;
     copyOfGameArea[toX][toY] = pieceToMove;
