@@ -28,20 +28,65 @@ class King extends Piece {
     }
     return oponentMoves2;
   }
-  isLongCastlingPossible(gameArea) {
+  isLongCastlingPossible(gameArea, oponentAttack) {
+    const sumOfTable = [];
+    const blockTable = [];
+    for (let i = 0; i <= 4; i++) {
+      blockTable.push(`${i},${this.y}`);
+    }
+
+    if (blockTable.length > 0 && oponentAttack.length > 0) {
+      for (let j = 0; j < blockTable.length; j++) {
+        for (let k = 0; k < oponentAttack.length; k++) {
+          if (
+            blockTable[j].toString()[0] == oponentAttack[k].toString()[0] &&
+            blockTable[j].toString()[2] == oponentAttack[k].toString()[2]
+          ) {
+            sumOfTable.push(blockTable[j]);
+          }
+        }
+      }
+    }
     return (
       gameArea[0][this.y] &&
       !gameArea[1][this.y] &&
       !gameArea[2][this.y] &&
       !gameArea[3][this.y] &&
-      !gameArea[0][this.y].hasMoved
+      !gameArea[0][this.y].hasMoved &&
+      sumOfTable.length == 0
     );
   }
-  isShortCastlingPossible(gameArea) {
-    return gameArea[7][this.y] && !gameArea[5][this.y] && !gameArea[6][this.y] && !gameArea[7][this.y].hasMoved;
+  isShortCastlingPossible(gameArea, oponentAttack) {
+    const sumOfTable = [];
+    const blockTable = [];
+    for (let i = 5; i <= 7; i++) {
+      blockTable.push(`${i},${this.y}`);
+    }
+
+    if (blockTable.length > 0 && oponentAttack.length > 0) {
+      for (let j = 0; j < blockTable.length; j++) {
+        for (let k = 0; k < oponentAttack.length; k++) {
+          if (
+            blockTable[j].toString()[0] == oponentAttack[k].toString()[0] &&
+            blockTable[j].toString()[2] == oponentAttack[k].toString()[2]
+          ) {
+            sumOfTable.push(blockTable[j]);
+          }
+        }
+      }
+    }
+
+    return (
+      gameArea[7][this.y] &&
+      !gameArea[5][this.y] &&
+      !gameArea[6][this.y] &&
+      !gameArea[7][this.y].hasMoved &&
+      sumOfTable.length == 0
+    );
   }
 
-  findLegalMoves(gameArea) {
+  findLegalMoves(gameArea, playerMoves) {
+    const oponentAttack = playerMoves;
     const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
 
@@ -50,8 +95,8 @@ class King extends Piece {
         possibleMoves.push(`${move[0]},${move[2]}`);
     });
     if (!this.hasMoved) {
-      if (this.isLongCastlingPossible(gameArea)) attack.push(`${[2]},${[this.y]}`);
-      if (this.isShortCastlingPossible(gameArea)) attack.push(`${[6]},${[this.y]}`);
+      if (this.isLongCastlingPossible(gameArea, oponentAttack)) attack.push(`${[2]},${[this.y]}`);
+      if (this.isShortCastlingPossible(gameArea, oponentAttack)) attack.push(`${[6]},${[this.y]}`);
     }
     const legalMoves = attack.filter(move => !possibleMoves.includes(move));
 
