@@ -94,8 +94,8 @@ class Game {
 
   resetPawnFlag(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
-    let pawns = pieces.filter(param => param.name == 'pawn');
-    return pawns.forEach(param2 => (param2.isPassage = false));
+    const pawns = pieces.filter(piece => piece.name == 'pawn');
+    return pawns.forEach(pawn => (pawn.isPassage = false));
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
