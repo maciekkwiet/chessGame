@@ -12,7 +12,7 @@ class Game {
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
     this.whitePlayerTimer = new Timer(10, 'timerwhite');
-    this.blackPlayerTimer= new Timer(10, 'timerblack');
+    this.blackPlayerTimer= new Timer(3, 'timerblack');
   }
  
 
