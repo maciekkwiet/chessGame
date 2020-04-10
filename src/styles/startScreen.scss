@@ -3,7 +3,7 @@
   width: 100vw;
   height: 100vh;
   background: $dark;
-  
+
   opacity: 0.95;
   display: flex;
   justify-content: center;
@@ -11,7 +11,12 @@
   mix-blend-mode: normal;
   z-index: 2;
   font-family: 'Neon Tubes 2';
-
+  animation: overlay paused 0.25s forwards;
+  //transition: visibility 1s;
+  //&.hidden {
+  //  opacity: 0;
+  //  visibility: hidden;
+  //}
   #startTextBorder {
     display: flex;
     justify-content: center;
@@ -96,7 +101,7 @@ ul {
   width: 450px ;
   cursor: pointer ;
  }
- 
+
  ul li
  {
   list-style: none;
@@ -110,7 +115,7 @@ ul {
   color:#000635;
   transition:.5s;
  }
- 
+
  ul li:nth-child(1):hover{
   background: #fff;
   box-shadow: 0 0 10px rgba(0,245,255,1),
@@ -160,3 +165,4 @@ ul {
      0 0 0 40px rgba(255,255,255,0.05),
      0 0 0 30px rgba(255,255,255,0.05);
  }
+

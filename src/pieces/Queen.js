@@ -1,11 +1,13 @@
 // Learn more or give us feedback
 import Piece from './Piece';
+import '../img/queen-black.svg';
+import '../img/queen-white.svg';
 
 class Queen extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'queen';
-    this.display = `<i class="fas fa-chess-queen ${side}"></i>`; //fontawesome queen
+    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   findLegalMoves(board) {
     const attack = [];

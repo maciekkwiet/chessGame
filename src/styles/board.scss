@@ -30,6 +30,9 @@
   text-align: center;
   line-height: $size;
   font-size: 6.5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -60,6 +63,12 @@
 }
 
 
+.check {
+  background: red;
+}
+.pat {
+  background: yellow;
+}
 .black {
   color: $black;
 }

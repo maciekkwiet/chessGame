@@ -1,4 +1,6 @@
 import Board from './Board';
+import History from './History';
+import HistoryTable from './HistoryTable';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
@@ -10,17 +12,26 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    this.historyArray = [];
+    this.HistoryTable = new HistoryTable();
   }
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
+
+    const { id } = element;
     if (this.legalMoves.length !== 0) {
-      this.handleMove(element);
+      if (this.legalMoves.includes(id)) this.handleMove(element);
+      else this.removeSelection();
     } else {
       this.handleSelect(element);
     }
   }
-
+  removeSelection() {
+    this.board.removeHighlight();
+    this.selectedPiece = null;
+    this.legalMoves = [];
+  }
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
@@ -29,12 +40,12 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
+
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
 
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
 
-    // ToDo refactor
     if (this.selectedPiece.name === 'king' && !this.isChecked())
       possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
 
@@ -47,28 +58,26 @@ class Game {
 
   handleMove(element) {
     const { id } = element;
-    if (!this.legalMoves.includes(id)) return;
-
-    // ToDo refactor
-    if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
-      this.selectedPiece.castling(this.gameArea, parseId(id));
-    } else this.board.movePiece(this.selectedPiece, parseId(id));
-    // ToDo refactor
-    if (this.selectedPiece.name === 'pawn') {
-      if (
-        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
-        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
-      )
-        this.selectedPiece.promote(this.gameArea);
-    }
+    this.createHistoryArray(this.selectedPiece, parseId(id));
+    this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
     this.changeTurn();
+    this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
-      console.log('Szach');
-      if (this.isCheckMate()) alert('Szach i Mat');
+      this.board.lightUpCheck(this.getKingPosition(this.gameArea));
+      if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
     }
+    this.isPat();
+  }
+
+  endGame(gameArea = this.gameArea) {
+    this.board.changeSquareStyle(
+      this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
+      'square check',
+    );
+    alert('Szach i Mat');
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -85,6 +94,26 @@ class Game {
         return this.isChecked(suspectedGameState);
       }),
     );
+  }
+
+
+  resetPawnFlag(player, gameArea = this.gameArea) {
+    const pieces = this.getPlayerPieces(player, gameArea);
+    const pawns = pieces.filter(piece => piece.name == 'pawn');
+    return pawns.forEach(pawn => (pawn.isPassage = false));
+  }
+
+  isPat(gameArea = this.gameArea) {
+    const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
+    if (!this.isChecked() && opponentMoves.length == 0) {
+      console.log('PAT');
+
+      this.board.changeSquareStyle(
+        this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
+        'square pat',
+      );
+    }
+
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
@@ -105,6 +134,20 @@ class Game {
   getPlayerMoves(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
     return pieces.map(piece => piece.findLegalMoves(gameArea)).flat();
+  }
+  createHistoryArray(selectedPiece, to) {
+    let historyElement = new History(
+      selectedPiece.x,
+      selectedPiece.y,
+      selectedPiece.side,
+      selectedPiece.name,
+      to[0],
+      to[1],
+    );
+    historyElement.parseElement(this.gameArea);
+    this.historyArray.push(historyElement);
+    this.HistoryTable.generateHistoryTable(this.historyArray);
+    console.log(historyElement);
   }
 }
 
