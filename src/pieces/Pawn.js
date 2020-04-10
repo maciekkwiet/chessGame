@@ -10,6 +10,7 @@ class Pawn extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'pawn';
+    this.isPassage = false;
     this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
   move(to, gameArea) {
@@ -17,6 +18,27 @@ class Pawn extends Piece {
     if (this.y === 0 && this.side === 'white') this.promote(gameArea);
     if (this.y === 7 && this.side === 'black') this.promote(gameArea);
   }
+
+  move(to, gameArea) {
+    if (Math.abs(this.y - to[1]) > 1) this.isPassage = true;
+    let param = this.enPassant(gameArea);
+    if (param != 0) {
+      param.forEach(x => {
+        if (x[0] == to[0]) {
+          this.destroyEnPassantPawn(gameArea, to[0], this.y);
+        }
+      });
+    }
+    super.move(to);
+    if (this.y === 0 && this.side === 'white') this.promote(gameArea);
+    if (this.y === 7 && this.side === 'black') this.promote(gameArea);
+  }
+
+  destroyEnPassantPawn(gameArea, x, y) {
+    gameArea[x][y] = null;
+    document.getElementById(`${+x},${+y}`).innerHTML = '';
+  }
+
   findAttackingMoves() {
     const attackingMoves = [];
 
@@ -41,7 +63,9 @@ class Pawn extends Piece {
     return attackingMoves;
   }
   findLegalMoves(board) {
-    const legalMoves = [];
+    let legalMoves = [];
+    const enPassant = this.enPassant(board);
+
     if (this.side == 'white') {
       if (!board[this.x][this.y - 1]) {
         legalMoves.push(`${this.x},${this.y - 1}`);
@@ -70,7 +94,54 @@ class Pawn extends Piece {
         legalMoves.push(`${this.x + 1},${this.y + 1}`);
       }
     }
+    legalMoves = legalMoves.concat(enPassant);
     return legalMoves;
+  }
+
+  enPassant(board) {
+    const enPassant = [];
+    if (this.side == 'white') {
+      if (
+        this.x != 0 &&
+        board[this.x - 1][this.y] &&
+        this.side != board[this.x - 1][this.y].side &&
+        this.name == board[this.x - 1][this.y].name &&
+        board[this.x - 1][this.y].isPassage == true
+      ) {
+        enPassant.push(`${this.x - 1},${this.y - 1}`);
+      }
+      if (
+        this.x != 7 &&
+        board[this.x + 1][this.y] &&
+        this.side != board[this.x + 1][this.y].side &&
+        this.name == board[this.x + 1][this.y].name &&
+        board[this.x + 1][this.y].isPassage == true
+      ) {
+        enPassant.push(`${this.x + 1},${this.y - 1}`);
+      }
+    }
+    if (this.side == 'black') {
+      if (
+        this.x != 0 &&
+        board[this.x - 1][this.y] &&
+        this.side != board[this.x - 1][this.y].side &&
+        this.name == board[this.x - 1][this.y].name &&
+        board[this.x - 1][this.y].isPassage == true
+      ) {
+        enPassant.push(`${this.x - 1},${this.y + 1}`);
+      }
+      if (
+        this.x != 7 &&
+        board[this.x + 1][this.y] &&
+        this.side != board[this.x + 1][this.y].side &&
+        this.name == board[this.x + 1][this.y].name &&
+        board[this.x + 1][this.y].isPassage == true
+      ) {
+        enPassant.push(`${this.x + 1},${this.y + 1}`);
+      }
+    }
+
+    return enPassant;
   }
 
   promote(gameArea) {
@@ -113,7 +184,5 @@ class Pawn extends Piece {
       }
     }
   }
-
-  enPassant() {}
 }
 export default Pawn;

@@ -64,6 +64,7 @@ class Game {
     this.selectedPiece = null;
     this.legalMoves = [];
     this.changeTurn();
+    this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
       this.board.lightUpCheck(this.getKingPosition(this.gameArea));
       if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
@@ -95,6 +96,13 @@ class Game {
     );
   }
 
+
+  resetPawnFlag(player, gameArea = this.gameArea) {
+    const pieces = this.getPlayerPieces(player, gameArea);
+    const pawns = pieces.filter(piece => piece.name == 'pawn');
+    return pawns.forEach(pawn => (pawn.isPassage = false));
+  }
+
   isPat(gameArea = this.gameArea) {
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
     if (!this.isChecked() && opponentMoves.length == 0) {
@@ -105,6 +113,7 @@ class Game {
         'square pat',
       );
     }
+
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
