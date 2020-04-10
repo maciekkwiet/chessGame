@@ -40,15 +40,9 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
-
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-
-    if (this.selectedPiece.name === 'king' && !this.isChecked())
-      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -96,7 +90,6 @@ class Game {
     );
   }
 
-
   resetPawnFlag(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
     const pawns = pieces.filter(piece => piece.name == 'pawn');
@@ -113,7 +106,6 @@ class Game {
         'square pat',
       );
     }
-
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
