@@ -28,60 +28,46 @@ class King extends Piece {
     }
     return oponentMoves2;
   }
-  isLongCastlingPossible(gameArea, oponentAttack) {
+
+  isCastlingAttackingMoves(oponentAttack, x, y) {
     const sumOfTable = [];
     const blockTable = [];
-    for (let i = 0; i <= 4; i++) {
+    for (let i = x; i <= y; i++) {
       blockTable.push(`${i},${this.y}`);
     }
 
-    if (blockTable.length > 0 && oponentAttack.length > 0) {
-      for (let j = 0; j < blockTable.length; j++) {
-        for (let k = 0; k < oponentAttack.length; k++) {
-          if (
-            blockTable[j].toString()[0] == oponentAttack[k].toString()[0] &&
-            blockTable[j].toString()[2] == oponentAttack[k].toString()[2]
-          ) {
-            sumOfTable.push(blockTable[j]);
-          }
+    for (let j = 0; j < blockTable.length; j++) {
+      for (let k = 0; k < oponentAttack.length; k++) {
+        if (
+          blockTable[j].toString()[0] == oponentAttack[k].toString()[0] &&
+          blockTable[j].toString()[2] == oponentAttack[k].toString()[2]
+        ) {
+          sumOfTable.push(blockTable[j]);
         }
       }
     }
+
+    return sumOfTable.length == 0 ? true : false;
+  }
+
+  isLongCastlingPossible(gameArea, oponentAttack) {
     return (
       gameArea[0][this.y] &&
       !gameArea[1][this.y] &&
       !gameArea[2][this.y] &&
       !gameArea[3][this.y] &&
       !gameArea[0][this.y].hasMoved &&
-      sumOfTable.length == 0
+      this.isCastlingAttackingMoves(oponentAttack, 0, 4)
     );
   }
+
   isShortCastlingPossible(gameArea, oponentAttack) {
-    const sumOfTable = [];
-    const blockTable = [];
-    for (let i = 5; i <= 7; i++) {
-      blockTable.push(`${i},${this.y}`);
-    }
-
-    if (blockTable.length > 0 && oponentAttack.length > 0) {
-      for (let j = 0; j < blockTable.length; j++) {
-        for (let k = 0; k < oponentAttack.length; k++) {
-          if (
-            blockTable[j].toString()[0] == oponentAttack[k].toString()[0] &&
-            blockTable[j].toString()[2] == oponentAttack[k].toString()[2]
-          ) {
-            sumOfTable.push(blockTable[j]);
-          }
-        }
-      }
-    }
-
     return (
       gameArea[7][this.y] &&
       !gameArea[5][this.y] &&
       !gameArea[6][this.y] &&
       !gameArea[7][this.y].hasMoved &&
-      sumOfTable.length == 0
+      this.isCastlingAttackingMoves(oponentAttack, 4, 7)
     );
   }
 
