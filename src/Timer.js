@@ -38,7 +38,7 @@ class Timer
        // console.log("GAME OVER") 
         this.end.innerHTML="GAME OVER" 
         this.fun;
-        console.log(this.fun);
+        
                          
     }
 

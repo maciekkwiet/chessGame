@@ -27,7 +27,11 @@ class Board {
     }
   }
 
-  selectedcurrent(id)
+
+
+ 
+
+  SelectedBackground(id)
   {
     document.getElementById(id).classList.toggle("currentcolor");
 

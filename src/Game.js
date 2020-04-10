@@ -11,8 +11,8 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    this.whitePlayerTimer = new Timer(10, 'timerwhite');
-    this.blackPlayerTimer= new Timer(10, 'timerblack');
+    this.whitePlayerTimer = new Timer(10, 'timerwhite',this.endGame);
+    this.blackPlayerTimer= new Timer(10, 'timerblack',this.endGame);
   }
  
 
@@ -40,7 +40,7 @@ class Game {
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
    
 
-    this.board.selectedcurrent(element.id);
+    this.board.SelectedBackground(element.id);
     
     
     this.selectedPiece = this.gameArea[x][y];
@@ -58,24 +58,18 @@ class Game {
 
 
   handleMove(element) {
-    //const [x, y] = parseId(element.id);
+
     const { id } = element;
-  //  console.log(id)
-  //  console.log(typeof(id));
+
     if (!this.legalMoves.includes(id)) return;
     const {x,y}=  this.selectedPiece;
-  //  console.log(this.selectedPiece)
-  //  console.log(`${x,y}`)
-    this.board.selectedcurrent(`${x},${y}`);
+
+    this.board.SelectedBackground(`${x},${y}`);
     // ToDo refactor
     if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
 
-   // if (this.currentPlayer == 'white') this.whitePlayerTimer.start();
-    // else this.whitePlayerTimer.pause();
-    // if (this.currentPlayer == 'black') this.blackPlayerTimer.start();
-    // else this.blackPlayerTimer.pause();
 
     if(this.currentPlayer==="white")
     {
