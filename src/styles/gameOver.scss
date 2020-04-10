@@ -1,0 +1,19 @@
+#end {
+    position: fixed;
+    width: 100vw;
+    height: 103vh;
+    background: rgba(51, 0, 75, 0.85);
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    mix-blend-mode: normal;
+    font-family: 'Neon Tubes 2';
+    font-size: 100px;
+    color: #00E0FF;
+    text-shadow: 0px 0px 40px #00FFC2;
+    text-decoration: underline wavy  #00FFC2;
+    z-index: 100;
+    display: none;
+}

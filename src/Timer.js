@@ -36,7 +36,8 @@ class Timer
     {
         this.pause();
        // console.log("GAME OVER") 
-        this.end.innerHTML="GAME OVER" 
+        this.end.style.display = "flex";
+        this.end.innerHTML="<div>GAME OVER!</div>"; 
         this.fun;
         
                          

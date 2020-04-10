@@ -11,8 +11,11 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+
     this.whitePlayerTimer = new Timer(10, 'timerwhite',this.endGame);
     this.blackPlayerTimer= new Timer(10, 'timerblack',this.endGame);
+
+
   }
  
 
