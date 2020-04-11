@@ -1,6 +1,9 @@
+@font-face {
+  font-family: 'Munro';
+  src: url('../font/munro-small.ttf') format('truetype');
+}
 #board {
-  justify-self: center;
-  grid-column: 2/3;
+  grid-column: span 8;
   $size: $board-size;
   display: flex;
   flex-wrap: wrap;
@@ -8,12 +11,49 @@
   opacity: 0.95;
   width: $size;
   height: $size;
-  opacity: 0.95;
   outline: 10px solid rgba(0, 222, 255, 0.6);
 }
 
+#notation-horizontal {
+  padding-top: 1em;
+  display: inline-flex;
+  grid-column: span 8;
+  width: $board-size;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  justify-items: center;
+  align-items: center;
+  div {
+    width: $board-size/8;
+    text-align: center;
+    font-family: Munro;
+    font-size: $notation-font-size;
+    color: white;
+    line-height: $notation-font-size;
+  }
+}
+#notation-vertical {
+  padding-left: 1em;
+  display: inline-flex;
+  flex-direction: column-reverse;
+  grid-column: 11;
+  grid-row: 1/-1;
+  height: $board-size;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  justify-items: center;
+  align-items: center;
+  div {
+    height: $board-size/8;
+    text-align: center;
+    font-family: Munro;
+    font-size: $notation-font-size;
+    color: white;
+    line-height: $board-size/8;
+  }
+}
+
 .square {
-  /* border: 1px darkslategrey solid; */
   $size: $board-size/8;
   width: $size;
   height: $size;
@@ -24,6 +64,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .light {
   background: #6bc4db;
 }

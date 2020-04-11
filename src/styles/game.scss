@@ -12,7 +12,8 @@ body {
   box-sizing: border-box;
 }
 body {
-  background-image: linear-gradient(
+  background-size: auto;
+  background: linear-gradient(
       180deg,
       #0e0b21 0%,
       rgba(54, 34, 176, 0.15) 71.88%,
@@ -20,30 +21,41 @@ body {
       rgba(255, 255, 255, 0) 100%,
       #00ffff 100%
     ),
-    url('../img/background.jpg');
-
-  background-size: auto;
-  background-repeat: no-repeat;
-  background-position: center;
-  min-height: 100vh;
+    url('../img/background.jpg') no-repeat center;
+  height: 100vh;
+  width: 100vw;
 }
 
-#game-title {
-  grid-column: 1/-1;
-  justify-self: center;
-  align-self: center;
+#title-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
   font-family: 'Neon Tubes 2';
   font-style: normal;
   font-weight: normal;
-  font-size: 55px;
-  line-height: 90px;
-  margin-bottom: 3vh;
+  font-size: 3rem;
+  line-height: 5rem;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
   color: #00f0ff;
   text-shadow: 0px 4px 30px #00f0ff, 0px 4px 25px #00f0ff, 0px 4px 10px rgba(0, 194, 255, 0.25);
 }
-#wrapper {
+#board-wrapper {
+  padding-top: 1rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, 1fr);
+  align-items: center;
+  justify-items: center;
+  align-content: center;
+  justify-content: center;
   grid-template-rows: auto;
-  height: 98vh;
+}
+#game-wrapper {
+  padding-top: 1rem;
+  display: flex;
+  grid-template-columns: repeat(auto-fit, 1fr);
+  align-items: center;
+  justify-content: space-evenly;
+  grid-template-rows: auto;
 }
