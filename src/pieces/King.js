@@ -7,6 +7,17 @@ class King extends Piece {
     this.name = 'king';
     this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
   }
+  move(to, gameArea) {
+    if (Math.abs(to[0] - this.x) > 1) {
+      // Long castling rook's move
+      if (to[0] - this.x < -1) gameArea[0][this.y].move([to[0] + 1, this.y]);
+      // Short castling rook's move
+      if (to[0] - this.x > 1) gameArea[7][this.y].move([to[0] - 1, this.y]);
+      // King's move during castling
+      super.move(to);
+      // Normal king's move
+    } else super.move(to);
+  }
   oponentMoves(gameArea) {
     let oponentMoves2 = [];
 
@@ -21,21 +32,50 @@ class King extends Piece {
     }
     return oponentMoves2;
   }
+  isLongCastlingPossible(gameArea) {
+    return (
+      //check if rook exists
+      gameArea[0][this.y] &&
+      // check if king road is passable
+      !gameArea[1][this.y] &&
+      !gameArea[2][this.y] &&
+      !gameArea[3][this.y] &&
+      // check if rook moved
+      !gameArea[0][this.y].hasMoved
+    );
+  }
+  isShortCastlingPossible(gameArea) {
+    return (
+      //check if rook exists
+      gameArea[7][this.y] &&
+      // check if king road is passable
+      !gameArea[5][this.y] &&
+      !gameArea[6][this.y] &&
+      // check if rook moved
+      !gameArea[7][this.y].hasMoved
+    );
+  }
 
   findLegalMoves(gameArea) {
     const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
 
-    attack.forEach(piece => {
-      if (gameArea[piece[0]][piece[2]]) {
-        if (gameArea[piece[0]][piece[2]].side === this.side) possibleMoves.push(`${piece[0]},${piece[2]}`);
-      }
+    attack.forEach(move => {
+      if (gameArea[move[0]][move[2]] && gameArea[move[0]][move[2]].side === this.side)
+        possibleMoves.push(`${move[0]},${move[2]}`);
     });
+    if (
+      //check if King moved
+      !this.hasMoved
+    ) {
+      // add field if long castling is possible
+      if (this.isLongCastlingPossible(gameArea)) attack.push(`${[2]},${[this.y]}`);
+      // add field if short castling is possible
+      if (this.isShortCastlingPossible(gameArea)) attack.push(`${[6]},${[this.y]}`);
+    }
+    const legalMoves = attack.filter(move => !possibleMoves.includes(move));
 
-    let filteredMoves = attack.filter(move => !possibleMoves.includes(move));
-    let twiceFilteredMoves = filteredMoves.filter(move => !this.oponentMoves(gameArea).includes(move));
-
-    return twiceFilteredMoves;
+    return legalMoves;
   }
 
   findAttackingMoves() {
@@ -50,72 +90,6 @@ class King extends Piece {
     }
 
     return attackingMoves;
-  }
-
-  castling(gameArea, to) {
-    const castlingMoves = [];
-    const ldCheck = [[1, 7], [1, 6], [2, 6], [3, 6], [3, 7]];
-    const luCheck = [[1, 0], [1, 1], [2, 1], [3, 1], [3, 0]];
-    const rdCheck = [[5, 7], [5, 6], [6, 6], [7, 6], [7, 7]];
-    const ruCheck = [[5, 0], [5, 1], [6, 1], [7, 1], [7, 0]];
-
-    if (gameArea[0][this.y]) {
-      if (
-        gameArea[1][this.y] === null &&
-        gameArea[2][this.y] === null &&
-        gameArea[3][this.y] === null &&
-        !gameArea[0][this.y].hasMoved
-      ) {
-        if (ldCheck.filter(move => this.oponentMoves(gameArea).includes(move)).length === 0 && this.y === 7)
-          castlingMoves.push(`${[2]},${[7]}`);
-        if (luCheck.filter(move => this.oponentMoves(gameArea).includes(move)).length === 0 && this.y === 0)
-          castlingMoves.push(`${[2]},${[0]}`);
-      }
-    }
-
-    if (gameArea[7][this.y]) {
-      if (gameArea[5][this.y] === null && gameArea[6][this.y] === null && !gameArea[7][this.y].hasMoved) {
-        console.log('dupa');
-        if (rdCheck.filter(move => this.oponentMoves(gameArea).includes(move)).length === 0 && this.y === 7)
-          castlingMoves.push(`${[6]},${[7]}`);
-        if (ruCheck.filter(move => this.oponentMoves(gameArea).includes(move)).length === 0 && this.y === 0)
-          castlingMoves.push(`${[6]},${[0]}`);
-      }
-    }
-
-    if ((to[0] === 2 && to[1] === this.y) || (to[0] === 6 && to[1] === this.y)) {
-      console.log('dupa');
-      let [toX, toY] = to;
-
-      gameArea[this.x][this.y] = null;
-
-      this.move(to);
-      gameArea[toX][toY] = this;
-
-      if (to[0] === 2) {
-        to = [3, this.y];
-        let [toX, toY] = to;
-
-        let rookToMove = gameArea[0][this.y];
-        gameArea[0][this.y] = null;
-
-        rookToMove.move(to);
-        gameArea[toX][toY] = rookToMove;
-      }
-      if (to[0] === 6) {
-        to = [5, this.y];
-        [toX, toY] = to;
-
-        let rookToMove = gameArea[7][this.y];
-        gameArea[7][this.y] = null;
-
-        rookToMove.move(to);
-        gameArea[toX][toY] = rookToMove;
-        //console.log();
-      }
-    }
-
-    return castlingMoves;
   }
 }
 
