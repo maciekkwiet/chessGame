@@ -10,10 +10,10 @@ import '../img/green/queen-black.png';
 import '../img/green/queen-white.png';
 
 class Queen extends Piece {
-  constructor(x, y, side) {
+  constructor(x, y, side, currentColor) {
     super(x, y, side);
     this.name = 'queen';
-    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
   }
   findLegalMoves(board) {
     const attack = [];

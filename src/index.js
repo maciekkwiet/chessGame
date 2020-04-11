@@ -10,6 +10,7 @@ const themePicker = new ThemePicker();
 play.addEventListener('click', function() {
   overlay.style.animationPlayState = 'running';
   const currentColor = themePicker.currentColor;
+  console.log(currentColor)
   new Game(currentColor);
 });
 

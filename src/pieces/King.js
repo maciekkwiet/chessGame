@@ -8,10 +8,10 @@ import '../img/purple/king-black.png';
 import '../img/green/king-black.png';
 import '../img/green/king-white.png';
 class King extends Piece {
-  constructor(x, y, side) {
+  constructor(x, y, side, currentColor) {
     super(x, y, side);
     this.name = 'king';
-    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
   }
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {

@@ -9,10 +9,10 @@ import '../img/purple/bishop-black.png';
 import '../img/purple/bishop-white.png';
 
 class Bishop extends Piece {
-  constructor(x, y, side) {
+  constructor(x, y, side, currentColor) {
     super(x, y, side);
     this.name = 'bishop';
-    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
   }
   findAttackingMoves(board) {
     const attackingMoves = [];
