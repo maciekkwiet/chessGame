@@ -1,12 +1,12 @@
 import Piece from './Piece';
-import '../img/blue/bishop-black.png';
-import '../img/blue/bishop-white.png';
+import '../img/purple/bishop-black.png';
+import '../img/purple/bishop-white.png';
 import '../img/green/bishop-black.png';
 import '../img/green/bishop-white.png';
 import '../img/pink/bishop-black.png';
 import '../img/pink/bishop-white.png';
-import '../img/purple/bishop-black.png';
-import '../img/purple/bishop-white.png';
+import '../img/blue/bishop-black.png';
+import '../img/blue/bishop-white.png';
 
 class Bishop extends Piece {
   constructor(x, y, side, currentColor) {

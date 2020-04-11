@@ -1,10 +1,10 @@
 import Piece from './Piece';
-import '../img/blue/knight-black.png';
-import '../img/blue/knight-white.png';
-import '../img/green/knight-white.png';
-import '../img/green/knight-black.png';
 import '../img/purple/knight-black.png';
 import '../img/purple/knight-white.png';
+import '../img/green/knight-white.png';
+import '../img/green/knight-black.png';
+import '../img/blue/knight-black.png';
+import '../img/blue/knight-white.png';
 import '../img/pink/knight-black.png';
 import '../img/pink/knight-white.png';
 class Knight extends Piece {

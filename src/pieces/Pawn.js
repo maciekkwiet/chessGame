@@ -4,10 +4,10 @@ import Bishop from './Bishop';
 import Rook from './Rook';
 import Knight from './Knight';
 
-import '../img/blue/pawn-black.png';
-import '../img/blue/pawn-white.png';
-import '../img/purple/pawn-white.png';
 import '../img/purple/pawn-black.png';
+import '../img/purple/pawn-white.png';
+import '../img/blue/pawn-white.png';
+import '../img/blue/pawn-black.png';
 import '../img/green/pawn-black.png';
 import '../img/green/pawn-white.png';
 import '../img/pink/pawn-black.png';

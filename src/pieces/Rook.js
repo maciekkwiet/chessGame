@@ -1,10 +1,10 @@
 import Piece from './Piece';
-import '../img/purple/rook-white.png';
-import '../img/purple/rook-black.png';
+import '../img/blue/rook-white.png';
+import '../img/blue/rook-black.png';
 import '../img/pink/rook-white.png';
 import '../img/pink/rook-black.png';
-import '../img/blue/rook-black.png';
-import '../img/blue/rook-white.png';
+import '../img/purple/rook-black.png';
+import '../img/purple/rook-white.png';
 import '../img/green/rook-white.png';
 import '../img/green/rook-black.png';
 class Rook extends Piece {

@@ -1,11 +1,11 @@
 // Learn more or give us feedback
 import Piece from './Piece';
-import '../img/blue/queen-white.png';
-import '../img/blue/queen-black.png';
+import '../img/purple/queen-white.png';
+import '../img/purple/queen-black.png';
 import '../img/pink/queen-white.png';
 import '../img/pink/queen-black.png';
-import '../img/purple/queen-black.png';
-import '../img/purple/queen-white.png';
+import '../img/blue/queen-black.png';
+import '../img/blue/queen-white.png';
 import '../img/green/queen-black.png';
 import '../img/green/queen-white.png';
 
