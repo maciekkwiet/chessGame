@@ -1,4 +1,6 @@
 #board {
+  justify-self: center;
+  grid-column: 2/3;
   $size: $board-size;
   display: flex;
   flex-wrap: wrap;
