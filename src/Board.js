@@ -64,8 +64,6 @@ class Board {
   }
 
   setPieces() {
-    //Tu trzeba wstawić figury wedle przykładu dla pionka, wstawianie pionków można zrobić sprytniej, np w pętli
-
     let rook = new Rook(0, 7, 'white');
     this.gameArea[rook.x][rook.y] = rook;
     rook = new Rook(7, 7, 'white');
@@ -137,9 +135,6 @@ class Board {
     pieceToMove.move(to, this.gameArea);
     this.gameArea[toX][toY] = pieceToMove;
   }
-
-  //testMovePiece(pieceToMove, to) {
-  //  const copyOfGameArea = copy2DArray(this.gameArea);
 
   tryPieceMove(pieceToMove, to) {
     const copyOfGameArea = copy2DArray(this.gameArea);
