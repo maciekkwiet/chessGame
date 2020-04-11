@@ -2,8 +2,8 @@
 import Piece from './Piece';
 import '../img/blue/queen-white.png';
 import '../img/blue/queen-black.png';
-import '../img/orange/queen-white.png';
-import '../img/orange/queen-black.png';
+import '../img/pink/queen-white.png';
+import '../img/pink/queen-black.png';
 import '../img/purple/queen-black.png';
 import '../img/purple/queen-white.png';
 import '../img/green/queen-black.png';

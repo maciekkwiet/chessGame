@@ -10,8 +10,8 @@ import '../img/purple/pawn-white.png';
 import '../img/purple/pawn-black.png';
 import '../img/green/pawn-black.png';
 import '../img/green/pawn-white.png';
-import '../img/orange/pawn-black.png';
-import '../img/orange/pawn-white.png';
+import '../img/pink/pawn-black.png';
+import '../img/pink/pawn-white.png';
 class Pawn extends Piece {
   constructor(x, y, side) {
     super(x, y, side);

@@ -5,8 +5,8 @@ import '../img/green/knight-white.png';
 import '../img/green/knight-black.png';
 import '../img/purple/knight-black.png';
 import '../img/purple/knight-white.png';
-import '../img/orange/knight-black.png';
-import '../img/orange/knight-white.png';
+import '../img/pink/knight-black.png';
+import '../img/pink/knight-white.png';
 class Knight extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
