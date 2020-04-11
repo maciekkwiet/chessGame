@@ -13,11 +13,11 @@ import '../img/green/pawn-white.png';
 import '../img/pink/pawn-black.png';
 import '../img/pink/pawn-white.png';
 class Pawn extends Piece {
-  constructor(x, y, side) {
+  constructor(x, y, side, currentColor) {
     super(x, y, side);
     this.name = 'pawn';
     this.isPassage = false;
-    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
   }
   move(to, gameArea) {
     super.move(to);

@@ -19,7 +19,7 @@ class ThemePicker {
     // 1 zwr. element wewn. dok.
     document.querySelector(selector).classList.add(this.currentColor);
   }
-  pieceSrc() {
+  pieceSrc = () => {
     const pieceClass = [...document.querySelectorAll('img.piece')];
     for (let i = 0; i < pieceClass.length; i++) {
       let currentPieceSrc = pieceClass[i].src;
@@ -29,6 +29,11 @@ class ThemePicker {
       const joined = splitted.join('/');
       pieceClass[i].src = joined;
     }
+  };
+  getCurrentColor() {
+    return new Promise(resolve => {
+      resolve(this.currentColor);
+    });
   }
 }
 export default ThemePicker;

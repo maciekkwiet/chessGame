@@ -4,10 +4,10 @@ import HistoryTable from './HistoryTable';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
-  constructor() {
+  constructor(currentColor) {
     this.currentPlayer = 'white';
     this.round = 0;
-    this.board = new Board();
+    this.board = new Board(currentColor);
     this.gameArea = this.board.gameArea;
     this.legalMoves = [];
     this.selectedPiece = null;
