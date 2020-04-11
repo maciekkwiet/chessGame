@@ -1,11 +1,18 @@
 import Piece from './Piece';
-import '../img/bishop-black.svg';
-import '../img/bishop-white.svg';
+import '../img/blue/bishop-black.png';
+import '../img/blue/bishop-white.png';
+import '../img/green/bishop-black.png';
+import '../img/green/bishop-white.png';
+import '../img/orange/bishop-black.png';
+import '../img/orange/bishop-white.png';
+import '../img/purple/bishop-black.png';
+import '../img/purple/bishop-white.png';
+
 class Bishop extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'bishop';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
   }
   findAttackingMoves(board) {
     const attackingMoves = [];

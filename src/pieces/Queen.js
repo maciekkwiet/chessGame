@@ -1,13 +1,19 @@
 // Learn more or give us feedback
 import Piece from './Piece';
-import '../img/queen-black.svg';
-import '../img/queen-white.svg';
+import '../img/blue/queen-white.png';
+import '../img/blue/queen-black.png';
+import '../img/orange/queen-white.png';
+import '../img/orange/queen-black.png';
+import '../img/purple/queen-black.png';
+import '../img/purple/queen-white.png';
+import '../img/green/queen-black.png';
+import '../img/green/queen-white.png';
 
 class Queen extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'queen';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
   }
   findLegalMoves(board) {
     const attack = [];

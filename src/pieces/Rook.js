@@ -1,11 +1,17 @@
 import Piece from './Piece';
-import '../img/rook-black.svg';
-import '../img/rook-white.svg';
+import '../img/purple/rook-black.png';
+import '../img/purple/rook-black.png';
+import '../img/orange/rook-black.png';
+import '../img/orange/rook-black.png';
+import '../img/blue/rook-black.png';
+import '../img/blue/rook-white.png';
+import '../img/green/rook-white.png';
+import '../img/green/rook-white.png';
 class Rook extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'rook';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
   }
 
   findLegalMoves(board) {

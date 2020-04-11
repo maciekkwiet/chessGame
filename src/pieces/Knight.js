@@ -1,11 +1,17 @@
 import Piece from './Piece';
-import '../img/knight-black.svg';
-import '../img/knight-white.svg';
+import '../img/blue/knight-black.png';
+import '../img/blue/knight-white.png';
+import '../img/green/knight-white.png';
+import '../img/green/knight-black.png';
+import '../img/purple/knight-black.png';
+import '../img/purple/knight-white.png';
+import '../img/orange/knight-black.png';
+import '../img/orange/knight-white.png';
 class Knight extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'knight';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
   }
   findAttackingMoves(gameArea) {
     const moves = [[2, 1], [1, 2], [-2, 1], [1, -2], [-2, -1], [2, -1], [-1, 2], [-1, -2]];

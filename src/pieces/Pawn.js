@@ -4,14 +4,20 @@ import Bishop from './Bishop';
 import Rook from './Rook';
 import Knight from './Knight';
 
-import '../img/pawn-black.svg';
-import '../img/pawn-white.svg';
+import '../img/blue/pawn-black.png';
+import '../img/blue/pawn-white.png';
+import '../img/purple/pawn-white.png';
+import '../img/purple/pawn-black.png';
+import '../img/green/pawn-black.png';
+import '../img/green/pawn-white.png';
+import '../img/orange/pawn-black.png';
+import '../img/orange/pawn-white.png';
 class Pawn extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'pawn';
     this.isPassage = false;
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/blue/${this.name}-${side}.png">`
   }
   move(to, gameArea) {
     super.move(to);
