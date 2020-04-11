@@ -3,8 +3,18 @@
   width: 200px;
   order: 1;
   min-height: 30vh;
-  background-color: red;
   margin: 0 2rem 0 2rem;
+
+  font-size: 17px;
+  color: #fff;
+  background: rgba(0, 194, 255, 0.6);
+  padding: 10px 20px 30px;
+  text-align: center;
+
+  align-self: center;
+  justify-content: right;
+  left: 70%;
+  font-family: 'Neon Tubes 2';
 }
 .dvClock {
   position: fixed;
