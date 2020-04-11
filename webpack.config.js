@@ -15,20 +15,8 @@ module.exports = {
       template: './index.html',
     }),
   ],
-  externals: {
-    gsap: 'gsap',
-  },
   resolve: {
     extensions: ['.js'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js)$/,
-        loaders: ['babel-loader'],
-        exclude: /node_modules/,
-      },
-    ],
   },
   module: {
     rules: [
@@ -40,7 +28,17 @@ module.exports = {
           'sass-loader', //1. Turns sass into css
         ],
       },
-
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
+          },
+        },
+      },
       {
         test: /\.(woff(2)?|otf|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
