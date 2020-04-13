@@ -17,12 +17,7 @@ class Pawn extends Piece {
     super(x, y, side);
     this.name = 'pawn';
     this.isPassage = false;
-    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
-  }
-  move(to, gameArea) {
-    super.move(to);
-    if (this.y === 0 && this.side === 'white') this.promote(gameArea);
-    if (this.y === 7 && this.side === 'black') this.promote(gameArea);
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`;
   }
 
   move(to, gameArea) {

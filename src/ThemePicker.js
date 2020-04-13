@@ -30,10 +30,5 @@ class ThemePicker {
       pieceClass[i].src = joined;
     }
   };
-  getCurrentColor() {
-    return new Promise(resolve => {
-      resolve(this.currentColor);
-    });
-  }
 }
 export default ThemePicker;
