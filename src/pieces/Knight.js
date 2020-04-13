@@ -8,10 +8,12 @@ import '../img/blue/knight-white.png';
 import '../img/pink/knight-black.png';
 import '../img/pink/knight-white.png';
 class Knight extends Piece {
-  constructor(x, y, side, currentColor) {
+  constructor(x, y, side) {
+    const currentColor = 'blue';
+
     super(x, y, side);
     this.name = 'knight';
-    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`;
   }
   findAttackingMoves(gameArea) {
     const moves = [[2, 1], [1, 2], [-2, 1], [1, -2], [-2, -1], [2, -1], [-1, 2], [-1, -2]];

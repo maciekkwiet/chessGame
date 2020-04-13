@@ -8,10 +8,14 @@ import '../img/blue/king-black.png';
 import '../img/green/king-black.png';
 import '../img/green/king-white.png';
 class King extends Piece {
-  constructor(x, y, side, currentColor) {
+  constructor(x, y, side) {
     super(x, y, side);
+    this.themeColor = 'blue';
     this.name = 'king';
-    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
+    window.addEventListener('COLOR_CHANGED', e => (this.themeColor = e.detail));
+  }
+  get display() {
+    return `<img class="piece" src="./imgs/src/img/${this.themeColor}/${this.name}-${this.side}.png">`;
   }
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {

@@ -11,9 +11,9 @@ class Piece {
     const newY = Number(to[1]);
     this.hasMoved = true;
 
-    document.getElementById(`${this.x},${this.y}`).innerHTML = '';
+    this.display = document.getElementById(`${this.x},${this.y}`).innerHTML;
 
-    //setting new
+    document.getElementById(`${this.x},${this.y}`).innerHTML = '';
     this.x = newX;
     this.y = newY;
 

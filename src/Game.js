@@ -4,10 +4,10 @@ import HistoryTable from './HistoryTable';
 import { parseId, iterateOver2DArray } from './utils';
 
 class Game {
-  constructor(currentColor) {
+  constructor() {
     this.currentPlayer = 'white';
     this.round = 0;
-    this.board = new Board(currentColor);
+    this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.legalMoves = [];
     this.selectedPiece = null;
@@ -96,7 +96,6 @@ class Game {
     );
   }
 
-
   resetPawnFlag(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
     const pawns = pieces.filter(piece => piece.name == 'pawn');
@@ -113,7 +112,6 @@ class Game {
         'square pat',
       );
     }
-
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {

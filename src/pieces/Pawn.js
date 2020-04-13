@@ -13,7 +13,9 @@ import '../img/green/pawn-white.png';
 import '../img/pink/pawn-black.png';
 import '../img/pink/pawn-white.png';
 class Pawn extends Piece {
-  constructor(x, y, side, currentColor) {
+  constructor(x, y, side) {
+    const currentColor = 'blue';
+
     super(x, y, side);
     this.name = 'pawn';
     this.isPassage = false;

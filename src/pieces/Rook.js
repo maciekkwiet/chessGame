@@ -8,10 +8,12 @@ import '../img/purple/rook-white.png';
 import '../img/green/rook-white.png';
 import '../img/green/rook-black.png';
 class Rook extends Piece {
-  constructor(x, y, side, currentColor) {
+  constructor(x, y, side) {
+    const currentColor = 'blue';
+
     super(x, y, side);
     this.name = 'rook';
-    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`;
   }
 
   findLegalMoves(board) {
