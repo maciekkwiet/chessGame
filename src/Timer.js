@@ -1,18 +1,19 @@
 
 class Timer
 {
-    constructor(seconds,player,fun)
+    constructor(seconds,player,fun,color,pat)
     {
         this.start=this.start.bind(this);
         this.pause=this.pause.bind(this);
         this.seconds=seconds;
+        this.color=color;
+        this.pat=pat;
         this.player=player;
         this.fun=fun;        
         this.TimerHandler=document.querySelector("#"+player);
         this.end=document.querySelector("#end");      
     }
-
- 
+    
     start()
     {  
         this.interval=setInterval(()=>this.timedown(),1000);            
@@ -24,16 +25,25 @@ class Timer
         
     }
 
+
     stop()
     {
-        
+        if(this.pat==false)
+        {
         this.pause();
         this.end.style.display = "flex";
-        this.end.innerHTML="<div>GAME OVER!</div>"; 
+        this.end.innerHTML="<div>GAME OVER! Winner:" +this.color+ "</div>"; 
         this.fun;
-        console.log(this.fun())
-        
-                         
+        //console.log(this.fun())  
+        console.log(this.color)    
+        } 
+        else
+        {
+            this.pause();
+            this.end.style.display = "flex";
+            this.end.innerHTML="<div>We have a tie</div>"; 
+            this.fun; 
+        }              
     }
 
  
