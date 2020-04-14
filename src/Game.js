@@ -9,14 +9,13 @@ class Game {
     this.endGame=this.endGame.bind(this);
     this.currentPlayer = 'white';
     this.round = 0;
-    let pat=false;
     this.board = new Board();
     this.gameArea = this.board.gameArea;
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    this.whitePlayerTimer = new Timer(900, 'timerwhite',this.endGame,'black',pat);
-    this.blackPlayerTimer= new Timer(900, 'timerblack',this.endGame,'white',pat);
+    this.whitePlayerTimer = new Timer(9, 'timerwhite',this.endGame,'black');
+    this.blackPlayerTimer= new Timer(9, 'timerblack',this.endGame,'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
   }
@@ -56,8 +55,8 @@ class Game {
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
 
-    if (this.selectedPiece.name === 'king' && !this.isChecked())
-      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
+    // if (this.selectedPiece.name === 'king' && !this.isChecked())
+    //   possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -85,15 +84,17 @@ class Game {
       this.whitePlayerTimer.pause();
     }
    
-    else{this.whitePlayerTimer.start();
-    this.blackPlayerTimer.pause()}
+    else{
+      this.whitePlayerTimer.start();
+      this.blackPlayerTimer.pause()
+      }
 
     console.log(document.querySelector("#timerwhite").innerHTML)
 
-    if(document.querySelector("#timerwhite").innerHTML=="0:00" || document.querySelector("#timerblack").innerHTML=="0:00")
-    {
-      console.log('END');
-    }
+    // if(document.querySelector("#timerwhite").innerHTML=="0:00" || document.querySelector("#timerblack").innerHTML=="0:00")
+    // {
+   
+    // }
 
     
     
@@ -117,7 +118,18 @@ class Game {
     this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
       this.board.lightUpCheck(this.getKingPosition(this.gameArea));
-      if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
+      if (this.isCheckMate()) {setTimeout(gameArea => this.endGame(gameArea), 1200)}
+      if(this.currentPlayer=='white')
+      {
+        this.whitePlayerTimer.stop();
+      }
+      else
+      {
+
+        this.blackPlayerTimer.stop();
+      }
+      
+      
     }
     this.isPat();
   }
@@ -156,7 +168,8 @@ class Game {
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
     if (!this.isChecked() && opponentMoves.length == 0) {
       console.log('PAT');
-       this.pat = true;
+      this.whitePlayerTimer.tie();
+       
       this.board.changeSquareStyle(
         this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
         'square pat',
