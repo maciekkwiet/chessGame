@@ -6,6 +6,7 @@ import Timer from './Timer.js';
 
 class Game {
   constructor() {
+    this.endGame=this.endGame.bind(this);
     this.currentPlayer = 'white';
     this.round = 0;
     this.board = new Board();
@@ -21,8 +22,6 @@ class Game {
   
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-
-
     const { id } = element;
     if (this.legalMoves.length !== 0) {
       if (this.legalMoves.includes(id)) this.handleMove(element);
@@ -116,12 +115,11 @@ class Game {
     this.isPat();
   }
 
-  endGame(gameArea = this.gameArea) {
+   endGame  (gameArea=this.gameArea) {
     this.board.changeSquareStyle(
       this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
       'square check',
     );
-    alert('Szach i Mat');
   }
 
   isChecked(gameArea = this.gameArea) {

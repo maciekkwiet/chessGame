@@ -7,24 +7,16 @@ class Timer
         this.pause=this.pause.bind(this);
         this.seconds=seconds;
         this.player=player;
-        this.fun=fun;
-        console.log(this.fun)
-        
-        
-       this.TimerHandler=document.querySelector("#"+player);
-       this.end=document.querySelector("#end");
-      
-      
+        this.fun=fun;        
+        this.TimerHandler=document.querySelector("#"+player);
+        this.end=document.querySelector("#end");      
     }
 
  
     start()
     {  
-        this.interval=setInterval(()=>this.timedown(),1000);
-            
+        this.interval=setInterval(()=>this.timedown(),1000);            
     }
-
-
 
     pause()
     {
@@ -34,11 +26,12 @@ class Timer
 
     stop()
     {
+        
         this.pause();
-       // console.log("GAME OVER") 
         this.end.style.display = "flex";
         this.end.innerHTML="<div>GAME OVER!</div>"; 
         this.fun;
+        console.log(this.fun())
         
                          
     }
