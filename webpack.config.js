@@ -5,7 +5,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
-
+  devServer: {
+    host: '0.0.0.0', //your ip address
+    port: 8080,
+    disableHostCheck: true,
+  },
   output: {
     path: path.resolve(__dirname),
     filename: 'bundle.js',
@@ -15,20 +19,8 @@ module.exports = {
       template: './index.html',
     }),
   ],
-  externals: {
-    gsap: 'gsap',
-  },
   resolve: {
     extensions: ['.js'],
-  },
-  module: {
-    rules: [
-      {
-        test: /\.(js)$/,
-        loaders: ['babel-loader'],
-        exclude: /node_modules/,
-      },
-    ],
   },
   module: {
     rules: [
@@ -40,7 +32,17 @@ module.exports = {
           'sass-loader', //1. Turns sass into css
         ],
       },
-
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: ['@babel/preset-env'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
+          },
+        },
+      },
       {
         test: /\.(woff(2)?|otf|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
         use: [
@@ -62,7 +64,7 @@ module.exports = {
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[ext]',
+            name: '[path][name].[ext]',
             outputPath: 'imgs/',
           },
         },

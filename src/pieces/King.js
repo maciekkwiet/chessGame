@@ -5,7 +5,7 @@ class King extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'king';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+        this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
   }
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {

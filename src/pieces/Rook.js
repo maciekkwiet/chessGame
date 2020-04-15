@@ -5,7 +5,7 @@ class Rook extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'rook';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+        this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
   }
 
   findLegalMoves(board) {
