@@ -14,24 +14,18 @@ class Game {
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
+    this.statusTable = [];
   }
 
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-
-    const { id } = element;
     if (this.legalMoves.length !== 0) {
-      if (this.legalMoves.includes(id)) this.handleMove(element);
-      else this.removeSelection();
+      this.handleMove(element);
     } else {
       this.handleSelect(element);
     }
   }
-  removeSelection() {
-    this.board.removeHighlight();
-    this.selectedPiece = null;
-    this.legalMoves = [];
-  }
+
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
     if (this.round % 2 === 1) this.currentPlayer = 'white';
@@ -40,15 +34,10 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
 
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-
-    if (this.selectedPiece.name === 'king' && !this.isChecked())
-      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -58,25 +47,18 @@ class Game {
 
   handleMove(element) {
     const { id } = element;
+    if (!this.legalMoves.includes(id)) return;
     this.createHistoryArray(this.selectedPiece, parseId(id));
     this.board.movePiece(this.selectedPiece, parseId(id));
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
+    this.checkBoardStatus(this.currentPlayer, this.gameArea);
     this.changeTurn();
     if (this.isChecked()) {
-      this.board.lightUpCheck(this.getKingPosition(this.gameArea));
-      if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
+      console.log('Szach');
+      if (this.isCheckMate()) alert('Szach i Mat');
     }
-    this.isPat();
-  }
-
-  endGame(gameArea = this.gameArea) {
-    this.board.changeSquareStyle(
-      this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
-      'square check',
-    );
-    alert('Szach i Mat');
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -93,18 +75,6 @@ class Game {
         return this.isChecked(suspectedGameState);
       }),
     );
-  }
-
-  isPat(gameArea = this.gameArea) {
-    const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
-    if (!this.isChecked() && opponentMoves.length == 0) {
-      console.log('PAT');
-
-      this.board.changeSquareStyle(
-        this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
-        'square pat',
-      );
-    }
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
@@ -138,6 +108,15 @@ class Game {
     historyElement.parseElement(this.gameArea);
     this.historyArray.push(historyElement);
     this.HistoryTable.generateHistoryTable(this.historyArray);
+  }
+  checkBoardStatus(player, gameArea = this.gameArea) {
+    const currentStatus = JSON.parse(JSON.stringify(this.getPlayerPieces(player, gameArea)));
+    this.statusTable.push(currentStatus);
+    const repeatedStatus = this.statusTable.filter(
+      element => JSON.stringify(element) === JSON.stringify(currentStatus),
+    );
+    console.log('repeated', repeatedStatus);
+    if (repeatedStatus.length === 3) this.whitePlayerTimer.tie();
   }
 }
 
