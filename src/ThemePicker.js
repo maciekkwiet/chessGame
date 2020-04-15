@@ -24,6 +24,7 @@ class ThemePicker {
     for (let i = 0; i < pieceClass.length; i++) {
       let currentPieceSrc = pieceClass[i].src;
       let splitted = currentPieceSrc.split('/');
+      console.log (splitted);
       splitted[6] = this.currentColor;
       // console.log(splitted.join('/'));
       const joined = splitted.join('/');
