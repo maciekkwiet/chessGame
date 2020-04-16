@@ -5,7 +5,7 @@ class King extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'king';
-        this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
   }
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {
@@ -75,6 +75,7 @@ class King extends Piece {
     const oponentAttack = playerMoves;
     const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
+    const oponentMove = this.oponentMoves(gameArea);
 
     attack.forEach(move => {
       if (gameArea[move[0]][move[2]] && gameArea[move[0]][move[2]].side === this.side)
@@ -84,7 +85,8 @@ class King extends Piece {
       if (this.isLongCastlingPossible(gameArea, oponentAttack)) attack.push(`${[2]},${[this.y]}`);
       if (this.isShortCastlingPossible(gameArea, oponentAttack)) attack.push(`${[6]},${[this.y]}`);
     }
-    const legalMoves = attack.filter(move => !possibleMoves.includes(move));
+    const filterMoves = attack.filter(move => !possibleMoves.includes(move));
+    const legalMoves = filterMoves.filter(move => !oponentMove.includes(move));
 
     return legalMoves;
   }
