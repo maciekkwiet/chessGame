@@ -6,7 +6,7 @@ import Timer from './Timer.js';
 
 class Game {
   constructor() {
-    this.endGame=this.endGame.bind(this);
+    this.endGame = this.endGame.bind(this);
     this.currentPlayer = 'white';
     this.round = 0;
     this.board = new Board();
@@ -14,12 +14,12 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    this.whitePlayerTimer = new Timer(900, 'timerwhite',this.endGame,'black');
-    this.blackPlayerTimer= new Timer(2, 'timerblack',this.endGame,'white');
+    this.whitePlayerTimer = new Timer(900, 'timerwhite', this.endGame, 'black');
+    this.blackPlayerTimer = new Timer(2, 'timerblack', this.endGame, 'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
   }
-  
+
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
     const { id } = element;
@@ -41,11 +41,10 @@ class Game {
     this.round++;
   }
 
-
-
   handleSelect(element) {
     const [x, y] = parseId(element.id);
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
+    this.board.SelectedBackground(`${x},${y}`);
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(
       this.gameArea,
@@ -58,12 +57,10 @@ class Game {
     this.board.highlightPossibleMoves(this.legalMoves);
   }
 
-
   handleMove(element) {
-
     const { id } = element;
     if (!this.legalMoves.includes(id)) return;
-    const {x,y}=  this.selectedPiece;
+    const { x, y } = this.selectedPiece;
 
     this.board.SelectedBackground(`${x},${y}`);
     // ToDo refactor
@@ -71,27 +68,20 @@ class Game {
       this.selectedPiece.castling(this.gameArea, parseId(id));
     } else this.board.movePiece(this.selectedPiece, parseId(id));
 
-
-    if(this.currentPlayer==="white")
-    {
+    if (this.currentPlayer === 'white') {
       this.blackPlayerTimer.start();
       this.whitePlayerTimer.pause();
-    }
-   
-    else{
+    } else {
       this.whitePlayerTimer.start();
-      this.blackPlayerTimer.pause()
-      }
+      this.blackPlayerTimer.pause();
+    }
 
-    console.log(document.querySelector("#timerwhite").innerHTML)
+    console.log(document.querySelector('#timerwhite').innerHTML);
 
     // if(document.querySelector("#timerwhite").innerHTML=="0:00" || document.querySelector("#timerblack").innerHTML=="0:00")
     // {
-   
-    // }
 
-    
-    
+    // }
 
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
@@ -112,23 +102,19 @@ class Game {
     this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
       this.board.lightUpCheck(this.getKingPosition(this.gameArea));
-      if (this.isCheckMate()) {setTimeout(gameArea => this.endGame(gameArea), 1200)}
-      if(this.currentPlayer=='white')
-      {
-        this.whitePlayerTimer.stop();
+      if (this.isCheckMate()) {
+        setTimeout(gameArea => this.endGame(gameArea), 1200);
       }
-      else
-      {
-
+      if (this.currentPlayer == 'white') {
+        this.whitePlayerTimer.stop();
+      } else {
         this.blackPlayerTimer.stop();
       }
-      
-      
     }
     this.isPat();
   }
 
-   endGame  (gameArea=this.gameArea) {
+  endGame(gameArea = this.gameArea) {
     this.board.changeSquareStyle(
       this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
       'square check',
@@ -167,7 +153,7 @@ class Game {
     if (!this.isChecked() && opponentMoves.length == 0) {
       console.log('PAT');
       this.whitePlayerTimer.tie();
-       
+
       this.board.changeSquareStyle(
         this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
         'square pat',
@@ -221,7 +207,5 @@ class Game {
     this.HistoryTable.generateHistoryTable(this.historyArray);
     console.log(historyElement);
   }
-  
 }
 export default Game;
-
