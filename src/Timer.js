@@ -6,7 +6,7 @@ class Timer {
     this.color = color;
     this.player = player;
     this.fun = fun;
-    this.TimerHandler = document.querySelector('#' + player);
+    this.timerHandler = document.querySelector('#' + player);
     this.end = document.querySelector('#end');
   }
 
@@ -33,7 +33,7 @@ class Timer {
   }
 
   timedown() {
-    this.TimerHandler.innerHTML = this.convertSeconds(this.seconds);
+    this.timerHandler.innerHTML = this.convertSeconds(this.seconds);
     if (this.seconds > 0) {
       this.seconds--;
       return this.seconds;
