@@ -3,7 +3,7 @@ class ThemePicker {
     const pickButtons = [...document.querySelectorAll('#startScreen ul>li')];
     this.handleColorPick = this.handleColorPick.bind(this);
     pickButtons.forEach(node => node.addEventListener('click', this.handleColorPick));
-    this.currentColor = 'blue';
+    return this.currentColor = 'blue';
   }
 
   handleColorPick(e) {
