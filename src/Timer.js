@@ -32,7 +32,7 @@ class Timer
 
         this.pause();
         this.end.style.display = "flex";
-        this.end.innerHTML="<div>GAME OVER! Winner:" +this.color+ "</div>"; 
+        this.end.innerHTML="<div>GAME OVER! ⇩ Winner:" +this.color+ "</div>"; 
         this.fun;              
     }
 
