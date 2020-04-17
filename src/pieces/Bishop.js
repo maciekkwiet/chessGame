@@ -5,7 +5,7 @@ class Bishop extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'bishop';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
   }
   findAttackingMoves(board) {
     const attackingMoves = [];

@@ -5,18 +5,14 @@ class King extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
     this.name = 'king';
-    this.display = `<img class="piece" src="./imgs/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
   }
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {
-      // Long castling rook's move
       if (to[0] - this.x < -1) gameArea[0][this.y].move([to[0] + 1, this.y]);
-      // Short castling rook's move
       if (to[0] - this.x > 1) gameArea[7][this.y].move([to[0] - 1, this.y]);
-      // King's move during castling
-      super.move(to);
-      // Normal king's move
-    } else super.move(to);
+    }
+    super.move(to);
   }
   oponentMoves(gameArea) {
     let oponentMoves2 = [];
@@ -32,48 +28,65 @@ class King extends Piece {
     }
     return oponentMoves2;
   }
-  isLongCastlingPossible(gameArea) {
+
+  isCastlingAttackingMoves(oponentAttack, x, y) {
+    const sumOfTable = [];
+    const blockTable = [];
+    for (let i = x; i <= y; i++) {
+      blockTable.push(`${i},${this.y}`);
+    }
+
+    for (let j = 0; j < blockTable.length; j++) {
+      for (let k = 0; k < oponentAttack.length; k++) {
+        if (
+          blockTable[j].toString()[0] == oponentAttack[k].toString()[0] &&
+          blockTable[j].toString()[2] == oponentAttack[k].toString()[2]
+        ) {
+          sumOfTable.push(blockTable[j]);
+        }
+      }
+    }
+
+    return sumOfTable.length == 0 ? true : false;
+  }
+
+  isLongCastlingPossible(gameArea, oponentAttack) {
     return (
-      //check if rook exists
       gameArea[0][this.y] &&
-      // check if king road is passable
       !gameArea[1][this.y] &&
       !gameArea[2][this.y] &&
       !gameArea[3][this.y] &&
-      // check if rook moved
-      !gameArea[0][this.y].hasMoved
-    );
-  }
-  isShortCastlingPossible(gameArea) {
-    return (
-      //check if rook exists
-      gameArea[7][this.y] &&
-      // check if king road is passable
-      !gameArea[5][this.y] &&
-      !gameArea[6][this.y] &&
-      // check if rook moved
-      !gameArea[7][this.y].hasMoved
+      !gameArea[0][this.y].hasMoved &&
+      this.isCastlingAttackingMoves(oponentAttack, 0, 4)
     );
   }
 
-  findLegalMoves(gameArea) {
+  isShortCastlingPossible(gameArea, oponentAttack) {
+    return (
+      gameArea[7][this.y] &&
+      !gameArea[5][this.y] &&
+      !gameArea[6][this.y] &&
+      !gameArea[7][this.y].hasMoved &&
+      this.isCastlingAttackingMoves(oponentAttack, 4, 7)
+    );
+  }
+
+  findLegalMoves(gameArea, playerMoves) {
+    const oponentAttack = playerMoves;
     const possibleMoves = [];
     const attack = this.findAttackingMoves(gameArea);
+    const oponentMove = this.oponentMoves(gameArea);
 
     attack.forEach(move => {
       if (gameArea[move[0]][move[2]] && gameArea[move[0]][move[2]].side === this.side)
         possibleMoves.push(`${move[0]},${move[2]}`);
     });
-    if (
-      //check if King moved
-      !this.hasMoved
-    ) {
-      // add field if long castling is possible
-      if (this.isLongCastlingPossible(gameArea)) attack.push(`${[2]},${[this.y]}`);
-      // add field if short castling is possible
-      if (this.isShortCastlingPossible(gameArea)) attack.push(`${[6]},${[this.y]}`);
+    if (!this.hasMoved) {
+      if (this.isLongCastlingPossible(gameArea, oponentAttack)) attack.push(`${[2]},${[this.y]}`);
+      if (this.isShortCastlingPossible(gameArea, oponentAttack)) attack.push(`${[6]},${[this.y]}`);
     }
-    const legalMoves = attack.filter(move => !possibleMoves.includes(move));
+    const filterMoves = attack.filter(move => !possibleMoves.includes(move));
+    const legalMoves = filterMoves.filter(move => !oponentMove.includes(move));
 
     return legalMoves;
   }

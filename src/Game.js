@@ -45,18 +45,12 @@ class Game {
 
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-    
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
-   
-
-    this.board.SelectedBackground(element.id);
-    
-    
     this.selectedPiece = this.gameArea[x][y];
-    const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
-
-    // if (this.selectedPiece.name === 'king' && !this.isChecked())
-    //   possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
+    const possibleMoves = this.selectedPiece.findLegalMoves(
+      this.gameArea,
+      this.getPlayerAttack(this.currentPlayer === 'white' ? 'black' : 'white', this.gameArea),
+    );
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -150,13 +144,17 @@ class Game {
   isCheckMate(gameArea = this.gameArea) {
     const currentPlayerPieces = this.getPlayerPieces(this.currentPlayer, gameArea);
     return currentPlayerPieces.every(piece =>
-      piece.findLegalMoves(gameArea).every(move => {
-        const suspectedGameState = this.board.tryPieceMove(piece, parseId(move));
-        return this.isChecked(suspectedGameState);
-      }),
+      piece
+        .findLegalMoves(
+          gameArea,
+          this.getPlayerAttack(this.currentPlayer === 'white' ? 'black' : 'white', this.gameArea),
+        )
+        .every(move => {
+          const suspectedGameState = this.board.tryPieceMove(piece, parseId(move));
+          return this.isChecked(suspectedGameState);
+        }),
     );
   }
-
 
   resetPawnFlag(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
@@ -175,7 +173,6 @@ class Game {
         'square pat',
       );
     }
-
   }
 
   getKingPosition(gameArea = this.gameArea, player = this.currentPlayer) {
@@ -195,8 +192,21 @@ class Game {
 
   getPlayerMoves(player, gameArea = this.gameArea) {
     const pieces = this.getPlayerPieces(player, gameArea);
-    return pieces.map(piece => piece.findLegalMoves(gameArea)).flat();
+    return pieces
+      .map(piece =>
+        piece.findLegalMoves(
+          gameArea,
+          this.getPlayerAttack(this.currentPlayer === 'white' ? 'black' : 'white', this.gameArea),
+        ),
+      )
+      .flat();
   }
+
+  getPlayerAttack(player, gameArea = this.gameArea) {
+    const pieces = this.getPlayerPieces(player, gameArea);
+    return pieces.map(piece => piece.findAttackingMoves(gameArea)).flat();
+  }
+
   createHistoryArray(selectedPiece, to) {
     let historyElement = new History(
       selectedPiece.x,
