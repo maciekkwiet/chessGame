@@ -34,6 +34,7 @@ class Game {
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
+    
   }
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
