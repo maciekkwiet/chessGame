@@ -15,7 +15,7 @@ class Game {
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
     this.whitePlayerTimer = new Timer(900, 'timerwhite', this.endGame, 'black');
-    this.blackPlayerTimer = new Timer(2, 'timerblack', this.endGame, 'white');
+    this.blackPlayerTimer = new Timer(900, 'timerblack', this.endGame, 'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
   }
@@ -34,7 +34,6 @@ class Game {
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
-    
   }
   changeTurn() {
     if (this.round % 2 === 0) this.currentPlayer = 'black';
@@ -78,11 +77,6 @@ class Game {
     }
 
     console.log(document.querySelector('#timerwhite').innerHTML);
-
-    // if(document.querySelector("#timerwhite").innerHTML=="0:00" || document.querySelector("#timerblack").innerHTML=="0:00")
-    // {
-
-    // }
 
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
