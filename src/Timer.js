@@ -1,11 +1,11 @@
 class Timer {
-  constructor(seconds, player, fun, color) {
+  constructor(seconds, player, handleEndGame, color) {
     this.start = this.start.bind(this);
     this.pause = this.pause.bind(this);
     this.seconds = seconds;
     this.color = color;
     this.player = player;
-    this.fun = fun;
+    this.handleEndGame = handleEndGame;
     this.timerHandler = document.querySelector('#' + player);
     this.end = document.querySelector('#end');
   }
@@ -20,16 +20,14 @@ class Timer {
 
   stop() {
     this.pause();
-    this.end.style.display = 'flex';
-    this.end.innerHTML = '<div>GAME OVER! ⇩ Winner:' + this.color + '</div>';
-    this.fun;
+    this.handleEndGame();
+    console.log("STOP");
   }
 
   tie() {
     this.pause();
     this.end.style.display = 'flex';
     this.end.innerHTML = '<div>We have a tie</div>';
-    this.fun;
   }
 
   timedown() {

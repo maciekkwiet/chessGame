@@ -14,8 +14,8 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    this.whitePlayerTimer = new Timer(900, 'timerwhite', this.endGame, 'black');
-    this.blackPlayerTimer = new Timer(900, 'timerblack', this.endGame, 'white');
+    this.whitePlayerTimer = new Timer(2, 'timerwhite', this.endGame, 'black');
+    this.blackPlayerTimer = new Timer(2, 'timerblack', this.endGame, 'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
   }
@@ -31,7 +31,9 @@ class Game {
     }
   }
   removeSelection() {
+    const {x,y}=this.selectedPiece;
     this.board.removeHighlight();
+    this.board.SelectedBackground(`${x},${y}`);
     this.selectedPiece = null;
     this.legalMoves = [];
   }
@@ -44,7 +46,7 @@ class Game {
   handleSelect(element) {
     const [x, y] = parseId(element.id);
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
-    this.board.SelectedBackground(`${x},${y}`);
+    this.board.SelectedBackground(element.id);
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(
       this.gameArea,
@@ -110,6 +112,9 @@ class Game {
   }
 
   endGame(gameArea = this.gameArea) {
+    const end = document.querySelector('#end');
+    end.style.display = 'flex';
+    end.innerHTML = '<div>GAME OVER! ⇩ Winner:' + (this.currentPlayer === 'white' ? 'black' : 'white' )+ '</div>'
     this.board.changeSquareStyle(
       this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
       'square check',
@@ -148,6 +153,7 @@ class Game {
     if (!this.isChecked() && opponentMoves.length == 0) {
       console.log('PAT');
       this.whitePlayerTimer.tie();
+      this.blackPlayerTimer.pause();
 
       this.board.changeSquareStyle(
         this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
