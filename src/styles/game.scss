@@ -52,10 +52,10 @@ body {
   grid-template-rows: auto;
 }
 #game-wrapper {
-  padding-top: 1rem;
+  padding-top: -1rem;
   display: flex;
   grid-template-columns: repeat(auto-fit, 1fr);
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: center;
   grid-template-rows: auto;
 }

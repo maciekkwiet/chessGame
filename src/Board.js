@@ -59,6 +59,10 @@ class Board {
     king.className = king.className == 'square check' ? param : 'square check';
   }
 
+  SelectedBackground(id) {
+    document.getElementById(id).classList.toggle('currentcolor');
+  }
+
   changeSquareStyle(squareId, classNamed) {
     document.getElementById(`${squareId[0]},${squareId[1]}`).className = classNamed;
   }

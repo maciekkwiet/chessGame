@@ -14,7 +14,9 @@
   </head>
 
   <body>
+    
     <div id="startScreen">
+
       <div id="startTextBorder">
         <div id="startText">
           <h2>c'mon man</h2>
@@ -23,10 +25,13 @@
       </div>
     </div>
     <div id="title-wrapper">
-      <div id="game-title">cyber chess</div>
+      <div id="game-title">retro chess</div>
+      
     </div>
+    <div class="Game" id="end"></div>
     <div id="game-wrapper">
       <div id="board-wrapper">
+        
         <div id="board"></div>
         <div id="notation-horizontal"></div>
         <div id="notation-vertical"></div>
@@ -35,7 +40,12 @@
         <div id="dvTable"></div>
       </div>
       <div class="clock-bg">
-        <div id="dvClock"></div>
+        <div class="chessTimer">Chess Timer
+          <h3>White</h3>
+          <div class="Game" id="timerwhite">15:00</div>
+          <h5>Black</h5>
+          <div class="Game" id="timerblack">15:00</div>
+        </div>
       </div>
     </div>
 
@@ -45,6 +55,7 @@
         <div class="promotion-bishop"></div>
         <div class="promotion-knight"></div>
         <div class="promotion-rook"></div>
+        
       </div>
     </div>
   </body>

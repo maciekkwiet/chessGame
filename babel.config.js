@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const presets = [
   [
     '@babel/env',
