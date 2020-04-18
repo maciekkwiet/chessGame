@@ -2,9 +2,11 @@ import Board from './Board';
 import History from './History';
 import HistoryTable from './HistoryTable';
 import { parseId, iterateOver2DArray } from './utils';
+import Timer from './Timer.js';
 
 class Game {
   constructor() {
+    this.endGame=this.endGame.bind(this);
     this.currentPlayer = 'white';
     this.round = 0;
     this.board = new Board();
@@ -12,13 +14,14 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
+    this.whitePlayerTimer = new Timer(900, 'timerwhite',this.endGame,'black');
+    this.blackPlayerTimer= new Timer(2, 'timerblack',this.endGame,'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
   }
-
+  
   onClick(e) {
     const element = e.target.classList.contains('square') ? e.target : e.target.parentElement;
-
     const { id } = element;
     if (this.legalMoves.length !== 0) {
       if (this.legalMoves.includes(id)) this.handleMove(element);
@@ -38,17 +41,22 @@ class Game {
     this.round++;
   }
 
+
+
   handleSelect(element) {
     const [x, y] = parseId(element.id);
-
+    
     if (!this.gameArea[x][y] || this.gameArea[x][y].side !== this.currentPlayer) return;
+   
 
+    this.board.SelectedBackground(element.id);
+    
+    
     this.selectedPiece = this.gameArea[x][y];
     const possibleMoves = this.selectedPiece.findLegalMoves(this.gameArea);
 
-    if (this.selectedPiece.name === 'king' && !this.isChecked())
-      possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
-
+    // if (this.selectedPiece.name === 'king' && !this.isChecked())
+    //   possibleMoves.push(...this.selectedPiece.castling(this.gameArea, {}));
     this.legalMoves = possibleMoves.filter(move => {
       const suspectedGameState = this.board.tryPieceMove(this.selectedPiece, parseId(move));
       return !this.isChecked(suspectedGameState);
@@ -56,10 +64,53 @@ class Game {
     this.board.highlightPossibleMoves(this.legalMoves);
   }
 
+
   handleMove(element) {
+
     const { id } = element;
+    if (!this.legalMoves.includes(id)) return;
+    const {x,y}=  this.selectedPiece;
+
+    this.board.SelectedBackground(`${x},${y}`);
+    // ToDo refactor
+    if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
+      this.selectedPiece.castling(this.gameArea, parseId(id));
+    } else this.board.movePiece(this.selectedPiece, parseId(id));
+
+
+    if(this.currentPlayer==="white")
+    {
+      this.blackPlayerTimer.start();
+      this.whitePlayerTimer.pause();
+    }
+   
+    else{
+      this.whitePlayerTimer.start();
+      this.blackPlayerTimer.pause()
+      }
+
+    console.log(document.querySelector("#timerwhite").innerHTML)
+
+    // if(document.querySelector("#timerwhite").innerHTML=="0:00" || document.querySelector("#timerblack").innerHTML=="0:00")
+    // {
+   
+    // }
+
+    
+    
+
+    // ToDo refactor
+    if (this.selectedPiece.name === 'pawn') {
+      if (
+        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
+        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
+      )
+        this.selectedPiece.promote(this.gameArea);
+    }
+
     this.createHistoryArray(this.selectedPiece, parseId(id));
     this.board.movePiece(this.selectedPiece, parseId(id));
+
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
@@ -67,17 +118,27 @@ class Game {
     this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
       this.board.lightUpCheck(this.getKingPosition(this.gameArea));
-      if (this.isCheckMate()) setTimeout(gameArea => this.endGame(gameArea), 1200);
+      if (this.isCheckMate()) {setTimeout(gameArea => this.endGame(gameArea), 1200)}
+      if(this.currentPlayer=='white')
+      {
+        this.whitePlayerTimer.stop();
+      }
+      else
+      {
+
+        this.blackPlayerTimer.stop();
+      }
+      
+      
     }
     this.isPat();
   }
 
-  endGame(gameArea = this.gameArea) {
+   endGame  (gameArea=this.gameArea) {
     this.board.changeSquareStyle(
       this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
       'square check',
     );
-    alert('Szach i Mat');
   }
 
   isChecked(gameArea = this.gameArea) {
@@ -106,7 +167,8 @@ class Game {
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
     if (!this.isChecked() && opponentMoves.length == 0) {
       console.log('PAT');
-
+      this.whitePlayerTimer.tie();
+       
       this.board.changeSquareStyle(
         this.getKingPosition(this.gameArea).x.toString() + this.getKingPosition(this.gameArea).y.toString(),
         'square pat',
@@ -147,6 +209,7 @@ class Game {
     this.HistoryTable.generateHistoryTable(this.historyArray);
     console.log(historyElement);
   }
+  
 }
-
 export default Game;
+

@@ -28,7 +28,6 @@ class Board {
       }
     }
   }
-
   lightUpCheck({ x, y }) {
     const interval = setInterval(() => this.changeBackgroundColor(x, y), 300);
     setTimeout(function() {
@@ -40,6 +39,14 @@ class Board {
     const king = document.getElementById(`${x},${y}`);
     const param = y % 2 == x % 2 ? 'square light' : 'square dark';
     king.className = king.className == 'square check' ? param : 'square check';
+  }
+
+ 
+
+  SelectedBackground(id)
+  {
+    document.getElementById(id).classList.toggle("currentcolor");
+
   }
 
   changeSquareStyle(squareId, classNamed) {
@@ -97,7 +104,7 @@ class Board {
     bishop = new Bishop(2, 0, 'black');
     this.gameArea[bishop.x][bishop.y] = bishop;
   }
-
+  
   highlightPossibleMoves(possibleMoves) {
     for (let move of possibleMoves) {
       document.getElementById(move).classList.add('possibleMove');
@@ -108,9 +115,12 @@ class Board {
     for (let x = 0; x < this.gameArea.length; x++) {
       for (let y = 0; y < this.gameArea[x].length; y++) {
         document.getElementById(`${x},${y}`).classList.remove('possibleMove');
+        
+        
       }
     }
   }
+
 
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;
