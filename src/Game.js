@@ -14,8 +14,8 @@ class Game {
     this.legalMoves = [];
     this.selectedPiece = null;
     this.board.gameAreaHandler.addEventListener('click', e => this.onClick(e));
-    this.whitePlayerTimer = new Timer(2, 'timerwhite', this.endGame, 'black');
-    this.blackPlayerTimer = new Timer(2, 'timerblack', this.endGame, 'white');
+    this.whitePlayerTimer = new Timer(900, 'timerwhite', this.endGame, 'black');
+    this.blackPlayerTimer = new Timer(900, 'timerblack', this.endGame, 'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
   }
