@@ -1,4 +1,4 @@
-.table-bg {
+#table-bg {
   display: flex;
   width: 200px;
   order: -1;
@@ -15,8 +15,65 @@
   justify-content: right;
   left: 70% ;
   font-family: 'Neon Tubes 2';
-
 }
+
+#table-bg.pink {
+  display: flex;
+  width: 200px;
+  order: -1;
+  min-height: 30vh;
+  margin: 0 2rem 0 2rem;
+
+  font-size: 17px;
+  color: #fff;
+  background: rgba(255, 92, 0, 0.6);
+  padding: 10px 20px 30px;
+  text-align: center;
+
+  align-self: center;
+  justify-content: right;
+  left: 70% ;
+  font-family: 'Neon Tubes 2';
+}
+
+#table-bg.green {
+  display: flex;
+  width: 200px;
+  order: -1;
+  min-height: 30vh;
+  margin: 0 2rem 0 2rem;
+
+  font-size: 17px;
+  color: #fff;
+  background: rgba(122, 151, 60, 0.6);
+  padding: 10px 20px 30px;
+  text-align: center;
+
+  align-self: center;
+  justify-content: right;
+  left: 70% ;
+  font-family: 'Neon Tubes 2';
+}
+
+#table-bg.purple {
+  display: flex;
+  width: 200px;
+  order: -1;
+  min-height: 30vh;
+  margin: 0 2rem 0 2rem;
+
+  font-size: 17px;
+  color: #fff;
+  background: rgba(116, 19, 196, 0.6);
+  padding: 10px 20px 30px;
+  text-align: center;
+
+  align-self: center;
+  justify-content: right;
+  left: 70% ;
+  font-family: 'Neon Tubes 2';
+}
+
 .dvTable {
   position: fixed;
   width: 100%;

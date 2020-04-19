@@ -1,9 +1,9 @@
 #startScreen {
   position: fixed;
   width: 100vw;
-  height: 100vh;
+  height: 103vh;
   background: $dark;
-
+  margin-top: -1%;
   opacity: 0.95;
   display: flex;
   justify-content: center;
@@ -22,6 +22,7 @@
     justify-content: center;
     align-items: center;
     top: 30px ;
+    margin-left: -3%;
     #startText {
       background: linear-gradient(
         180deg,
@@ -35,6 +36,7 @@
       outline: 3px solid #ad00ff;
       padding: 20px;
       filter: blur(1px);
+      
 
       h1,
       h2 {
@@ -85,10 +87,10 @@ align-self: flex-start;
   background-color: #1E1F57;
   box-shadow: 0px 0px 15px #ad00ff;
   border-bottom: 2px solid #ad00ff;
-}
+  margin-left: -1.5%;}
 
 ul {
-  left: 50%;
+  left: 49.5%;
   top: 20%;
   position: fixed;
   display: flex;
