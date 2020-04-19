@@ -11,6 +11,7 @@ class Board {
   constructor() {
     this.gameArea = create2DArray();
     this.gameAreaHandler = document.getElementById('board');
+    this.generateNotation();
     this.setPieces();
     this.setup();
   }
@@ -28,6 +29,23 @@ class Board {
       }
     }
   }
+
+  generateNotation() {
+    const column = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+    const row = [1, 2, 3, 4, 5, 6, 7, 8];
+    const notationX = document.getElementById('notation-horizontal');
+    const notationY = document.getElementById('notation-vertical');
+    for (let i = 0; i < column.length; i++) {
+      const notationBlock = document.createElement('div');
+      notationBlock.innerHTML = column[i];
+      notationX.appendChild(notationBlock);
+    }
+    for (let i = 0; i < row.length; i++) {
+      const notationBlock = document.createElement('div');
+      notationBlock.innerHTML = row[i];
+      notationY.appendChild(notationBlock);
+    }
+  }
   lightUpCheck({ x, y }) {
     const interval = setInterval(() => this.changeBackgroundColor(x, y), 300);
     setTimeout(function() {
@@ -41,12 +59,8 @@ class Board {
     king.className = king.className == 'square check' ? param : 'square check';
   }
 
- 
-
-  SelectedBackground(id)
-  {
-    document.getElementById(id).classList.toggle("currentcolor");
-
+  SelectedBackground(id) {
+    document.getElementById(id).classList.toggle('currentcolor');
   }
 
   changeSquareStyle(squareId, classNamed) {
@@ -104,7 +118,7 @@ class Board {
     bishop = new Bishop(2, 0, 'black');
     this.gameArea[bishop.x][bishop.y] = bishop;
   }
-  
+
   highlightPossibleMoves(possibleMoves) {
     for (let move of possibleMoves) {
       document.getElementById(move).classList.add('possibleMove');
@@ -115,12 +129,9 @@ class Board {
     for (let x = 0; x < this.gameArea.length; x++) {
       for (let y = 0; y < this.gameArea[x].length; y++) {
         document.getElementById(`${x},${y}`).classList.remove('possibleMove');
-        
-        
       }
     }
   }
-
 
   movePiece(pieceToMove, to) {
     const [toX, toY] = to;

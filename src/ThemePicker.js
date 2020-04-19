@@ -3,14 +3,16 @@ class ThemePicker {
     const pickButtons = [...document.querySelectorAll('#startScreen ul>li')];
     this.handleColorPick = this.handleColorPick.bind(this);
     pickButtons.forEach(node => node.addEventListener('click', this.handleColorPick));
-    return this.currentColor = 'blue';
+    this.currentColor = 'blue';
   }
 
   handleColorPick(e) {
     this.currentColor = e.target.dataset.color;
     ['body', '#wrapper', '#game-title', '#board'].forEach(selector => this.changeElementColor(selector));
-    [...document.querySelectorAll('.square.light,.square.dark')].map(node => node.classList.add(this.currentColor));
-    // console.log('.square.light,.square.light');
+    [...document.querySelectorAll('.square.light,.square.dark')].map(node => {
+      node.classList.remove('blue', 'pink', 'green', 'purple');
+      node.classList.add(this.currentColor);
+    });
     this.pieceSrc();
   }
 
@@ -24,9 +26,7 @@ class ThemePicker {
     for (let i = 0; i < pieceClass.length; i++) {
       let currentPieceSrc = pieceClass[i].src;
       let splitted = currentPieceSrc.split('/');
-      console.log (splitted);
       splitted[6] = this.currentColor;
-      // console.log(splitted.join('/'));
       const joined = splitted.join('/');
       pieceClass[i].src = joined;
     }

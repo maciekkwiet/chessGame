@@ -1,4 +1,9 @@
+@font-face {
+  font-family: 'Munro';
+  src: url('../font/munro-small.ttf') format('truetype');
+}
 #board {
+  grid-column: span 8;
   $size: $board-size;
   display: flex;
   flex-wrap: wrap;
@@ -10,20 +15,60 @@
   outline: 10px solid rgba(102, 237, 255, 0.719);
 }
 #board.pink {
-  box-shadow: 0px 4px 50px #FF1C1C;
+  box-shadow: 0px 4px 50px #ff1c1c;
   outline: 10px solid rgba(255, 88, 66, 0.6);
 }
 #board.green {
-  box-shadow: 0px 4px 50px #00482A;
+  box-shadow: 0px 4px 50px #00482a;
   outline: 10px solid rgba(9, 66, 28, 0.6);
 }
 #board.purple {
   box-shadow: 0px 4px 50px #490063;
   outline: 10px solid rgba(43, 0, 63, 0.6);
+  outline: 10px solid rgba(0, 222, 255, 0.6);
+  margin-left: 30px;
+}
+
+#notation-horizontal {
+  padding-top: 1em;
+  display: inline-flex;
+  grid-column: span 8;
+  width: $board-size;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  justify-items: center;
+  align-items: center;
+  div {
+    width: $board-size/8;
+    text-align: center;
+    font-family: Munro;
+    font-size: $notation-font-size;
+    color: white;
+    line-height: $notation-font-size;
+  }
+}
+#notation-vertical {
+  padding-left: 1em;
+  display: inline-flex;
+  flex-direction: column-reverse;
+  grid-column: 11;
+  grid-row: 1/-1;
+  height: $board-size;
+  justify-content: space-evenly;
+  align-content: space-evenly;
+  justify-items: center;
+  align-items: center;
+  div {
+    height: $board-size/8;
+    text-align: center;
+    font-family: Munro;
+    font-size: $notation-font-size;
+    color: white;
+    line-height: $board-size/8;
+  }
 }
 
 .square {
-  /* border: 1px darkslategrey solid; */
   $size: $board-size/8;
   width: $size;
   height: $size;
@@ -35,37 +80,35 @@
   justify-content: center;
 }
 
-
-.currentcolor{
-  background-color:pink !important;
+.currentcolor {
+  background-color: pink !important;
 }
 
 .light {
-  background: #0F96C0;
+  background: #0f96c0;
 }
 .light.pink {
-  background: #EEB19E;
+  background: #eeb19e;
 }
 .light.green {
-  background: #9ECE87;
+  background: #9ece87;
 }
 .light.purple {
-  background: #A887DE;
+  background: #a887de;
 }
 
 .dark {
   background: $dark;
 }
 .dark.pink {
-  background: #A64260;
+  background: #a64260;
 }
 .dark.green {
   background: #409363;
 }
 .dark.purple {
-  background: #5C42A6;
+  background: #5c42a6;
 }
-
 
 .check {
   background: red;
@@ -77,13 +120,13 @@
   color: $black;
 }
 .black.pink {
-  color: #43267E;
+  color: #43267e;
 }
 .black.green {
-  color: #19422A;
+  color: #19422a;
 }
 .black.purple {
-  color: #391A62;
+  color: #391a62;
 }
 
 .white {
@@ -94,15 +137,14 @@
   background: $moves;
 }
 .possibleMove.pink {
-  background: #FFE5A1;
+  background: #ffe5a1;
 }
 .possibleMove.green {
-background: #FDFFA0;
+  background: #fdffa0;
 }
 .possibleMove.purple {
-  background: #9935D7;
-  }
-
+  background: #9935d7;
+}
 
 .promotion-bg {
   position: fixed;

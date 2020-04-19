@@ -16,6 +16,7 @@
 
   <body class="blue">
     <div id="startScreen">
+
       <div id="startTextBorder">
         <div id="startText">
           <h2>c'mon man</h2>
@@ -32,14 +33,28 @@
         <li data-color="purple">4</li>
       </ul>
     </div>
-    <div class="Game" id="end"></div>
+    
     <div id="wrapper" class="blue">
       <div id="game-title" class="blue">pixel chess</div>
-      <div class="chessTimer">Chess Timer
-        <div class="Game" id="timerwhite">15:00</div>
-        <div class="Game" id="timerblack">15:00</div>
+    <div class="Game" id="end"></div>
+    <div id="game-wrapper">
+      <div id="board-wrapper">
+        
+        <div id="board"></div>
+        <div id="notation-horizontal"></div>
+        <div id="notation-vertical"></div>
       </div>
-      <div id="board" class="blue"></div>
+      <div class="table-bg">
+        <div id="dvTable"></div>
+      </div>
+      <div class="clock-bg">
+        <div class="chessTimer">Chess Timer
+          <h3>White</h3>
+          <div class="Game" id="timerwhite">15:00</div>
+          <h5>Black</h5>
+          <div class="Game" id="timerblack">15:00</div>
+        </div>
+      </div>
     </div>
 
     <div class="promotion-bg">
@@ -50,10 +65,6 @@
         <div class="promotion-rook"></div>
         
       </div>
-    </div>
-
-    <div class="table-bg">
-      <div id="dvTable"></div>
     </div>
   </body>
 </html>
