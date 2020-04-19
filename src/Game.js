@@ -18,6 +18,7 @@ class Game {
     this.blackPlayerTimer = new Timer(900, 'timerblack', this.endGame, 'white');
     this.historyArray = [];
     this.HistoryTable = new HistoryTable();
+    this.statusTable = [];
   }
 
   onClick(e) {
@@ -65,10 +66,6 @@ class Game {
     const { x, y } = this.selectedPiece;
 
     this.board.SelectedBackground(`${x},${y}`);
-    // ToDo refactor
-    if (this.selectedPiece.name === 'king' && Math.abs(this.selectedPiece.x - id[0]) > 1) {
-      this.selectedPiece.castling(this.gameArea, parseId(id));
-    } else this.board.movePiece(this.selectedPiece, parseId(id));
 
     if (this.currentPlayer === 'white') {
       this.blackPlayerTimer.start();
@@ -78,21 +75,13 @@ class Game {
       this.blackPlayerTimer.pause();
     }
 
-    // ToDo refactor
-    if (this.selectedPiece.name === 'pawn') {
-      if (
-        (this.selectedPiece.y === 0 && this.selectedPiece.side === 'white') ||
-        (this.selectedPiece.y === 7 && this.selectedPiece.side === 'black')
-      )
-        this.selectedPiece.promote(this.gameArea);
-    }
-
     this.createHistoryArray(this.selectedPiece, parseId(id));
     this.board.movePiece(this.selectedPiece, parseId(id));
 
     this.board.removeHighlight();
     this.selectedPiece = null;
     this.legalMoves = [];
+    this.checkBoardStatus(this.currentPlayer, this.gameArea);
     this.changeTurn();
     this.resetPawnFlag(this.currentPlayer, this.gameArea);
     if (this.isChecked()) {
@@ -149,7 +138,6 @@ class Game {
   isPat(gameArea = this.gameArea) {
     const opponentMoves = this.getPlayerMoves(this.currentPlayer === 'white' ? 'white' : 'black', gameArea);
     if (!this.isChecked() && opponentMoves.length == 0) {
-      console.log('PAT');
       this.whitePlayerTimer.tie();
       this.blackPlayerTimer.pause();
 
@@ -204,7 +192,15 @@ class Game {
     historyElement.parseElement(this.gameArea);
     this.historyArray.push(historyElement);
     this.HistoryTable.generateHistoryTable(this.historyArray);
-    console.log(historyElement);
+  }
+
+  checkBoardStatus(player, gameArea = this.gameArea) {
+    const currentStatus = JSON.parse(JSON.stringify(this.getPlayerPieces(player, gameArea)));
+    this.statusTable.push(currentStatus);
+    const repeatedStatus = this.statusTable.filter(
+      element => JSON.stringify(element) === JSON.stringify(currentStatus),
+    );
+    if (repeatedStatus.length === 3) this.whitePlayerTimer.tie();
   }
 }
 export default Game;
