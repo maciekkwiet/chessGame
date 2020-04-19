@@ -1,0 +1,38 @@
+#end {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(51, 0, 75, 0.85);
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    mix-blend-mode: normal;
+    font-family: 'Neon Tubes 2';
+    color: #00E0FF;
+    text-shadow: 0px 0px 40px #00FFC2;
+    //text-decoration: underline wavy  #00FFC2;
+    z-index: 100;
+    display: none;
+    flex-wrap: wrap;
+    left: 0%;
+}
+ 
+#end :nth-child(1) {  
+    background: linear-gradient(
+        180deg,
+        rgba(173, 0, 255, 0.14) 0%,
+        rgba(23, 24, 68, 0.26) 36.98%,
+        rgba(24, 24, 70, 0.44) 69.27%,
+        rgba(173, 0, 255, 0.12) 100%
+      );
+margin-right: 20px;
+font-size: 40px ;
+text-align: center;
+width:450px ;
+box-shadow: 0px 0px 25px #ad00ff;
+outline: 3px solid #ad00ff;
+padding: 20px;
+text-shadow: 2px 2px 2px #f5b7ff;
+}
