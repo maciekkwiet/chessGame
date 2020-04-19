@@ -1,1 +1,60 @@
-<!doctype html> <html lang=pl> <head> <meta charset=UTF-8 /> <meta name=viewport content="width=device-width,initial-scale=1"/> <meta http-equiv=X-UA-Compatible content="ie=edge"/> <link rel=stylesheet href=https://use.fontawesome.com/releases/v5.7.2/css/all.css integrity=sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr crossorigin=anonymous /> <title>Szachy</title> </head> <body class=blue> <div id=startScreen> <div id=startTextBorder> <div id=startText> <h2>c'mon man</h2> <h1 id=play>let's play</h1> </div> </div> <div id=chooseButton> <div id=buttonText><h3>Choose an interface color below ⬇</h3></div> </div> <ul> <li data-color=blue>1</li> <li data-color=pink>2</li> <li data-color=green>3</li> <li data-color=purple>4</li> </ul> </div> <div id=wrapper class=blue> <div id=game-title class=blue>pixel chess</div> <div class=Game id=end></div> <div id=game-wrapper> <div id=board-wrapper> <div id=board></div> <div id=notation-horizontal></div> <div id=notation-vertical></div> </div> <div id=table-bg> <div id=dvTable></div> </div> <div id=clock-bg> <div id=chessTimer>Chess Timer <h5>Black</h5> <div class=Game id=timerblack>15:00</div> <h3>White</h3> <div class=Game id=timerwhite>15:00</div> </div> </div> </div> <div class=promotion-bg> <div class=promotion> <div class=promotion-queen></div> <div class=promotion-bishop></div> <div class=promotion-knight></div> <div class=promotion-rook></div> </div> </div> </div><script src=[object Object]></script><script type="text/javascript" src="bundle.js"></script></body> </html> 
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel=stylesheet href=https://use.fontawesome.com/releases/v5.7.2/css/all.css
+    integrity=sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr crossorigin=anonymous />
+    <title>Szachy</title>
+  </head>
+  <body class="blue">
+    <div id="startScreen">
+      <div id="startTextBorder">
+        <div id="startText">
+          <h2>c'mon man</h2>
+          <h1 id="play">let's play</h1>
+        </div>
+      </div>
+      <div id="chooseButton">
+        <div id="buttonText"><h3>Choose an interface color below ⬇</h3></div>
+      </div>
+      <ul>
+        <li data-color="blue">1</li>
+        <li data-color="pink">2</li>
+        <li data-color="green">3</li>
+        <li data-color="purple">4</li>
+      </ul>
+    </div>
+    <div id="wrapper" class="blue">
+      <div id="game-title" class="blue">pixel chess</div>
+      <div class="Game" id="end"></div>
+      <div id="game-wrapper">
+        <div id="board-wrapper">
+          <div id="board"></div>
+          <div id="notation-horizontal"></div>
+          <div id="notation-vertical"></div>
+        </div>
+        <div id="table-bg"><div id="dvTable"></div></div>
+        <div id="clock-bg">
+          <div id="chessTimer">
+            Chess Timer
+            <h5>Black</h5>
+            <div class="Game" id="timerblack">15:00</div>
+            <h3>White</h3>
+            <div class="Game" id="timerwhite">15:00</div>
+          </div>
+        </div>
+      </div>
+      <div class="promotion-bg">
+        <div class="promotion">
+          <div class="promotion-queen"></div>
+          <div class="promotion-bishop"></div>
+          <div class="promotion-knight"></div>
+          <div class="promotion-rook"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="bundle.js"></script>
+  </body>
+</html>
