@@ -5,11 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
-  devServer: {
-    host: '0.0.0.0', //your ip address
-    port: 8080,
-    disableHostCheck: true,
-  },
+
   output: {
     path: path.resolve(__dirname),
     filename: 'bundle.js',

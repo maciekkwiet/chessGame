@@ -1,11 +1,20 @@
 import Piece from './Piece';
-import '../img/bishop-black.svg';
-import '../img/bishop-white.svg';
+import '../img/purple/bishop-black.png';
+import '../img/purple/bishop-white.png';
+import '../img/green/bishop-black.png';
+import '../img/green/bishop-white.png';
+import '../img/pink/bishop-black.png';
+import '../img/pink/bishop-white.png';
+import '../img/blue/bishop-black.png';
+import '../img/blue/bishop-white.png';
+
 class Bishop extends Piece {
   constructor(x, y, side) {
+    const currentColor = 'blue';
+
     super(x, y, side);
     this.name = 'bishop';
-    this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${side}.png">`;
   }
   findAttackingMoves(board) {
     const attackingMoves = [];
@@ -43,7 +52,6 @@ class Bishop extends Piece {
       if (board[this.x + ru][this.y - ru]) {
         attackingMoves.push(`${this.x + ru},${this.y - ru}`);
         break;
-
       }
       rightUp > 0 && attackingMoves.push(`${this.x + ru},${this.y - ru}`);
     }

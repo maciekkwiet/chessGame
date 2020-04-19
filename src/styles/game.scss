@@ -21,25 +21,75 @@ body {
       rgba(255, 255, 255, 0) 100%,
       #00ffff 100%
     ),
-    url('../img/background.jpg') no-repeat center;
-  height: 100vh;
-  width: 100vw;
+    url('../img/background.jpg');
+
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh;
+  margin-right: 3%;
 }
 
-#title-wrapper {
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
+body.pink {
+  background-image: url('https://funkyimg.com/i/33Fbt.png');
+  background-size: cover;
+}
+body.green {
+  background-image: url('https://funkyimg.com/i/33FfG.jpg');
+  background-size: cover;
+}
+body.purple {
+  background-image: url('https://funkyimg.com/i/33FiU.jpg');
+  background-size: cover;
+}
+
+#game-title {
   font-family: 'Neon Tubes 2';
   font-style: normal;
   font-weight: normal;
-  font-size: 3rem;
-  line-height: 5rem;
-  padding-bottom: 1rem;
-  padding-top: 1rem;
+  font-size: 60px;
+  line-height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 2%;
+
+  margin-bottom: 1vh;
   color: #00f0ff;
   text-shadow: 0px 4px 30px #00f0ff, 0px 4px 25px #00f0ff, 0px 4px 10px rgba(0, 194, 255, 0.25);
+}
+#game-title.pink {
+  color: #ffcf86;
+  text-shadow: 0px 4px 30px #ff9900, 0px 4px 25px #ff9900, 0px 4px 10px rgba(255, 107, 0, 0.25);
+}
+
+#game-title.green {
+  color: #44ff92;
+  text-shadow: 0px 4px 30px #36d329, 0px 4px 25px #36d329, 0px 4px 10px rgba(54, 211, 14, 0.25);
+}
+
+#game-title.purple {
+  color: #e0bfff;
+  text-shadow: 0px 4px 30px #ad00ff, 0px 4px 25px #ad00ff, 0px 4px 10px rgba(173, 0, 255, 0.25);
+}
+
+.currentcolor.pink {
+  background-color: #ffb55e !important;
+}
+.currentcolor.green {
+  background-color: #56b794 !important;
+}
+.currentcolor.purple {
+  background-color: #e785ff !important;
+}
+
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 3.5%;
+  margin-top: 0%;
+ 
 }
 #board-wrapper {
   padding-top: 1rem;
@@ -50,6 +100,7 @@ body {
   align-content: center;
   justify-content: center;
   grid-template-rows: auto;
+ 
 }
 #game-wrapper {
   padding-top: -1rem;

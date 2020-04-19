@@ -10,11 +10,11 @@
       integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
       crossorigin="anonymous"
     />
+    <!-- <link rel="stylesheet" href="style.css" /> -->
     <title>Szachy</title>
   </head>
 
-  <body>
-    
+  <body class="blue">
     <div id="startScreen">
 
       <div id="startTextBorder">
@@ -23,11 +23,19 @@
           <h1 id="play">let's play</h1>
         </div>
       </div>
+      <div id="chooseButton">
+        <div id="buttonText"><h3>Choose an interface color below ⬇</h3></div>
+      </div>
+      <ul>
+        <li data-color="blue">1</li>
+        <li data-color="pink">2</li>
+        <li data-color="green">3</li>
+        <li data-color="purple">4</li>
+      </ul>
     </div>
-    <div id="title-wrapper">
-      <div id="game-title">retro chess</div>
-      
-    </div>
+    
+    <div id="wrapper" class="blue">
+      <div id="game-title" class="blue">pixel chess</div>
     <div class="Game" id="end"></div>
     <div id="game-wrapper">
       <div id="board-wrapper">
@@ -36,11 +44,11 @@
         <div id="notation-horizontal"></div>
         <div id="notation-vertical"></div>
       </div>
-      <div class="table-bg">
+      <div id="table-bg">
         <div id="dvTable"></div>
       </div>
-      <div class="clock-bg">
-        <div class="chessTimer">Chess Timer
+      <div id="clock-bg">
+        <div id="chessTimer">Chess Timer
           <h3>White</h3>
           <div class="Game" id="timerwhite">15:00</div>
           <h5>Black</h5>

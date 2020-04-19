@@ -1,12 +1,20 @@
 import Piece from './Piece';
-import '../img/king-black.svg';
-import '../img/king-white.svg';
+import '../img/purple/king-black.png';
+import '../img/purple/king-white.png';
+import '../img/pink/king-black.png';
+import '../img/pink/king-white.png';
+import '../img/blue/king-white.png';
+import '../img/blue/king-black.png';
+import '../img/green/king-black.png';
+import '../img/green/king-white.png';
 class King extends Piece {
   constructor(x, y, side) {
     super(x, y, side);
+    const currentColor = 'blue';
     this.name = 'king';
-    this.display = `<img class="piece" src="./imgs/src/img/${this.name}-${side}.svg" alt="elo">`;
+    this.display = `<img class="piece" src="./imgs/src/img/${currentColor}/${this.name}-${this.side}.png">`;
   }
+
   move(to, gameArea) {
     if (Math.abs(to[0] - this.x) > 1) {
       if (to[0] - this.x < -1) gameArea[0][this.y].move([to[0] + 1, this.y]);
