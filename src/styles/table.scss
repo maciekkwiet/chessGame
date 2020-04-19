@@ -1,20 +1,42 @@
 #table-bg {
   display: flex;
-  width: 150px;
+  width: 200px;
   order: -1;
   min-height: 30vh;
+  max-height: 30vh;
   margin: 0 2rem 0 2rem;
 
   font-size: 17px;
   color: #fff;
   background: rgba(0, 194, 255, 0.6);
-  padding: 10px 20px 30px;
+  overflow-y: scroll;
+
+  padding: 10px 40px 30px;
   text-align: center;
 
   align-self: center;
   justify-content: right;
   left: 70%;
   font-family: 'Neon Tubes 2';
+}
+
+#table-bg:nth-child(1) {
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 10px;
+  background: rgba(0, 0, 0, 0.4);
+}
+::-webkit-scrollbar-thumb:vertical {
+  background: rgba(255, 255, 255, 0.4);
+  //border: 1px solid #ffffff;
+  // border-left: 1px solid #064a95;
+  // border-right: 1px solid #064a95;
+  // border-bottom: 1px solid #064a95;
 }
 
 #table-bg.pink {
