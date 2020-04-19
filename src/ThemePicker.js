@@ -8,7 +8,9 @@ class ThemePicker {
 
   handleColorPick(e) {
     this.currentColor = e.target.dataset.color;
-    ['body', '#wrapper', '#game-title', '#board', '#clock-bg', '#table-bg '].forEach(selector => this.changeElementColor(selector));
+    ['body', '#wrapper', '#game-title', '#board', '#clock-bg', '#table-bg '].forEach(selector =>
+      this.changeElementColor(selector),
+    );
     [...document.querySelectorAll('.square.light,.square.dark')].map(node => {
       node.classList.remove('blue', 'pink', 'green', 'purple');
       node.classList.add(this.currentColor);
@@ -26,7 +28,8 @@ class ThemePicker {
     for (let i = 0; i < pieceClass.length; i++) {
       let currentPieceSrc = pieceClass[i].src;
       let splitted = currentPieceSrc.split('/');
-      splitted[6] = this.currentColor;
+      const imgPosition = splitted.indexOf('img');
+      splitted[imgPosition + 1] = this.currentColor;
       const joined = splitted.join('/');
       pieceClass[i].src = joined;
     }
