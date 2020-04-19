@@ -31,7 +31,7 @@ class Game {
     }
   }
   removeSelection() {
-    const {x,y}=this.selectedPiece;
+    const { x, y } = this.selectedPiece;
     this.board.removeHighlight();
     this.board.SelectedBackground(`${x},${y}`);
     this.selectedPiece = null;
@@ -78,8 +78,6 @@ class Game {
       this.blackPlayerTimer.pause();
     }
 
-    console.log(document.querySelector('#timerwhite').innerHTML);
-
     // ToDo refactor
     if (this.selectedPiece.name === 'pawn') {
       if (
@@ -101,11 +99,11 @@ class Game {
       this.board.lightUpCheck(this.getKingPosition(this.gameArea));
       if (this.isCheckMate()) {
         setTimeout(gameArea => this.endGame(gameArea), 1200);
-      }
-      if (this.currentPlayer == 'white') {
-        this.whitePlayerTimer.stop();
-      } else {
-        this.blackPlayerTimer.stop();
+        if (this.currentPlayer == 'white') {
+          this.whitePlayerTimer.stop();
+        } else {
+          this.blackPlayerTimer.stop();
+        }
       }
     }
     this.isPat();
@@ -114,7 +112,7 @@ class Game {
   endGame(gameArea = this.gameArea) {
     const end = document.querySelector('#end');
     end.style.display = 'flex';
-    end.innerHTML = '<div>GAME OVER! ⇩ Winner:' + (this.currentPlayer === 'white' ? 'black' : 'white' )+ '</div>'
+    end.innerHTML = '<div>GAME OVER! ⇩ Winner:' + (this.currentPlayer === 'white' ? 'black' : 'white') + '</div>';
     this.board.changeSquareStyle(
       this.getKingPosition(gameArea).x.toString() + this.getKingPosition(gameArea).y.toString(),
       'square check',

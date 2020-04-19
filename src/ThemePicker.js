@@ -13,7 +13,6 @@ class ThemePicker {
       node.classList.remove('blue', 'pink', 'green', 'purple');
       node.classList.add(this.currentColor);
     });
-    // console.log('.square.light,.square.light');
     this.pieceSrc();
   }
 
